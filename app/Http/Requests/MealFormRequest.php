@@ -33,8 +33,7 @@ class MealFormRequest extends Request {
     return [
       'food_id' => 'required',
       'weight' => 'required',
-      'date' => 'required',
-      'comment' =>'required'                   
+      'date' => 'required'                  
     ];
   }	
 }
