@@ -1,0 +1,149 @@
+input.form-control.short{
+	width:300px;
+}
+.select2{
+	width:200px;
+}
+/* calendar */
+table.calendar		{ border-left:1px solid #ddd; }
+tr.calendar-row	{  }
+tr.calendar-row	th { 
+	text-align: center;
+	font-size: 12px;
+ }
+td.calendar-day	{ min-height:70px; font-size:11px; position:relative; } 
+* html div.calendar-day { height:70px; }
+td.calendar-day:hover	{ background:#eceff5; }
+td.calendar-day-np	{ background:#fff; min-height:70px; }
+* html div.calendar-day-np { height:70px; }
+th.calendar-day-head { 
+	background:#fff;
+	font-weight:bold;
+	text-align:center;
+	width:60px;
+	padding:2px;
+	border-bottom:1px solid #ddd;
+	border-top:1px solid #ddd; 
+	border-right:1px solid #ddd; 
+}
+   
+
+div.day-number	{ 
+	background:#fff; 
+	padding:6px; 
+	color:#333; 
+	font-weight:bold; 
+	float:right; 
+	margin: 0;
+	width:100%; 
+	text-align:center; 
+}
+/* shared */
+td.calendar-day, td.calendar-day-np {
+	width:60px; 
+	padding:4px; 
+	border-bottom:1px solid #ddd; 
+	border-right:1px solid #ddd; 
+}
+
+
+
+td.calendar-day.today div{
+
+    color: #333;
+    border: 1px solid #ABA9A9;
+    padding: 5px;
+    background-color: #f9f9f9;
+
+}
+
+table.calendar.table tbody td.calendar-day.today{
+      padding: 0px;
+
+}
+
+td.tableBold {
+	font-weight:bold;
+	text-align:center;
+	line-height: 25px;
+   min-height: 25px;
+   height: 5px;
+   padding:2px;
+	
+}
+
+h3.smallHeader {
+	margin:1px;
+}
+#measureForm {
+	display:none;
+}
+
+table.table.table-bordered tr td {
+   /*line-height: 25px;
+   min-height: 25px;
+   height: 25px;*/
+   padding:2px;
+}
+.tableBold.left{
+ 	text-align: left;
+}
+form.ajax div>input.short {
+	width:212px;
+	
+}
+#addNewFood{
+margin-left:10px;
+}
+form.ajax.form-control.short{
+	display:inline-block;
+	width:50px;
+}
+.form-group.noMarginBottom{
+	margin-bottom:1px;
+	margin-top:10px;
+}
+div.form-group.noMarginBottom input.form-control.short{
+	display:inline-block;
+	float:right;
+}
+label.control-label.short{
+	max-width: 300px;
+	display:inline-block;
+}
+form#editMealForm div.form-group.noMarginBottom label .col-sm-2{
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  /* padding-left: 15px; */
+}
+
+span.select2-container--bootstrap {
+	
+	display:inline-block;
+}
+.form-control.ingredient-weight {
+	display:inline-block;
+	width:26%;
+}
+
+table.calendar.table tbody td {
+	padding: 0px;
+}
+table.calendar.table tbody th {
+ 	padding: 5px 3px;
+}
+.tdCenter{
+	text-align: center;
+}
+
+
+#brandForm{
+	display:none;
+}
+table.table.table-striped.bodyMeasurement tr td{
+	text-align: center;
+}
+#permissionsForm {
+	/*display:none;*/
+}
