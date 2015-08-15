@@ -13,6 +13,11 @@ $(document).ready(function() {
 		width:'100%'
 	});
 
+	$(".use-select2-addFoodForUser").select2({
+		placeholder:'Add for other user',
+		width:'100%'
+	});
+
 	$(".use-select2-food").select2({
 		placeholder:'Select food from the list',
 		width:'100%'
@@ -62,6 +67,10 @@ $(document).ready(function() {
                 success  : function(data) {
                     
                     $('form.ajax')[0].reset();
+                    $('.use-select2-food').trigger('change');
+                    $('.use-select2-addFoodForUser').trigger('change');
+                    
+
                     $('.select2').val('').trigger('change');
                     updateMealsList();
 
@@ -389,7 +398,26 @@ $(document).ready(function() {
 		$('#brandForm').show();
 		$('#btnNewBrand').hide();
 	});
+	$('#showRanges').on('click', function(){
+		$('#rangesInfo').toggle('slow');
+	});
 
-	
+	$('#calculateBMIBtn').on('click', function(){
+		var weight = $('#weightBMI').val();
+		var height = $('#heightBMI').val();
+		var result = weight/((height/100)*(height/100));
+		result = parseFloat(result).toFixed(2);
+		$('#resultInput').show();
+		$('#resultBMI').val(result);
+		$('#weightBMI').val('').trigger('change');
+		$('#heightBMI').val('').trigger('change');
+	});
+	$('#weightBMI').on('click', function(){
+		$('#resultInput').hide();
+	});
+	$('#heightBMI').on('click', function(){
+		$('#resultInput').hide();
+	});
 });
  
+	

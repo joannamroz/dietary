@@ -41,7 +41,7 @@ class FoodController extends Controller
 
         $brands = Brands::orderBy('name','asc')->get();
 
-        if ($request->user()->can_add_food()) {
+        if ($request->user()->is_user() || $request->user()->is_admin()) {
 
           return view('foods.create')->withBrands($brands);
 

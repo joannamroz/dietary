@@ -18,23 +18,27 @@ class PermissionController extends Controller
     }
 
 	public function create(Request $request, $id) {
+
         $user_id = Auth::user()->id;
         $userData = User::find($id);
+
         $userPermissions = Permissions::where('authorized_user_id', $id)->where('user_id', $user_id)->get();
         $userWritePermission='';
         $userReadPermission='';
-        foreach($userPermissions as $permission){
+        foreach ($userPermissions as $permission) {
+
             $userWritePermission = $permission['write_permission'];
             $userReadPermission = $permission['read_permission'];
         }
+        
 
-        if ($request->user()->can_add_food()) {
+        if ($request->user()->is_user() || $request->user()->is_admin() ) {
         	
           return view('permissions.create')->with('user_id', $id)->with('userWritePermission', $userWritePermission)->with('userReadPermission', $userReadPermission)->with('userData', $userData);
 
         } else {
 
-          return redirect('/user/index')->withErrors('You have not sufficient permissions for adding new food.');
+          return redirect('/user/index')->withErrors('You have not sufficient permissions.');
         }
     }
 

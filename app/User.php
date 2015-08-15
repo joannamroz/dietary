@@ -25,7 +25,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $fillable = ['name', 'email', 'password'];
-    protected $guarded = array('id', 'password');
+
+    // protected $guarded = array('id', 'password');
+
+    public function permissions() {
+
+        return $this->hasMany('App\Permissions', 'id', 'authorized_user_id');
+    }
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -38,6 +44,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         $role = $this->role;
         if ($role == 'admin') {
+          return true;
+        }
+        return false;
+    }
+
+    public function is_user() {
+
+        $role = $this->role;
+        if ($role == 'user') {
           return true;
         }
         return false;
@@ -137,6 +152,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         /* all done, return result */
         return $calendar;
     }
+    public static function getUserBMIrange($bmi) {
+        $rangeInArray = array(array(0, 16, 'Staravtion'), array(16, 17, 'Emaciation'), array(17, 18.5, 'Underweight'), array(18.5, 25, 'Healthy'), array(25 ,30, 'Overweight'),array(30, 35, 'First stage of obesity'), array(35, 40, 'Second stage of obesity'),array(40, 100, 'Third stage of obesity'));
+
+        for($i = 0; $i < count($rangeInArray); $i++) {
+            $range = $rangeInArray[$i];
+                if ( $bmi > $range[0] && $bmi <= $range[1] ){
+                    return $range[2];
+                }
+        }
+    }
     public function can_add_meal() {
 
         $role = $this->role;
@@ -144,6 +169,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
           return true;
         }
         return false;
-    }   
+    }  
+
+    public function getUserBMI() {
+        
+    } 
     
 }

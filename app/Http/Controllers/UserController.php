@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Log;
+use Auth;
 use App\User;
 use App\Foods;
 use App\Brands;
@@ -32,14 +33,22 @@ class UserController extends Controller
         $userData = User::all()->where('id', $sessionId);
         $title = 'Your profile';
         $userMeasure = Measurements::where('user_id', $sessionId)->orderBy('date', 'desc')->get();
-      
-        $userWeight = Measurements::where('user_id', $sessionId)->orderBy('date','desc')->value('weight');
-        $userHeight = Measurements::where('user_id', $sessionId)->orderBy('date','desc')->value('height');
-        $userBodyFat = Measurements::where('user_id', $sessionId)->orderBy('date','desc')->value('body_fat');
+        // foreach ( $userMeasure as $userDate) {
+        //     var_dump (date("d/m/Y", strtotime($userDate->date)));
+        // }
+        // die();
+        
+        $userMeasureForBmi = Measurements::where('user_id', $sessionId)->orderBy('date','desc')->first();
+        $userWeight = $userMeasureForBmi->weight;
+        $userHeight = $userMeasureForBmi->height;
+        $userBodyFat = $userMeasureForBmi->body_fat;
+        $userBMI = $userWeight / (($userHeight / 100) * ($userHeight / 100));
+        $userBMI = number_format($userBMI,2); //change to float(2)
+        $userBMIrange =User:: getUserBMIrange($userBMI);//function from User Model
         
         if ($userData) 
 
-          return view('users.profile')->with('userData', $userData)->with('title', $title)->with('userMeasure', $userMeasure)->with('userWeight', $userWeight)->with('userHeight', $userHeight)->with('userBodyFat', $userBodyFat);
+          return view('users.profile')->with('userData', $userData)->with('title', $title)->with('userMeasure', $userMeasure)->with('userWeight', $userWeight)->with('userHeight', $userHeight)->with('userBodyFat', $userBodyFat)->with('userBMI', $userBMI)->with('userBMIrange', $userBMIrange);
 
         return redirect('/food/index')->withErrors('You do not have sufficient permissions');
 
@@ -59,6 +68,7 @@ class UserController extends Controller
         return redirect('/food/index')->withErrors('You do not have sufficient permissions');
     }
 
+   
     /**
      * Show the form for creating a new resource.
      *

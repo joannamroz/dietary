@@ -147,3 +147,42 @@ table.table.table-striped.bodyMeasurement tr td{
 #permissionsForm {
 	/*display:none;*/
 }
+#rangesInfo {
+	display:none;
+}
+
+#resultInput {
+	display:none;
+}
+.starvation {
+	float:right;
+	color:#FF0000;
+}
+.emaciation {
+	float:right;
+	color:#FF8900;
+}
+.underweight {
+	color:#FFEF00;
+	float:right;
+}
+.healthy {
+	float:right;
+	color:#2BFF00;
+}
+.overweight {
+	float:right;
+	color:#00B3FF;
+}
+.first-stage-of-obesity {
+	float:right;
+	color:#85939A;
+}
+.second-stage-of-obesity {
+	float:right;
+	color:#793720;
+}
+.third-stage-of-obesity {
+	float:right;
+	color:#1F0F09;
+}

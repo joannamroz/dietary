@@ -14,7 +14,7 @@ class FoodFormRequest extends Request {
    */
   public function authorize() {    
 
-    if($this->user()->can_add_food()) {
+    if($this->user()->is_admin() || $this->user()->is_user()) {
 
       return true;
     }

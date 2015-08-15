@@ -1,18 +1,22 @@
-@extends('app')
 
+@extends('app')
+@section('title')
+{{$title}}
+
+@endsection
 
 @section('content')
 
 <div class = "row">
-  <div class = "col-md-8" id = 'meals-content'>
+  <div class = "col-md-8" id = 'meals-content-viewing'>
  
 
     @if ( !$meals->count() )
-      <span style = "font-size:19px;font-weight:bold">There is no meals for {{$now->format('d')}} {{$now->format('F')}} {{$now->format('Y')}}</span>
+      <span style = "font-size:17px;font-weight:bold">There is no meals for {{$now->format('d')}} {{$now->format('F')}} {{$now->format('Y')}}</span>
       <br/>
 
     @else
-      <span style = "font-size:19px;font-weight:bold">Meals for {{$now->format('d')}} {{$now->format('F')}} {{$now->format('Y')}}</span>
+      <span style = "font-size:17px;font-weight:bold">Meals for {{$now->format('d')}} {{$now->format('F')}} {{$now->format('Y')}}</span>
       <?php $suma_kcal = 0; ?>
      
         <div class = "list-group">
@@ -58,11 +62,8 @@
     <h4 style = "float:right; color:red; font-weight:bold">Total kcal:{{ $suma_kcal }}</h4>
     @endif
 
-    @if ( !$meals_planed->count() )
-      <span style = "font-size:19px;font-weight:bold">There is no planed meals for {{$now->format('d')}} {{$now->format('F')}} {{$now->format('Y')}}</span>
-      <br/>
-    @else
-      <span style = "font-size:19px;font-weight:bold">Meals planed for {{$now->format('d')}} {{$now->format('F')}} {{$now->format('Y')}}</span>
+    @if ( $meals_planed->count() )
+      <span style = "font-size:17px;font-weight:bold">Meals planed for {{$now->format('d')}} {{$now->format('F')}} {{$now->format('Y')}}</span>
       <?php $suma_kcal = 0; ?>
      
         <div class = "list-group">
@@ -109,62 +110,8 @@
       <h4 style = "float:right; color:red; font-weight:bold">Total kcal:{{ $suma_kcal }}</h4>
       @endif
   </div> <!-- class="col-md-8" id='meals-content' -->
-  <div class = "col-md-4">
-
-    <h3 class = "smallHeader">{{$now->format('F')}} {{$now->format('Y')}}</h3>
-
-
-      {!!$calendar!!}
-     
-      <form action = "/new-meal" method = "post" class = "ajax">
-        <input type = "hidden" name = "_token" value = "{{ csrf_token() }}">
-        <input type = "hidden" value = "{{$today}}" name = "thisDay">
-        <input type = "hidden" value = "{{$now->format('d')}}" name = 'day' id = "selectedDay"/>
-        <input type = "hidden" value = "{{$now->format('m')}}" name = 'month' id = "selectedMonth"/>
-        <input type = "hidden" value = "{{$now->format('Y')}}" name = 'year' id = "selectedYear"/> 
-        <input required = "required" value = "{{$now->format('Y-m-d')}}" type = "hidden" name = "date" class = "form-control" />     
-        <div class = "form-group noMarginBottom">
-          <label class = "control-label"></label>
-            <select class = "use-select2-food" name = "food_id" placeholder = 'Select food'>
-              <option value = ""></option>
-              @foreach ($foods as $food)
-             <option value = "{{$food->id}}" >{{$food->name}}</option>
-            @endforeach
-           
-          </select>
-           
-        </div>
-        <div class = "form-group noMarginBottom">
-          <label class = "control-label short">Planed </label>
-          <input type = 'checkbox' value = "0" name = "planed_food" class = 'planed_food' style = "margin-left:60px" /> 
-        </div>
-        <div class = "form-group noMarginBottom">
-          <label class = "control-label short">Weight (g)</label>
-          <input required = "required" value = "{{ old('weight') }}" placeholder = "Enter weight (in grams)" type = "text" name = "weight"class = "form-control short" />
-        </div>
-        <div class = "form-group noMarginBottom">
-          <label class = "control-label short">Comment</label>
-          <input value = "{{ old('comment') }}" placeholder = "Enter comment" type = "text" name = "comment" class = "form-control short" />
-        </div>
-         @if($permissions->count())
-        <div class = "form-group noMarginBottom">
-           <label class = "control-label short"></label>
-            <select class = "use-select2-addFoodForUser" name = "user_id" placeholder = 'Select user'>
-              <option value = ""></option>
-              @foreach ($permissions as $permission)
-                <option value = "{{$permission->user[0]['id']}}" >{{$permission->user[0]['name']}}</option>
-              @endforeach
-             </select>
-        </div>
-        @endif
-        <div class = "form-group noMarginBottom">
-          <input type = "submit" name = 'save' class = "btn btn-success" value = "Save"/><a href = "{{ url('food/new-food') }}"  class = "btn btn-success" id = "addNewFood"> + </a>
-         
-        </div>
-      </form>
-  </div>
-</div>          
-
+</div>
+ 
 @endsection
  
 

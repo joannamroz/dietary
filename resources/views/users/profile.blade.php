@@ -17,25 +17,70 @@
 	?>
 
 		<div class = "row">
-			<div class = "col-md-12">
-				<div style = "width:50%; margin-bottom:20px; border:solid lightgrey 1px;padding:5px;border-radius:5px">
-					<h4>Body Measurements</h4>
+			<div class = "col-md-3">
+				<div style = " margin-bottom:20px; border:solid lightgrey 1px;padding:5px;border-radius:5px">
+					<h4 style="text-align:center;font-weight:bold">Body Measurements</h4>
+					<span>Your weight range</span><span style="float:right"> {{$userBMIrange}}</span><br/>
 					<span>Height </span><span style="float:right">{{ $userHeight }} cm</span><br/>
 					<span>Weight </span><span style="float:right">{{ $userWeight }} kg</span><br/>
 					<span>Body Fat </span><span style="float:right">{{ $userBodyFat }} %</span>
+					<p><strong><span>Your BMI is </span><span  class="{{ strtolower(str_replace(' ', '-',$userBMIrange))}}" style="float:right">{{ $userBMI.' ' }}<button id="showRanges"> <i class="fa fa-search"></i></button></span></strong></p> <br/>
+					<div id="rangesInfo">
+						<span>Starvation </span><span class="starvation" >Less - 16 </span><br/>
+						<span>Emaciation </span><span class="emaciation">16,0–17,0 </span><br/>
+						<span>Underweight </span><span class="underweight" >17–18,5 </span><br/>
+						<span>Healthy </span><span class="healthy" >18,5–25,0 </span><br/>
+						<span>Overweight </span><span class="overweight" >25,0–30,0 </span><br/>
+						<span>First stage of obesity </span><span class="first-stage-of-obesity">30,0–35,0 </span><br/>
+						<span>Second stage of obesity </span><span class="second-stage-of-obesity">35,0–40,0  </span><br/>
+						<span>Second stage of obesity </span><span class="third-stage-of-obesity">40 - more  </span><br/>
+					</div>	
 				</div>
 			</div>
+			<div class = "col-md-3">
+				<h4 style="text-align:center;font-weight:bold">Calculate BMI</h4>
+				
+ 					<div class="form-group">
+				  		<label class="col-sm-6 control-label">Weight (kg)</label>
+			        	<div class="col-sm-6">
+				    		<input required="required" value="{{ old('weight') }}" id="weightBMI" type="text" name="weight" class="form-control" />
+				    	</div>
+				  	</div>
+				  	<div class="form-group">
+				  		<label class="col-sm-6 control-label">Height (cm)</label>
+			        	<div class="col-sm-6">
+				    		<input required="required" value="{{ old('height') }}" id="heightBMI" type="text" name="height" class="form-control" />
+				    	</div>
+				  	</div>
+				  	<div class="form-group" id="resultInput">
+				  		<label class="col-sm-6 control-label">Result</label>
+			        	<div class="col-sm-6">
+				    		<input  value="" type="text" id="resultBMI" name="result" class="form-control" />
+				    	</div>
+				  	</div>
+				  	<div class="form-group">
+				  		<label class="col-sm-6 control-label"></label>
+					    <div class="col-sm-offset-6 col-sm-6">
+					      <input type="submit" name='save' class="btn btn-success" id="calculateBMIBtn" value="Calculate"/>
+					    </div>
+				  </div>
+				
+			
+
+			</div>
+
+			
+		
 		</div>
-	
 		<div class = "row">
-			<div class = "col-md-9">
+			<div class = "col-md-10">
 				<table class = "table table-striped bodyMeasurement">
 					<tr>
 						<th>Date</th><th>Weight</th><th>Body fat %</th><th>Body water %</th><th>Muscle %</th><th>BMI</th><th>Internal fat %</th><th>Waist</th><th>Chest</th><th>Neck</th><th>Hips</th><th>Biceps</th><th>Bust</th><th>Thigh</th><th>Upper arm</th><th>Delete</th>	
 					</tr>
 					@foreach($userMeasure as $measure)
 					<tr>
-						<td>{{ $measure->date }}</td>
+						<td>{{ date("d/m/Y", strtotime($measure->date)) }}</td>
 						<td>{{ $measure->weight }}</td>	
 						<td>{{ $measure->body_fat }}</td>
 						<td>{{ $measure->water }}</td>
@@ -61,7 +106,7 @@
 				<button class = "btn" style = "float: right" id = "addMeasure">Add new measure</button><br/>
 			</div>
 
-			<div class = "col-md-3">
+			<div class = "col-md-2">
 				<form action = "/new-measure" method = "post" id = "measureForm" class = "form-horizontal">
 				  <input type = "hidden" name = "_token" value = "{{ csrf_token() }}">
 
@@ -160,7 +205,7 @@
 				  <div class = "form-group">
 				  	<label class = "col-sm-7 control-label">Thigh (cm)</label>
 			        <div class = "col-sm-5">
-				    	<input value = "@if(!old('thig')){{$latest['thigh']}}@endif{{ old('thigh') }}" type = "text" name = "thigh" class ="form -control" />
+				    	<input value = "@if(!old('thig')){{$latest['thigh']}}@endif{{ old('thigh') }}" type = "text" name = "thigh" class ="form-control" />
 				    </div>
 				  </div>
 
@@ -193,6 +238,7 @@
 		</div>
 	@else
 		There is't measurements added by you! Add one!
+		<button class = "btn" style = "float: right" id = "addMeasure">Add new measure</button><br/>
 	@endif
 	</div>
 </div>

@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 class Meals extends Model {
  
 	protected $guarded = [];
+
 	public function food() {
+		
 		return $this->belongsTo('App\Foods');
 	}
 

@@ -7,6 +7,7 @@ use App\Foods;
 use App\Meals;
 use App\Brands;
 use App\User;
+use App\Permissions;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -45,13 +46,48 @@ class MealController extends Controller
         $totals =  $meals_with_totals['totals'];
         $totals_planed =  $meals_with_totals['totals_planed'];
 
+        $permissions = Permissions::with('user')->where('authorized_user_id', $user_id)->where('write_permission', 1)->get();
+        
         //page heading
         $title = 'Meals added at '.$today;
 
-        return view('meals.index')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('today', $today);
+        return view('meals.index')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('today', $today)->with('permissions', $permissions);
 
     }
 
+    public function user_meal($id) {
+
+        $user_id = $id;
+        $user = User::find($user_id);
+        $userName = $user->name;
+        $title=ucfirst($userName).'\'s meals';
+
+        $now = new \DateTime();
+        $today = $now->format('Y-m-d');
+        $month = $now->format('m');
+        $year = $now->format('Y'); 
+        $calendar = User::draw_calendar($month, $year);
+        $foods = Foods::all();
+
+        $meals_with_totals = Meals::getMealsWithTotals($today, $user_id);
+
+        $meals =  $meals_with_totals['meals'];
+        $meals_planed = $meals_with_totals['meals_planed'];
+        $totals =  $meals_with_totals['totals'];
+        $totals_planed =  $meals_with_totals['totals_planed'];
+
+        $sessionId = Auth::user()->id;
+
+        // $permissions = Permissions::with('user')->where('authorized_user_id', $user_id)->where('write_permission', 1)->get();
+        
+        //page heading
+        // $title = 'Meals added at '.$today;
+
+        return view('meals.user_meal')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('today', $today)->with('user_id', $user_id);
+
+
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -81,7 +117,13 @@ class MealController extends Controller
         $meal = new Meals();
         $meal->food_id = $request->get('food_id');
         $meal->weight = $request->get('weight');
-        $meal->user_id = $request->user()->id;
+        if ($request->get('user_id')) {
+
+            $meal->user_id = $request->get('user_id');
+        } else {
+            $meal->user_id = $request->user()->id;
+        }
+        
        
         if (null !== $request->get('planed_food')) {
            

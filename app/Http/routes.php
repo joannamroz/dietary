@@ -64,6 +64,8 @@ Route::group(['middleware' => ['auth']], function()
  Route::get('meal/ajax_meal', 'MealController@ajax_meal');
  Route::get('meal/all', 'MealController@all');
  Route::post('meal/planed', 'MealController@planed');
+ Route::get('meal/user_meal/{id}', 'MealController@user_meal');
+
 
  Route::get('measurement/new-measure', 'MeasurementController@create');
  Route::post('new-measure', 'MeasurementController@store');
@@ -87,6 +89,7 @@ Route::group(['middleware' => ['auth']], function()
  
 //users profile
 Route::get('user/profile/{id}','UserController@profile')->where('id', '[0-9]+');
+
 
 
 
