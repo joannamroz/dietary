@@ -7,6 +7,7 @@
 
 @section('content')
 
+
 <div class = "row">
   <div class = "col-md-8" id = 'meals-content-viewing'>
  

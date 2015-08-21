@@ -2,7 +2,7 @@
 
 @section('content')
 
- @if($userReadPermission == 1) 
+@if($userReadPermission == 1) 
  	<h3><span style="font-weight:bold; color:red">{{$userData->name }}</span> has permission to read
  	 @if($userWritePermission==1)
  	   and write 

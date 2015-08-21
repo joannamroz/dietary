@@ -5,7 +5,7 @@ use Auth;
 use App\User;
 use App\Foods;
 use App\Brands;
-use App\Permissions;
+use App\UserPermissions;
 use App\Measurements;
 use Redirect;
 use App\Http\Requests;
@@ -30,13 +30,16 @@ class UserController extends Controller
     public function profile(Request $request) {
 
         $sessionId = $request->user()->id ;
-        $userData = User::all()->where('id', $sessionId);
+        $userData = User::where('id', $sessionId)->first();
         $title = 'Your profile';
         $userMeasure = Measurements::where('user_id', $sessionId)->orderBy('date', 'desc')->get();
-        // foreach ( $userMeasure as $userDate) {
-        //     var_dump (date("d/m/Y", strtotime($userDate->date)));
-        // }
-        // die();
+        $age = $userData->getUserAge();
+
+
+        if(!$userMeasure->count()){
+
+            return view('users.profile')->with('userData', $userData)->with('title', $title)->with('age', $age);
+        }
         
         $userMeasureForBmi = Measurements::where('user_id', $sessionId)->orderBy('date','desc')->first();
         $userWeight = $userMeasureForBmi->weight;
@@ -48,7 +51,7 @@ class UserController extends Controller
         
         if ($userData) 
 
-          return view('users.profile')->with('userData', $userData)->with('title', $title)->with('userMeasure', $userMeasure)->with('userWeight', $userWeight)->with('userHeight', $userHeight)->with('userBodyFat', $userBodyFat)->with('userBMI', $userBMI)->with('userBMIrange', $userBMIrange);
+          return view('users.profile')->with('userData', $userData)->with('title', $title)->with('userMeasure', $userMeasure)->with('userWeight', $userWeight)->with('userHeight', $userHeight)->with('userBodyFat', $userBodyFat)->with('userBMI', $userBMI)->with('userBMIrange', $userBMIrange)->with('age', $age);
 
         return redirect('/food/index')->withErrors('You do not have sufficient permissions');
 
@@ -57,8 +60,9 @@ class UserController extends Controller
 
     
     public function index()
-    {
-        $users = User:: all();
+    { 
+        $user_id = Auth::user()->id; 
+        $users = User:: where('id','!=',$user_id)->get();
         $title = "All users";
         
 

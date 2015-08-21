@@ -144,16 +144,12 @@ table.calendar.table tbody th {
 table.table.table-striped.bodyMeasurement tr td{
 	text-align: center;
 }
-#permissionsForm {
-	/*display:none;*/
-}
+
 #rangesInfo {
 	display:none;
 }
 
-#resultInput {
-	display:none;
-}
+
 .starvation {
 	float:right;
 	color:#FF0000;

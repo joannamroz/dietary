@@ -14,6 +14,21 @@
     </div>
 
     <div>
+        Sex
+
+        <select name="sex" class = "select2">
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+        </select>
+    </div>
+
+    <div>
+        Date of birth
+        
+        <input type="date" name="date_of_birth" id="datepicker" value="{{ old('date_of_birth') }}">
+    </div>
+
+    <div>
         Password
         <input type="password" name="password">
     </div>

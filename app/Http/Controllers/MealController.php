@@ -7,7 +7,7 @@ use App\Foods;
 use App\Meals;
 use App\Brands;
 use App\User;
-use App\Permissions;
+use App\UserPermissions;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -46,7 +46,7 @@ class MealController extends Controller
         $totals =  $meals_with_totals['totals'];
         $totals_planed =  $meals_with_totals['totals_planed'];
 
-        $permissions = Permissions::with('user')->where('authorized_user_id', $user_id)->where('write_permission', 1)->get();
+        $permissions = UserPermissions::with('user')->where('authorized_user_id', $user_id)->where('write_permission', 1)->get();
         
         //page heading
         $title = 'Meals added at '.$today;
@@ -58,9 +58,19 @@ class MealController extends Controller
     public function user_meal($id) {
 
         $user_id = $id;
+        $sessionId = Auth::user()->id;
         $user = User::find($user_id);
         $userName = $user->name;
         $title=ucfirst($userName).'\'s meals';
+
+        $permissionsForLoggedUser = UserPermissions::where('authorized_user_id', $sessionId)->where('user_id', $user_id)->where('read_permission', 1);
+
+        if ( !$permissionsForLoggedUser->count()) {
+
+          $message = "You don't have permission to view ".$userName."'s meals";
+
+          return redirect('user/index')->withMessage($message);
+        }
 
         $now = new \DateTime();
         $today = $now->format('Y-m-d');
@@ -76,14 +86,8 @@ class MealController extends Controller
         $totals =  $meals_with_totals['totals'];
         $totals_planed =  $meals_with_totals['totals_planed'];
 
-        $sessionId = Auth::user()->id;
 
-        // $permissions = Permissions::with('user')->where('authorized_user_id', $user_id)->where('write_permission', 1)->get();
-        
-        //page heading
-        // $title = 'Meals added at '.$today;
-
-        return view('meals.user_meal')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('today', $today)->with('user_id', $user_id);
+        return view('meals.user_meal')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('today', $today)->with('user_id', $user_id)->with('permissionsForLoggedUser', $permissionsForLoggedUser)->with('title', $title);
 
 
 

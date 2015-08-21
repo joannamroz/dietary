@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Brands table seeded!');
         $this->call('FoodsTableSeeder');
         $this->command->info('Foods table seeded!');
+        $this->call('MeasurementsTableSeeder');
+        $this->command->info('Measurements table seeded!');
         // $this->call(UserTableSeeder::class);
 
         Model::reguard();

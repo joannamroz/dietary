@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use Log;
 use App\Measurements;
-use App\Brands;
 use App\User;
 use Redirect;
 use App\Http\Requests;

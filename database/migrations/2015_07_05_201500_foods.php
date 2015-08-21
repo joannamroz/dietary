@@ -16,11 +16,13 @@ class Foods extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('brand_id') -> unsigned() -> default(0);
+            $table->integer('user_id');
             $table->float('kcal');
             $table->float('proteins');
             $table->float('carbs');
             $table->float('fats');
             $table->float('fibre');
+            $table->integer('planed');
             $table->timestamps();
         });
     }
