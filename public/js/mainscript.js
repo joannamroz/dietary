@@ -325,6 +325,7 @@ $(document).ready(function() {
 
 		if ($('.planed_food').is(':checked')) {
 
+
 			$(".planed_food").val('1');
 
 
@@ -375,7 +376,7 @@ $(document).ready(function() {
 
 	$(document).on('click','.fa-flag', function(){
 		
-		alert("Consumed?If not delete this position from your food list");
+		alert("Consumed? If not delete this position from your food list");
 		var values = {
     		'id':$(this).data('meal-id')
  
@@ -446,6 +447,12 @@ $(document).ready(function() {
 	
     $(function() {
        $( "#datepicker" ).datepicker({
+       	dateFormat: "dd-mm-yy",
+       	monthNames: [ "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December" ],
+       	minDate: new Date(1915, 1 - 1, 1),
+       	maxDate: "-1d",
+       	yearRange: "1915:2015",
+       	changeDay: true,
         changeMonth: true,
         changeYear: true
       });

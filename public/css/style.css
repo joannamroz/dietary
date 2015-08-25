@@ -182,3 +182,46 @@ table.table.table-striped.bodyMeasurement tr td{
 	float:right;
 	color:#1F0F09;
 }
+div.block-blur {
+	background-color: #F5E4EF;
+	width:30%;
+	height:20%;
+	margin:auto;
+	padding:10px 20px;
+	border-radius: 5px;
+}
+.gradient {
+	background-image:url('../img/gradientLoginBlade.png');
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+
+.container .text-muted {
+  margin: 20px 0;
+}

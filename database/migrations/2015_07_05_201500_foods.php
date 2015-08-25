@@ -22,7 +22,6 @@ class Foods extends Migration
             $table->float('carbs');
             $table->float('fats');
             $table->float('fibre');
-            $table->integer('planed');
             $table->timestamps();
         });
     }

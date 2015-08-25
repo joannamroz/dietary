@@ -28,6 +28,20 @@ class AuthController extends Controller
      *
      * @return void
      */
+    public function authenticate()
+    {   
+        $remember = Input::has('remember') ? true : false;
+
+        if (Auth::attempt(['email' => $email, 'password' => $password], $remember))
+        {
+            return redirect()->intended('dashboard');
+        } else {
+            return Redirect::to('/login')
+                ->withInput(Input::except('password'))
+                ->with('flash_notice', 'Your username/password combination was incorrect.');
+        }
+    }
+
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
@@ -57,7 +71,7 @@ class AuthController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {
+    {   
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

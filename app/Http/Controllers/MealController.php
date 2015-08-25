@@ -61,7 +61,7 @@ class MealController extends Controller
         $sessionId = Auth::user()->id;
         $user = User::find($user_id);
         $userName = $user->name;
-        $title=ucfirst($userName).'\'s meals';
+        $title = ucfirst($userName).'\'s meals';
 
         $permissionsForLoggedUser = UserPermissions::where('authorized_user_id', $sessionId)->where('user_id', $user_id)->where('read_permission', 1);
 
@@ -101,6 +101,7 @@ class MealController extends Controller
 
        $foods = Foods::all();
 
+
         if ($request->user()->can_add_meal()) {
 
           return view('meals.create')->withFoods($foods);
@@ -131,10 +132,10 @@ class MealController extends Controller
        
         if (null !== $request->get('planed_food')) {
            
-            $meal->planed = $request->get('planed_food');
+            $meal->planed_food = $request->get('planed_food');
         } else {
             
-            $meal->planed = 0;
+            $meal->planed_food = 0;
         }
         
 
@@ -200,7 +201,7 @@ class MealController extends Controller
         if ($meal && ($meal->user_id == $request->user()->id || $request->user()->is_admin())) {
 
             $meal->food_id = $request->input('food_id');
-            $meal->planed = $request->input('planed_food');
+            $meal->planed_food = $request->input('planed_food');
             $meal->weight = $request->input('weight');
             $meal->date = $request->input('date');
             $meal->comment = $request->input('comment');
@@ -293,7 +294,7 @@ class MealController extends Controller
 
         if ($meal && ($meal->user_id == $request->user()->id || $request->user()->is_admin())) {
 
-            $meal->planed = 0; 
+            $meal->planed_food = 0; 
             $meal->id = $meal_id;
             $meal->save();    
             return redirect('/meal/index');

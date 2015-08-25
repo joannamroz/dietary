@@ -16,7 +16,7 @@ class Meals extends Model {
 
 		$meals = Meals::select( \DB::raw('*, meals.id as meal_id') ) 
 				->leftJoin('foods', 'meals.food_id', '=', 'foods.id')
-				->where('planed', '0')
+				->where('planed_food', '0')
 				->where('date', $selectedDate)
 				->where('meals.user_id', $user_id)
 				->orderBy('meals.created_at','desc')
@@ -24,7 +24,7 @@ class Meals extends Model {
 
 		$meals_planed = Meals::select( \DB::raw('*, meals.id as meal_id') ) 
 				->leftJoin('foods', 'meals.food_id', '=', 'foods.id')
-				->where('planed', '1')
+				->where('planed_food', '1')
 				->where('date', $selectedDate)
 				->where('meals.user_id', $user_id)
 				->orderBy('meals.created_at','desc')

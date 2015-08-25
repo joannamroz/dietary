@@ -18,6 +18,7 @@ class Meals extends Migration
             $table->integer('planed_food');
             $table ->integer('weight');
             $table->integer('user_id');
+            $table->string('comment');
             $table->date('date');
             
             $table->timestamps();

@@ -10,7 +10,7 @@ Edit meal
 <form method = "post" action = '{{ url("meal/update") }}' id = "editMealForm" class = "form-horizontal">
   <input type = "hidden" name = "_token" value = "{{ csrf_token() }}">
   <input type = "hidden" name = "meal_id" value = "{{ $meal->id }}{{ old('meal_id') }}">
-  <input type = "hidden" name = "planed_food" value = "{{ $meal->planed }}{{ old('planed_food') }}">
+  <input type = "hidden" name = "planed_food" value = "{{ $meal->planed_food }}{{ old('planed_food') }}">
   <input required="required"  type="hidden" name = "date" class = "form-control" value = "@if(!old('date')){{$meal->date}}@endif{{ old('date') }}"/>
 
   <div class = "form-group noMarginBottom">
