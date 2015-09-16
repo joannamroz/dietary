@@ -21,7 +21,7 @@ class FoodsTableSeeder extends Seeder {
        ];
 
        $rows[] = [
-           'id'         => 1,
+           'id'         => 2,
            'name'       => "Mazurski smak twaróg półtłusty",
            'brand_id'   => 6,
            'user_id'    => 1,
@@ -34,7 +34,7 @@ class FoodsTableSeeder extends Seeder {
            'updated_at' => Carbon::now()
        ];
        $rows[] = [
-           'id'         => 1,
+           'id'         => 3,
            'name'       => "Cukier",
            'brand_id'   => 2,
            'user_id'    => 1,
@@ -47,7 +47,7 @@ class FoodsTableSeeder extends Seeder {
            'updated_at' => Carbon::now()
        ];
        $rows[] = [
-           'id'         => 1,
+           'id'         => 4,
            'name'       => "Mleko 3,5%",
            'brand_id'   => 6,
            'user_id'    => 2,
