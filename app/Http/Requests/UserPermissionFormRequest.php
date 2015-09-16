@@ -5,7 +5,7 @@ use App\Http\Requests\Request;
 use App\User;
 use Auth;
 
-class PermissionFormRequest extends Request {
+class UserPermissionFormRequest extends Request {
 
   /**
    * Determine if the user is authorized to make this request.
@@ -13,8 +13,8 @@ class PermissionFormRequest extends Request {
    * @return bool
    */
   public function authorize() {   
-
-    if ($this->user()->can_add_meal()) {
+    return true;
+    if ($this->user()->is_user()) {
       return true;
     }
 

@@ -37,41 +37,7 @@
 					</div>	
 				</div>
 			</div>
-			<div class = "col-md-3">
-				<h4 style="text-align:center;font-weight:bold">Calculate BMI</h4>
-				
- 					<div class="form-group">
-				  		<label class="col-sm-6 control-label">Weight (kg)</label>
-			        	<div class="col-sm-6">
-				    		<input required="required" value="{{ old('weight') }}" id="weightBMI" type="text" name="weight" class="form-control" />
-				    	</div>
-				  	</div>
-				  	<div class="form-group">
-				  		<label class="col-sm-6 control-label">Height (cm)</label>
-			        	<div class="col-sm-6">
-				    		<input required="required" value="{{ old('height') }}" id="heightBMI" type="text" name="height" class="form-control" />
-				    	</div>
-				  	</div>
-				  	<div class="form-group" id="resultInput">
-				  		<label class="col-sm-6 control-label">Result</label>
-			        	<div class="col-sm-6">
-				    		<input  value="" type="text" id="resultBMI" name="result" class="form-control" />
-				    	</div>
-				  	</div>
-				  	<div class="form-group">
-				  		<label class="col-sm-6 control-label"></label>
-					    <div class="col-sm-offset-6 col-sm-6">
-					      <input type="submit" name='save' class="btn btn-success" id="calculateBMIBtn" value="Calculate"/>
-					    </div>
-				  </div>
-				
-			
-
-			</div>
-
-			
-		
-		</div>
+		</div>	
 		<div class = "row">
 			<div class = "col-md-10">
 				<table class = "table table-striped bodyMeasurement">
@@ -237,9 +203,98 @@
 			</div>
 		</div>
 	@else
-		There is't measurements added by you! Add one!
+		<h3>There is't measurements added by you! Add one!</h3>
 		<button class = "btn" style = "float: right" id = "addMeasure">Add new measure</button><br/>
 	@endif
+	<div class = "col-md-3">
+				<h4 style="text-align:center;font-weight:bold">Calculate BMI</h4>
+				
+ 					<div class="form-group">
+				  		<label class="col-sm-6 control-label">Weight (kg)</label>
+			        	<div class="col-sm-6">
+				    		<input required="required" value="{{ isset($userWeight) ? $userWeight : ""  }}" id="weightBMI" type="text" name="weight" class="form-control" />
+				    	</div>
+				  	</div>
+				  	<div class="form-group">
+				  		<label class="col-sm-6 control-label">Height (cm)</label>
+			        	<div class="col-sm-6">
+				    		<input required="required" value="{{ isset($userHeight) ? $userHeight : "" }}" id="heightBMI" type="text" name="height" class="form-control" />
+				    	</div>
+				  	</div>
+				  	<div class="form-group" id="resultInputBMI">
+				  		<label class="col-sm-6 control-label">Result</label>
+			        	<div class="col-sm-6">
+				    		<input  value="" type="text" id="resultBMI" name="result" class="form-control" />
+				    	</div>
+				  	</div>
+				  	<div class="form-group">
+				  		<label class="col-sm-6 control-label"></label>
+					    <div class="col-sm-offset-6 col-sm-6">
+					      <input type="submit" name='save' class="btn btn-success" id="calculateBMIBtn" value="Calculate"/>
+					    </div>
+				  </div>	
+			</div>
+			<div class="col-md-6">
+				<h4 style="text-align:center;font-weight:bold">Calculate BMR</h4>
+						<div class="form-group">
+					  		<label class="col-sm-3 control-label">Sex</label>
+					  		<div class = "col-sm-3">
+						  		<select class="select2 form-control" name="sexBMR" id="sexBMR">
+						  			<option value=""></option>
+						  			<option value="female">Female</option>
+						  			<option value="male">Male</option>
+						  		</select>
+						  	</div>
+					  	</div>
+					  	
+						<div class="form-group">
+					  		<label class="col-sm-3 control-label">Weight (kg)</label>
+				        	<div class="col-sm-3">
+					    		<input required="required" value="{{ isset($userWeight) ? $userWeight : ""  }}" id="weightBMR" type="text" name="weight" class="form-control" />
+					    	</div>
+					  	</div>
+
+					  	<div class="form-group">
+					  		<label class="col-sm-3 control-label">Height (cm)</label>
+				        	<div class="col-sm-3">
+					    		<input required="required" value="{{ isset($userHeight) ? $userHeight : "" }}" id="heightBMR" type="text" name="height" class="form-control" />
+					    	</div>
+					  	</div>
+					  
+					  	<div class="form-group">
+					  		<label class="col-sm-3 control-label">Age</label>
+				        	<div class="col-sm-3">
+					    		<input required="required" value="{{ isset($age) ? $age : "" }}" id="ageBMR" type="text" name="age" class="form-control" />
+					    	</div>
+					  	</div>
+
+					  	<div class="form-group">
+					  		<label class="col-sm-3 control-label">Activity</label>
+					  		<div class = "col-sm-9">
+						  		<select class="select2 form-control" name="activityBMR" id="activityBMR">
+						  			<option value=""></option>
+						  			<option value="1.2">Little or no exercise</option>
+						  			<option value="1.375">Light exercise (1-3 times/week)</option>
+						  			<option value="1.55">Moderate exercise (3-5 days/week)</option>
+						  			<option value="1.725">Heavy exercise (6-7 days/week)</option>
+						  			<option value="1.9">Very heavy exercise (physical job or exercise twice a day)</option>
+						  		</select>
+						  	</div>
+					  	</div>
+
+					  	<div class="form-group" id="resultInputBMR">
+					  		<label class="col-sm-9 control-label">Result</label>
+				        	<div class="col-sm-3">
+					    		<input  value="" type="text" id="resultBMR" name="result" class="form-control" />
+					    	</div>
+					  	</div>
+					  	<div class="form-group">
+					  		<label class="col-sm-6 control-label"></label>
+						    <div class="col-sm-offset-6 col-sm-6">
+						      <input type="submit" name='save' class="btn btn-success" id="calculateBMRBtn" value="Calculate"/>
+						    </div>
+					  </div>	
+			</div>
 	</div>
 </div>
 		

@@ -24,7 +24,7 @@ Route::get('/food',['as' => 'food', 'uses' => 'FoodController@index']);
 Route::get('/brand',['as' => 'brand', 'uses' => 'BrandController@index']);
 Route::get('/meal',['as' => 'meal', 'uses' => 'MealController@index']);
 Route::get('/user',['as' => 'user', 'uses' => 'UserController@index']);
-Route::get('/permission',['as' => 'permission', 'uses' => 'PermissionController@index']);
+Route::get('/permission',['as' => 'permission', 'uses' => 'UserPermissionController@index']);
 
 
 
@@ -81,8 +81,8 @@ Route::group(['middleware' => ['auth']], function()
  Route::post('auth/register', 'Auth\AuthController@postRegister');
  Route::get('user/index', ['as' => 'user', 'uses' => 'UserController@index']);
 
- Route::get('permission/add-permission/{id}', 'PermissionController@create');
- Route::post('add-permission', 'PermissionController@store');
+ Route::get('permission/add-permission/{id}', 'UserPermissionController@create');
+ Route::post('add-permission', 'UserPermissionController@store');
 
  
 });

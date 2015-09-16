@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 use Auth;
 use App\User;
-use App\Permissions;
+use App\UserPermissions;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PermissionFormRequest;
+use App\Http\Requests\UserPermissionFormRequest;
  
 use Illuminate\Http\Request;
 
-class PermissionController extends Controller
+class UserPermissionController extends Controller
 {	
 	public function index() {
         
@@ -19,10 +19,11 @@ class PermissionController extends Controller
 
 	public function create(Request $request, $id) {
 
+        
         $user_id = Auth::user()->id;
         $userData = User::find($id);
 
-        $userPermissions = Permissions::where('authorized_user_id', $id)->where('user_id', $user_id)->get();
+        $userPermissions = UserPermissions::where('authorized_user_id', $id)->where('user_id', $user_id)->get();
         $userWritePermission='';
         $userReadPermission='';
         foreach ($userPermissions as $permission) {
@@ -31,9 +32,8 @@ class PermissionController extends Controller
             $userReadPermission = $permission['read_permission'];
         }
         
-
         if ($request->user()->is_user() || $request->user()->is_admin() ) {
-        	
+   	
           return view('permissions.create')->with('user_id', $id)->with('userWritePermission', $userWritePermission)->with('userReadPermission', $userReadPermission)->with('userData', $userData);
 
         } else {
@@ -42,18 +42,18 @@ class PermissionController extends Controller
         }
     }
 
-    public function store(PermissionFormRequest $request) {
-
+    public function store(UserPermissionFormRequest $request) {
+        
     	$user_id = Auth::user()->id;
         $authorized_user_id = $request->get('user_id');
 
-        $userPermissions = Permissions::where('authorized_user_id',  $authorized_user_id)->where('user_id', $user_id);
+        $userPermissions = UserPermissions::where('authorized_user_id',  $authorized_user_id)->where('user_id', $user_id);
         if ($userPermissions) {
 
             $userPermissions ->delete();
         } 
         //var_dump($userPermissions)
-    	$permission = new Permissions();
+    	$permission = new UserPermissions();
     	$permission->user_id = $user_id ;
         $permission->authorized_user_id = $authorized_user_id;
 

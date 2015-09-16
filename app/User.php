@@ -8,6 +8,8 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+use Carbon\Carbon;
+
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
@@ -19,18 +21,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $table = 'users';
 
+    protected $dates = ['created_at', 'updated_at', 'date_of_birth'];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'sex', 'date_of_birth'];
 
     // protected $guarded = array('id', 'password');
 
     public function permissions() {
 
-        return $this->hasMany('App\Permissions', 'id', 'authorized_user_id');
+        return $this->hasMany('App\UserPermissions', 'id', 'authorized_user_id');
     }
 
     /**
@@ -170,9 +174,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
         return false;
     }  
-
-    public function getUserBMI() {
-        
-    } 
-    
+    public function getUserAge(){
+        return $this->date_of_birth->diffInYears(Carbon::now());
+    }
 }

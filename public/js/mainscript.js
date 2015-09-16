@@ -325,6 +325,7 @@ $(document).ready(function() {
 
 		if ($('.planed_food').is(':checked')) {
 
+
 			$(".planed_food").val('1');
 
 
@@ -375,7 +376,7 @@ $(document).ready(function() {
 
 	$(document).on('click','.fa-flag', function(){
 		
-		alert("Consumed?If not delete this position from your food list");
+		alert("Consumed? If not delete this position from your food list");
 		var values = {
     		'id':$(this).data('meal-id')
  
@@ -402,22 +403,60 @@ $(document).ready(function() {
 		$('#rangesInfo').toggle('slow');
 	});
 
-	$('#calculateBMIBtn').on('click', function(){
-		var weight = $('#weightBMI').val();
-		var height = $('#heightBMI').val();
-		var result = weight/((height/100)*(height/100));
-		result = parseFloat(result).toFixed(2);
-		$('#resultInput').show();
-		$('#resultBMI').val(result);
-		$('#weightBMI').val('').trigger('change');
-		$('#heightBMI').val('').trigger('change');
+	$('#calculateBMIBtn').on('click', calculateBMI);
+
+	calculateBMI();
+	function calculateBMI() {
+
+		if (!$('#weightBMI').val() || !$('#heightBMI').val()) {
+			
+			return false;
+		} else {
+			var weight = $('#weightBMI').val();
+			var height = $('#heightBMI').val();
+			var result = weight/((height/100)*(height/100));
+			result = parseFloat(result).toFixed(2);
+			$('#resultBMI').val(result);
+			
+		}	
+	};
+
+	$('#calculateBMRBtn').on('click', function() {
+
+		if (!$('#weightBMR').val() || !$('#heightBMR').val() || !$('#ageBMR').val() || !$('#sexBMR').val() || !$('#activityBMR').val()) {
+			
+			return false;
+		} else {
+
+			var weight = $('#weightBMR').val();
+			var height = $('#heightBMR').val();
+			var age = $('#ageBMR').val();
+			var sex = $('#sexBMR').val();
+			var activity = $('#activityBMR').val();
+
+			if( sex == 'female') {
+				var result = (655 + (9.6 * weight) + (1.8 * height) - (4.7 * age)) * activity;
+			} else {
+
+				var result = (66 + (13.7 * weight) + (5 * height) - (6.8 * age)) * activity;
+			}
+			result = parseFloat(result).toFixed(2);
+			$('#resultBMR').val(result);		
+		}	
 	});
-	$('#weightBMI').on('click', function(){
-		$('#resultInput').hide();
-	});
-	$('#heightBMI').on('click', function(){
-		$('#resultInput').hide();
-	});
+	
+    $(function() {
+       $( "#datepicker" ).datepicker({
+       	dateFormat: "dd-mm-yy",
+       	monthNames: [ "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December" ],
+       	minDate: new Date(1915, 1 - 1, 1),
+       	maxDate: "-1d",
+       	yearRange: "1915:2015",
+       	changeDay: true,
+        changeMonth: true,
+        changeYear: true
+      });
+    });
 });
  
 	

@@ -3,7 +3,7 @@ namespace App;
  
 use Illuminate\Database\Eloquent\Model;
  
-class Permissions extends Model {
+class UserPermissions extends Model {
  
 	protected $guarded = [];
 	
@@ -11,7 +11,7 @@ class Permissions extends Model {
 
 	public function user() {
 
-		return $this->belongsToMany('App\User','permissions', 'id', 'user_id');
+		return $this->belongsToMany('App\User','user_permissions', 'id', 'user_id');
 	}
 
  	

@@ -28,6 +28,20 @@ class AuthController extends Controller
      *
      * @return void
      */
+    public function authenticate()
+    {   
+        $remember = Input::has('remember') ? true : false;
+
+        if (Auth::attempt(['email' => $email, 'password' => $password], $remember))
+        {
+            return redirect()->intended('dashboard');
+        } else {
+            return Redirect::to('/login')
+                ->withInput(Input::except('password'))
+                ->with('flash_notice', 'Your username/password combination was incorrect.');
+        }
+    }
+
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
@@ -45,6 +59,8 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
+            'sex' => 'required',
+            'date_of_birth' => 'required',
         ]);
     }
 
@@ -55,11 +71,14 @@ class AuthController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {
+    {   
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'sex' => $data['sex'],
+            'date_of_birth' => $data['date_of_birth'],
+
         ]);
     }
 }
