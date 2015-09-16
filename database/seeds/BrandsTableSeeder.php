@@ -49,7 +49,14 @@ class BrandsTableSeeder extends Seeder {
            'name'       => "Mlekpol",
            'user_id'    => 1
            
-       ];       
+       ]; 
+
+       $rows[] = [
+           'id'         => 7,
+           'name'       => "Homemade",
+           'user_id'    => 1
+           
+       ];             
        DB::table('brands')->insert($rows);
     }
 

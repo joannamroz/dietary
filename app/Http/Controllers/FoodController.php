@@ -66,7 +66,7 @@ class FoodController extends Controller
 
         if (isset($data['compound_food'])) {
 
-            $food->brand_id = 23; //brand name 'Homemade'
+            $food->brand_id = 7; //brand name 'Homemade'
 
         } else {
 
@@ -87,6 +87,7 @@ class FoodController extends Controller
             $last_inserted_id = $food->id;
 
             $ingredientsInArray = array();
+            
             $arrayId = $data['ingredient'];
             $arrayWeight = $data['ingredient-weight'];
 

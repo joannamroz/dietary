@@ -15,6 +15,7 @@ class Ingredients extends Migration
         Schema::create('ingredients', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('food_id');
+            $table->integer('ingredient_id');
             $table->integer('user_id');
             $table->integer('weight');
             $table->timestamps();
