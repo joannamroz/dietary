@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -77,7 +78,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'sex' => $data['sex'],
-            'date_of_birth' => $data['date_of_birth'],
+            'date_of_birth' => Carbon::createFromFormat('Y-m-d', $data['date_of_birth'])->toDateString(),
 
         ]);
     }

@@ -447,8 +447,8 @@ $(document).ready(function() {
 	
     $(function() {
        $( "#datepicker" ).datepicker({
-       	dateFormat: "dd-mm-yy",
-       	monthNames: [ "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December" ],
+       	dateFormat: "yy-mm-dd",
+       	monthNames: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
        	minDate: new Date(1915, 1 - 1, 1),
        	maxDate: "-1d",
        	yearRange: "1915:2015",
