@@ -71,6 +71,7 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
+    // 'date_of_birth' => Carbon::createFromFormat('Y-m-d', $data['date_of_birth'])->toDateString(),
     protected function create(array $data)
     {   
         return User::create([
@@ -78,7 +79,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'sex' => $data['sex'],
-            'date_of_birth' => Carbon::createFromFormat('Y-m-d', $data['date_of_birth'])->toDateString(),
+            'date_of_birth' => Carbon::parse($data['date_of_birth']),
 
         ]);
     }

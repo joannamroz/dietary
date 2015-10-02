@@ -10,7 +10,7 @@
 We don't have users yet!:D:D:D
 @else
 <div class="row">
-  <div class="col-md-6">   
+  <div class="col-md-10">   
     <div class="list-group">
       <div class="list-group-item">
       <table class="table table-bordered">

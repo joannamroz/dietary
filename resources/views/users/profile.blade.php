@@ -241,8 +241,8 @@
 					  		<div class = "col-sm-3">
 						  		<select class="select2 form-control" name="sexBMR" id="sexBMR">
 						  			<option value=""></option>
-						  			<option value="female">Female</option>
-						  			<option value="male">Male</option>
+						  			<option value="female" @if($userData->sex == "female") selected=selected @endif>Female</option>
+						  			<option value="male" @if($userData->sex == "male") selected=selected @endif>Male</option>
 						  		</select>
 						  	</div>
 					  	</div>

@@ -26,7 +26,7 @@
     </div>
 
     <label  class="sr-only">Date of birth</label>
-    <input type="text" name="date_of_birth" placeholder="Date of birth" id="datepicker" class="form-control" value="{{ old('date_of_birth') }}">
+    <input type="date" name="date_of_birth" placeholder="Date of birth" class="form-control" value="{{ old('date_of_birth') }}">
 
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" class="form-control" placeholder="Password" name="password" value="{{ old('password') }}"required="" autofocus="">

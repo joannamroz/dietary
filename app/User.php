@@ -21,14 +21,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $table = 'users';
 
-    protected $dates = ['created_at', 'updated_at'];
+    protected $fillable = ['name', 'email', 'password', 'sex', 'date_of_birth'];
+
+    protected $dates = ['created_at', 'updated_at', 'date_of_birth'];
+
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'sex', 'date_of_birth'];
+    
 
     // protected $guarded = array('id', 'password');
 
@@ -174,7 +177,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
         return false;
     }  
-    public function getUserAge(){
-        return $this->date_of_birth->diffInYears(Carbon::now());
+    public function getUserAge() {
+
+        $formattedDateStr = Carbon::createFromFormat("Y-m-d H:i:s", $this->date_of_birth);
+        
+        return  $formattedDateStr->diffInYears(Carbon::now());
     }
 }
