@@ -82,8 +82,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
         return false;
     }   
-    /* draws a calendar */
+   
+
+    /* Need to redesign this function and move it to some sort of helper */
     public static function draw_calendar($month, $year) {
+
+
+        $selectedMonth = Carbon::create($year,$month,1);
 
         $now = new \DateTime();
 
@@ -103,7 +108,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         /* days and weeks vars now ... */
         $running_day = date('w',mktime(0,0,0,$month,1,$year));
-        //var_dump($running_day);3 first day of the month
         $days_in_month = date('t',mktime(0,0,0,$month,1,$year));
         $days_in_this_week = 1;
         $day_counter = 0;
@@ -113,6 +117,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $calendar.= '<tr class="calendar-row">';
 
         /* print "blank" days until the first of the current week */
+
+        //- matt: we want our callendar to start from Monday so we calculate running_day by substracting 7 - (frist day of week in selected month)
+        $running_day = 7 - $selectedMonth->dayOfWeek;
+
         for ($x = 1; $x < $running_day; $x++):
             $calendar.= '<td class="calendar-day-np"> </td>';
             $days_in_this_week++;
