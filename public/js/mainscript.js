@@ -40,11 +40,6 @@ $(document).ready(function() {
 
 	$(document).on('click','.calendar-day', updateMealsList );
 
-	$('#addMeasure').on('click', function() {
-		$('#measureForm').toggle();
-	});
-
-
 
  	$('form.ajax').on('submit', function(event) {
 

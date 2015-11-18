@@ -8,6 +8,8 @@
 <div class = "row">
 	<div class = "col-md-12">
 
+	@include('users.measurements_form', ['userData' => 'data'])
+
 	@if( isset($userMeasure[0]) )
 
 	<?php  
@@ -69,142 +71,10 @@
 					</tr>						
 					@endforeach
 				</table>	
-				<button class = "btn" style = "float: right" id="addMeasure">Add new measure</button><br/>
-			</div>
-
-			<div class = "col-md-2">
-				<form action = "/new-measure" method = "post" id = "measureForm" class = "form-horizontal">
-				  <input type = "hidden" name = "_token" value = "{{ csrf_token() }}">
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Weight (kg)</label>
-			        <div class = "col-sm-5">
-			         
-				    	<input required = "required" value = "@if(!old('weight')){{$latest['weight']}}@endif{{ old('weight') }}" type = "text" name = "weight" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Height (cm)</label>
-			        <div class = "col-sm-5">
-				    	<input required = "required" value = "@if(!old('height')){{$latest['height']}}@endif{{ old('height') }}" type = "text" name = "height" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Body fat (%)</label>
-			        <div class = "col-sm-5">
-				    	<input required = "required" value = "@if(!old('body_fat')){{$latest['body_fat']}}@endif{{ old('body_fat') }}" type = "text" name = "body_fat" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Body water (%)</label>
-			        <div class = "col-sm-5">
-				    	<input required = "required" value = "@if(!old('water')){{$latest['water']}}@endif{{ old('water') }}" type = "text" name = "water" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Muscle (%)</label>
-			        <div class = "col-sm-5">
-				    	<input required = "required" value = "@if(!old('muscle')){{$latest['muscle']}}@endif{{ old('muscle') }}" type="text" name = "muscle" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">BMI</label>
-			        <div class = "col-sm-5">
-				    	<input required = "required" value = "@if(!old('bmi')){{ $latest['bmi']}}@endif{{ old('bmi') }}" type = "text" name = "bmi" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Internal fat (%)</label>
-			        <div class = "col-sm-5">
-				    	<input required = "required" value = "@if(!old('internal_fat')){{$latest['internal_fat']}}@endif{{ old('internal_fat') }}" type = "text" name = "internal_fat" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Waist (cm)</label>
-			        <div class = "col-sm-5">
-				    	<input value = "@if(!old('waist')){{$measurementsInArray[0]['waist']}}@endif{{ old('waist') }}" type = "text" name = "waist" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Chest (cm)</label>
-			        <div class = "col-sm-5">
-				    	<input value = "@if(!old('chest')){{$latest['chest']}}@endif{{ old('chest') }}" type = "text" name = "chest" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Neck (cm)</label>
-			        <div class = "col-sm-5">
-				    	<input value = "@if(!old('neck')){{$latest['neck']}}@endif{{ old('neck') }}" type = "text" name = "neck" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Hips (cm)</label>
-			        <div class = "col-sm-5">
-				    	<input value = "@if(!old('hips')){{$latest['hips']}}@endif{{ old('hips') }}" type = "text" name = "hips" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Biceps (cm)</label>
-			        <div class = "col-sm-5">
-				    	<input value = "@if(!old('biceps')){{$latest['biceps']}}@endif{{ old('biceps') }}" type = "text" name = "biceps" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Bust (cm)</label>
-			        <div class = "col-sm-5">
-				    	<input value = "@if(!old('bust')){{$latest['bust']}}@endif{{ old('bust') }}" type = "text" name = "bust" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Thigh (cm)</label>
-			        <div class = "col-sm-5">
-				    	<input value = "@if(!old('thig')){{$latest['thigh']}}@endif{{ old('thigh') }}" type = "text" name = "thigh" class ="form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Upper arm (cm)</label>
-			        <div class = "col-sm-5">
-				    	<input value = "@if(!old('upper_arm')){{$latest['upper_arm']}}@endif{{ old('upper_arm') }}" type = "text" name = "upper_arm" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				    <input required = "required" value = "{{$now->format('Y-m-d')}}" type = "hidden" name = "date" class = "form-control" />
-				  </div>
-
-				  <div class = "form-group">
-				  	<label class = "col-sm-7 control-label">Comment</label>
-			        <div class = "col-sm-5">
-				    	<input value = "@if(!old('comment')){{$latest['comment']}}@endif{{ old('comment') }}" type = "text" name = "comment" class = "form-control" />
-				    </div>
-				  </div>
-
-				  <div class = "form-group">
-				    <div class = "col-sm-offset-7 col-sm-5">
-				      <input type = "submit" name = 'save' class = "btn btn-success" value = "Save"/>
-				    </div>
-				  </div>
-				</form>
-				
 			</div>
 		</div>
 	@else
 		<h3>There is't measurements added by you! Add one!</h3>
-		<button class="btn" style="float:right" class="addMeasure">Add new measure</button><br/>
 		<div class = "col-md-3">
 			<h4 style="text-align:center;font-weight:bold">Calculate BMI</h4>
 			<div class="form-group">
