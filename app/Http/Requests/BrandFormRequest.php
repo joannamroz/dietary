@@ -14,7 +14,7 @@ class BrandFormRequest extends Request {
    */
   public function authorize() {  
 
-    if ($this->user()->can_add_brand()) {
+    if ($this->user()->is_admin() || $this->user()->is_user()) {
       return true;
     }
     return false;

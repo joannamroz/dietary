@@ -228,3 +228,8 @@ body {
 div.block-blur {
 	margin-top:10%;
 }
+.total-row> td{
+	background-color: #CCFF33;
+	text-align: center;
+	font-weight: bold;
+}

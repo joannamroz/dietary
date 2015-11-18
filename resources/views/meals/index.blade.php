@@ -29,11 +29,11 @@
 
                 <th title = "{{ $meal->food->name }}">{{$string}}</th>
                 <td>{{ $meal->weight }}g</td>
-                <td>{{ $meal->weight * $meal->kcal / 100}}</td>
-                <td>{{ $meal->weight * $meal->proteins / 100 }}</td>
-                <td>{{ $meal->weight * $meal->carbs / 100 }}</td>
-                <td>{{ $meal->weight * $meal->fats / 100 }}</td>
-                <td>{{ $meal->weight * $meal->fibre / 100 }} </td>
+                <td>{{ number_format(($meal->weight * $meal->kcal / 100), 1) }}</td>
+                <td>{{ number_format(($meal->weight * $meal->proteins / 100), 1) }}</td>
+                <td>{{ number_format(($meal->weight * $meal->carbs / 100), 1) }}</td>
+                <td>{{ number_format(($meal->weight * $meal->fats / 100), 1) }}</td>
+                <td>{{ number_format(($meal->weight * $meal->fibre / 100), 1) }} </td>
                 <td class = "tdCenter"><i class = "fa fa-comment" title = "{{ $meal->comment }}"></i></td>
                 <td class = "tdCenter"><a href = "{{ url('meal/edit/'.$meal->meal_id)}}"><i class = "fa fa-pencil"></i> </a></td>
                 
@@ -41,21 +41,19 @@
               <?php $suma_kcal += $meal->weight * $meal->food->kcal / 100; ?>
               @endforeach
 
-              <tr>
+              <tr class="total-row">
                 <th class = "tdCenter">Total : </th>
                 <td>{{ $totals['sum_weight'] }}g </td>
-                <td>{{ $totals['sum_kcal'] }}</td>
-                <td>{{ $totals['sum_proteins'] }}</td>
-                <td>{{ $totals['sum_carbs'] }}</td>
-                <td>{{ $totals['sum_fats'] }}</td>
-                <td>{{ $totals['sum_fibre'] }}</td>
-                <td></td>
-               
+                <td>{{ number_format($totals['sum_kcal'], 1) }}</td>
+                <td>{{ number_format($totals['sum_proteins'], 1) }}</td>
+                <td>{{ number_format($totals['sum_carbs'], 1) }}</td>
+                <td>{{ number_format($totals['sum_fats'], 1) }}</td>
+                <td>{{ number_format($totals['sum_fibre'], 1) }}</td>
               </tr>
             </table>                
           </div> <!-- list-group-item -->
         </div> <!-- list-group -->
-    <h4 style = "float:right; color:red; font-weight:bold">Total kcal:{{ $suma_kcal }}</h4>
+    <h4 style = "float:right; color:red; font-weight:bold">Total kcal:{{ number_format($suma_kcal, 1) }}</h4>
     @endif
 
     @if ( !$meals_planed->count() )
@@ -79,11 +77,11 @@
 
                 <th title = "{{ $meal->food->name }}">{{ $string}}</th>
                 <td>{{ $meal->weight }}g</td>
-                <td>{{ $meal->weight * $meal->kcal / 100}}</td>
-                <td>{{ $meal->weight * $meal->proteins / 100 }}</td>
-                <td>{{ $meal->weight * $meal->carbs / 100 }}</td>
-                <td>{{ $meal->weight * $meal->fats / 100 }}</td>
-                <td>{{ $meal->weight * $meal->fibre / 100 }} </td>
+                <td>{{ number_format(($meal->weight * $meal->kcal / 100), 1 ) }}</td>
+                <td>{{ number_format(($meal->weight * $meal->proteins / 100), 1) }}</td>
+                <td>{{ number_format(($meal->weight * $meal->carbs / 100), 1) }}</td>
+                <td>{{ number_format(($meal->weight * $meal->fats / 100), 1) }}</td>
+                <td>{{ number_format(($meal->weight * $meal->fibre / 100), 1) }} </td>
                 <td class = "tdCenter"><i class = "fa fa-comment" title = "{{ $meal->comment }}"></i></td>
                 <td class = "tdCenter"><a href = "{{ url('meal/edit/'.$meal->meal_id)}}"><i class = "fa fa-pencil"></i> </a></td>
                 <td class = "tdCenter">@if($meal->planed_food==1)<i class = "fa fa-flag kupka" data-meal-id = "{{ $meal->meal_id }}"></i>@endif</td>
@@ -92,21 +90,19 @@
              @endforeach
 
 
-              <tr>
+              <tr class="total-row">
                 <th class = "tdCenter">Total : </th>
                 <td>{{ $totals_planed['sum_weight'] }}g </td>
-                <td>{{ $totals_planed['sum_kcal'] }}</td>
-                <td>{{ $totals_planed['sum_proteins'] }}</td>
-                <td>{{ $totals_planed['sum_carbs'] }}</td>
-                <td>{{ $totals_planed['sum_fats'] }}</td>
-                <td>{{ $totals_planed['sum_fibre'] }}</td>
-                <td></td>
-                <td></td>
+                <td>{{ number_format($totals_planed['sum_kcal'], 1) }}</td>
+                <td>{{ number_format($totals_planed['sum_proteins'], 1) }}</td>
+                <td>{{ number_format($totals_planed['sum_carbs'], 1) }}</td>
+                <td>{{ number_format($totals_planed['sum_fats'], 1) }}</td>
+                <td>{{ number_format($totals_planed['sum_fibre'], 1) }}</td>
               </tr>
             </table>                
           </div>
       </div>
-      <h4 style = "float:right; color:red; font-weight:bold">Total kcal:{{ $suma_kcal }}</h4>
+      <h4 style = "float:right; color:red; font-weight:bold">Total kcal:{{ number_format($suma_kcal, 1) }}</h4>
       @endif
   </div> <!-- class="col-md-8" id='meals-content' -->
   <div class = "col-md-4">

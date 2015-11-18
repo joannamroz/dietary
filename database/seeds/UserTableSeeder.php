@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder {
            'email'          => "admin@example.com",
            'sex'            => "female",
            'date_of_birth'  => Carbon::createFromDate(1988, 9, 03)->toDateString(),
-           'role'           => "admin",
+           'role'           => "user",
            'password'       => bcrypt("admin"),
            'created_at'     => Carbon::now(),
            'updated_at'     => Carbon::now()
@@ -29,7 +29,7 @@ class UserTableSeeder extends Seeder {
            'email'          => "admin2@example.com",
            'sex'            => "male",
            'date_of_birth'  => Carbon::createFromDate(1987, 04, 22)->toDateString(),
-           'role'           => "admin",
+           'role'           => "user",
            'password'       => bcrypt("admin2"),
            'created_at'     => Carbon::now(),
            'updated_at'     => Carbon::now()
