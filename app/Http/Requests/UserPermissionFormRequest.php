@@ -5,14 +5,16 @@ use App\Http\Requests\Request;
 use App\User;
 use Auth;
 
-class UserPermissionFormRequest extends Request {
+class UserPermissionFormRequest extends Request
+{
 
   /**
    * Determine if the user is authorized to make this request.
    *
    * @return bool
    */
-  public function authorize() {   
+  public function authorize()
+  {   
     return true;
     if ($this->user()->is_user()) {
       return true;
@@ -26,10 +28,10 @@ class UserPermissionFormRequest extends Request {
    *
    * @return array
    */
-  public function rules() {
+  public function rules()
+  {
     return [
-      
-                      
+                        
     ];
   }	
 }

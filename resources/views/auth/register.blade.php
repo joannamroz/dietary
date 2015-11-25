@@ -17,12 +17,12 @@
     <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" value="{{ old('email') }}"required="" autofocus="">
     
     <div class="checkbox" name="sex" required>
-          <label>
-            <input type="radio" name="sex" value="male" required> Male
-          </label>
-          <label>
-            <input type="radio" name="sex" value="female" required> Female
-          </label>
+      <label>
+        <input type="radio" name="sex" value="male" required> Male
+      </label>
+      <label>
+        <input type="radio" name="sex" value="female" required> Female
+      </label>
     </div>
 
     <label  class="sr-only">Date of birth</label>

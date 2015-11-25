@@ -3,17 +3,19 @@ namespace App;
  
 use Illuminate\Database\Eloquent\Model;
  
-class Foods extends Model {
+class Foods extends Model
+{
  
-  
 	protected $guarded = [];
 	
-	public function ingredient() {
+	public function ingredient()
+	{
 		return $this->hasMany('App\Ingredients');
 	}
 
 
-	public function brand() {
+	public function brand()
+	{
 		return $this->hasOne('App\Brands','id', 'brand_id');
 	}  	
  	

@@ -5,14 +5,16 @@ use App\Http\Requests\Request;
 use App\User;
 use Auth;
 
-class MealFormRequest extends Request {
+class MealFormRequest extends Request
+{
 
   /**
    * Determine if the user is authorized to make this request.
    *
    * @return bool
    */
-  public function authorize() {    
+  public function authorize()
+  {    
 
     return true; // for now everyone can add meal
 
@@ -28,7 +30,8 @@ class MealFormRequest extends Request {
    *
    * @return array
    */
-  public function rules() {
+  public function rules()
+  {
     
     return [
       'food_id' => 'required',

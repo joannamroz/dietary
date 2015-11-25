@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
 	$.ajaxSetup({
-	    headers: {
-	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    }
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
 	});
 
 
@@ -207,49 +207,48 @@ $(document).ready(function() {
 	function loadMeals() {
 
 		$.ajax({
-	        url: "/meal/all",
-	        type: "get",
+      url: "/meal/all",
+      type: "get",
 	    
-	        success: function(response){
+		  success: function(response) {
 
-	        	
-	        	var data = [];
-	        	var data_by_id = [];
+		  	var data = [];
+		  	var data_by_id = [];
 
-	        	for (var i in response.data) {
-	        		
-	        		food = {};
+		  	for (var i in response.data) {
+		  		
+		  		food = {};
 
-	        		food.id = response.data[i]['id'];
-	        		food.text = response.data[i]['name'];
-	        		food.kcal = response.data[i]['kcal'];
-	        		food.proteins = response.data[i]['proteins'];
-	        		food.carbs = response.data[i]['carbs'];
-	        		food.fats = response.data[i]['fats'];
-	        		food.fibre = response.data[i]['fibre'];
+		  		food.id = response.data[i]['id'];
+		  		food.text = response.data[i]['name'];
+		  		food.kcal = response.data[i]['kcal'];
+		  		food.proteins = response.data[i]['proteins'];
+		  		food.carbs = response.data[i]['carbs'];
+		  		food.fats = response.data[i]['fats'];
+		  		food.fibre = response.data[i]['fibre'];
 
-	        		//Data for select2
-	        		data.push(food);
+		  		//Data for select2
+		  		data.push(food);
 
-	        	}
-	        	
+		  	}
+		  	
 				$(".new-ingredient").select2( { 
 					data: data, 
 					theme: "bootstrap" 
 				});
 
 				$(".new-ingredient").removeClass('new-ingredient');	
-				
+
 				// indexed 0.. n-1 ( for select2, should raise a bug about that...)
 				ingredient_data = data; 
 
-			   	
+				 	
 
-	        },
+		  },
 
-	        error:function(){
+	    error:function() {
 
-	        }
+	    }
 		});
 	}
 
@@ -452,6 +451,97 @@ $(document).ready(function() {
         changeYear: true
       });
     });
+
+	$("#save-measurements").click(function(event) {
+
+		var form_data = $("#measurements-form").serializeArray();
+		var not_required = ['_token', 'waist', 'chest', 'neck', 'hips', 'biceps', 'bust', 'thigh', 'upper_arm', 'comment'];
+			
+		for (var input in form_data) { 
+
+			var name = form_data[input]['name'];
+			
+			if (not_required.indexOf(name) != -1) {
+
+			} else {
+
+				if (form_data[input]['value'] == '') {
+
+					alert(form_data[input]['name'] + ' field is required');
+
+					return false;
+				}
+			}
+		}
+	
+	});
+
+	$('#cbox1').on("click", function() {
+
+		if ($('#cbox1').is(':checked')) {
+
+
+			$("#additional-fields").show();
+
+
+		} else {
+
+			$('#additional-fields').hide();
+		}
+	});
+
+	$('.monthChange').on('click', function () {
+
+		// $('#calendar-controls').next().remove();
+		var month = parseInt($('#selectedMonth').val());
+		var year = parseInt($('#selectedYear').val());
+
+		var next = $(this).hasClass('next');
+
+		if (next) {
+			month = month + 1;
+		} else {
+			month = month - 1;
+		
+		}
+
+		$('#selectedMonth').val(month);
+		//alert(next);
+
+		//var now = new Date();
+		//var thisMonth = now.getMonth()+1;
+		//var prevMonth = thisMonth-1;
+		
+
+
+   	var values = {
+		    	'month':month,
+		    	'year':year
+		    }
+
+				$.ajax({
+		        url: "/meal/ajax_calendar",
+		        type: "get",
+		        data: values,
+		        success: function(response){
+
+		        	if(response.success == true){
+
+		        		$('#calendar-container').html(response.html);
+		        		$('#calendar-month').html(response.monthName);
+
+		        	} else {
+
+		        	}
+
+		        },
+
+		        error:function(){
+
+		        }
+		    });
+	});
+
 });
  
 	

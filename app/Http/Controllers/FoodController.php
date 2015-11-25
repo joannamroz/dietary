@@ -16,194 +16,201 @@ use Illuminate\Http\Request;
 
 class FoodController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index() {
+  /**
+   * Display a listing of the resource.
+   *
+   * @return Response
+   */
+  public function index()
+  {
 
-        //fetch 20 foods from database which are latest
-        $foods = Foods::with('brand')->orderBy('created_at','desc')->paginate(20);
-                                                    
-        //page heading
-        $title = 'Food list';
-        //return foods.blade.php template from resources/views folder
-        return view('foods.index')->withFoods($foods)->withTitle($title);
+    //fetch 20 foods from database which are latest
+    $foods = Foods::with('brand')->orderBy('created_at','desc')->paginate(20);
+                                                
+    //page heading
+    $title = 'Food list';
+    //return foods.blade.php template from resources/views folder
+    return view('foods.index')->withFoods($foods)->withTitle($title);
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return Response
+   */
+  public function create(Request $request)
+  {
+
+    $brands = Brands::orderBy('name','asc')->get();
+
+    if ($request->user()->is_user() || $request->user()->is_admin()) {
+
+      return view('foods.create')->withBrands($brands);
+
+    } else {
+
+      return redirect('/food/index')->withErrors('You have not sufficient permissions for adding new food.');
+    }
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @return Response
+   */
+  public function store(FoodFormRequest $request)
+  {
+
+    $data = $request->all();
+    $user_id = Auth::user()->id;
+
+    $food = new Foods();
+    $food->name = $request->get('name');
+
+    if (isset($data['compound_food'])) {
+
+      $food->brand_id = 7; //brand name 'Homemade'
+
+    } else {
+
+      $food->brand_id = $request->get('brand');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create(Request $request) {
-
-        $brands = Brands::orderBy('name','asc')->get();
-
-        if ($request->user()->is_user() || $request->user()->is_admin()) {
-
-          return view('foods.create')->withBrands($brands);
-
-        } else {
-
-          return redirect('/food/index')->withErrors('You have not sufficient permissions for adding new food.');
-        }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store(FoodFormRequest $request) {
-
-        $data = $request->all();
-        $user_id = Auth::user()->id;
-
-        $food = new Foods();
-        $food->name = $request->get('name');
-
-        if (isset($data['compound_food'])) {
-
-            $food->brand_id = 7; //brand name 'Homemade'
-
-        } else {
-
-            $food->brand_id = $request->get('brand');
-        }
-
-        $food->kcal = $request->get('kcal');
-        $food->proteins = $request->get('proteins');
-        $food->carbs = $request->get('carbs');
-        $food->fats = $request->get('fats');
-        $food->fibre = $request->get('fibre');  
-        $food->user_id = $request->user()->id;
-        $food->save();
+    $food->kcal = $request->get('kcal');
+    $food->proteins = $request->get('proteins');
+    $food->carbs = $request->get('carbs');
+    $food->fats = $request->get('fats');
+    $food->fibre = $request->get('fibre');  
+    $food->user_id = $request->user()->id;
+    $food->save();
 
 
-        if (isset($data['compound_food']) && $data['compound_food']) {
+    if (isset($data['compound_food']) && $data['compound_food']) {
 
-            $last_inserted_id = $food->id;
+      $last_inserted_id = $food->id;
 
-            $ingredientsInArray = array();
-            
-            $arrayId = $data['ingredient'];
-            $arrayWeight = $data['ingredient-weight'];
+      $ingredientsInArray = array();
+      
+      $arrayId = $data['ingredient'];
+      $arrayWeight = $data['ingredient-weight'];
 
-            for ($i = 0; $i < count($arrayId); $i++) {
+      for ($i = 0; $i < count($arrayId); $i++) {
 
-                $ingredientsInArray[$i]["ingredient_id"] = $arrayId[$i];
-                $ingredientsInArray[$i]["ingredient_weight"] = $arrayWeight[$i];
-            }           
-          
-            foreach ($ingredientsInArray as $smallArray) {
+        $ingredientsInArray[$i]["ingredient_id"] = $arrayId[$i];
+        $ingredientsInArray[$i]["ingredient_weight"] = $arrayWeight[$i];
+      }           
+    
+      foreach ($ingredientsInArray as $smallArray) {
 
-                $ingredient = new Ingredients();
-                $ingredient->food_id = $last_inserted_id;
-                $ingredient->ingredient_id = $smallArray['ingredient_id'];
-                $ingredient->weight = $smallArray["ingredient_weight"];
-                $ingredient->user_id = $user_id;
-                $ingredient->save();
-                
-            }
-        }
-
-        $message = "Food has been successfully added";
-
-        return redirect('food/index')->withMessage($message);
+        $ingredient = new Ingredients();
+        $ingredient->food_id = $last_inserted_id;
+        $ingredient->ingredient_id = $smallArray['ingredient_id'];
+        $ingredient->weight = $smallArray["ingredient_weight"];
+        $ingredient->user_id = $user_id;
+        $ingredient->save();
+       
       }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show(Request $request, $id) {
-
-        $food = Foods::where('id', $id)->first();
-        $food_ingredient = Ingredients::where('food_id', $id)->get();
-
-        return view('foods.show')->with('food', $food)->with('food_ingredient',  $food_ingredient);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit(Request $request, $id) {
+    $message = "Food has been successfully added";
 
-        $food = Foods::where('id',$id)->first();
-        $brands = Brands::orderBy('name','asc')->get();
+    return redirect('food/index')->withMessage($message);
+  }
 
-        if ($food && ($request->user()->id == $food->user_id || $request->user()->is_admin()))
+  /**
+   * Display the specified resource.
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function show(Request $request, $id)
+  {
 
-          return view('foods.edit')->with('food', $food)->withBrands($brands);
+    $food = Foods::where('id', $id)->first();
+    $food_ingredient = Ingredients::where('food_id', $id)->get();
 
-        return redirect('/food/index')->withErrors('you have not sufficient permissions');
+    return view('foods.show')->with('food', $food)->with('food_ingredient',  $food_ingredient);
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function edit(Request $request, $id)
+  {
+
+    $food = Foods::where('id',$id)->first();
+    $brands = Brands::orderBy('name','asc')->get();
+
+    if ($food && ($request->user()->id == $food->user_id || $request->user()->is_admin()))
+
+      return view('foods.edit')->with('food', $food)->withBrands($brands);
+
+    return redirect('/food/index')->withErrors('you have not sufficient permissions');
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function update(Request $request)
+  {
+
+    $food_id = $request->input('food_id');
+    $food = Foods::find($food_id);
+
+    if ($food && ($food->user_id == $request->user()->id || $request->user()->is_admin())) {
+
+      $food->name = $request->input('name');
+      $food->brand_id = $request->input('brand');
+      $food->kcal = $request->input('kcal');
+      $food->proteins = $request->input('proteins');
+      $food->carbs = $request->input('carbs');
+      $food->fats = $request->input('fats');
+      $food->fibre = $request->input('fibre');
+      
+      if ($request->has('save')) {
+
+        $message = 'Food saved successfully';
+        $landing = 'food/index';  
+      }         
+      
+      $food->save();
+
+      return redirect($landing)->withMessage($message);
+
+    } else {
+
+      return redirect('/food/index')->withErrors('You have not sufficient permissions');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request) {
+  }
 
-        $food_id = $request->input('food_id');
-        $food = Foods::find($food_id);
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function destroy(Request $request, $id)
+  {
+      
+    $food = Foods::find($id);
 
-        if ($food && ($food->user_id == $request->user()->id || $request->user()->is_admin())) {
+    if ($food && ($food->user_id == $request->user()->id || $request->user()->is_admin())) {
 
-          $food->name = $request->input('name');
-          $food->brand_id = $request->input('brand');
-          $food->kcal = $request->input('kcal');
-          $food->proteins = $request->input('proteins');
-          $food->carbs = $request->input('carbs');
-          $food->fats = $request->input('fats');
-          $food->fibre = $request->input('fibre');
-          
-          if ($request->has('save')) {
+      $food->delete();
+      $data['message'] = 'Food deleted successfully';
 
-            $message = 'Food saved successfully';
-            $landing = 'food/index';  
-          }         
-          
-          $food->save();
+    } else  {
 
-          return redirect($landing)->withMessage($message);
-
-        } else {
-
-          return redirect('/food/index')->withErrors('You have not sufficient permissions');
-        }
-
+      $data['errors'] = 'Invalid Operation. You have not sufficient permissions';
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy(Request $request, $id) {
-        
-        $food = Foods::find($id);
-
-        if ($food && ($food->user_id == $request->user()->id || $request->user()->is_admin())) {
-
-          $food->delete();
-          $data['message'] = 'Food deleted successfully';
-
-        } else  {
-
-          $data['errors'] = 'Invalid Operation. You have not sufficient permissions';
-        }
-        
-        return redirect('/food/index')->with($data);
-    }
+    
+    return redirect('/food/index')->with($data);
+  }
 }

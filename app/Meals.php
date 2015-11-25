@@ -3,32 +3,35 @@ namespace App;
  
 use Illuminate\Database\Eloquent\Model;
  
-class Meals extends Model {
+class Meals extends Model
+{
  
 	protected $guarded = [];
 
-	public function food() {
+	public function food()
+	{
 		
 		return $this->belongsTo('App\Foods');
 	}
 
-	public static function getMealsWithTotals($selectedDate, $user_id) {
+	public static function getMealsWithTotals($selectedDate, $user_id)
+	{
 
 		$meals = Meals::select( \DB::raw('*, meals.id as meal_id') ) 
-				->leftJoin('foods', 'meals.food_id', '=', 'foods.id')
-				->where('planed_food', '0')
-				->where('date', $selectedDate)
-				->where('meals.user_id', $user_id)
-				->orderBy('meals.created_at','desc')
-				->paginate(100);
+			->leftJoin('foods', 'meals.food_id', '=', 'foods.id')
+			->where('planed_food', '0')
+			->where('date', $selectedDate)
+			->where('meals.user_id', $user_id)
+			->orderBy('meals.created_at','desc')
+			->paginate(100);
 
 		$meals_planed = Meals::select( \DB::raw('*, meals.id as meal_id') ) 
-				->leftJoin('foods', 'meals.food_id', '=', 'foods.id')
-				->where('planed_food', '1')
-				->where('date', $selectedDate)
-				->where('meals.user_id', $user_id)
-				->orderBy('meals.created_at','desc')
-				->paginate(100);
+			->leftJoin('foods', 'meals.food_id', '=', 'foods.id')
+			->where('planed_food', '1')
+			->where('date', $selectedDate)
+			->where('meals.user_id', $user_id)
+			->orderBy('meals.created_at','desc')
+			->paginate(100);
 
 		$totals = [
 			'sum_weight' => 0,
@@ -49,7 +52,7 @@ class Meals extends Model {
 		];
 
 
-		foreach($meals as $meal) {
+		foreach ($meals as $meal) {
 			$totals['sum_weight'] += $meal['weight'];
 			$totals['sum_kcal'] += $meal['kcal'] * $meal['weight'] / 100;
 			$totals['sum_proteins'] += $meal['proteins'] * $meal['weight'] / 100;
@@ -59,7 +62,7 @@ class Meals extends Model {
 					
 		}
 		
-		foreach($meals_planed as $meal) {
+		foreach ($meals_planed as $meal) {
 			$totals_planed['sum_weight'] += $meal['weight'];
 			$totals_planed['sum_kcal'] += $meal['kcal'] * $meal['weight'] / 100;
 			$totals_planed['sum_proteins'] += $meal['proteins'] * $meal['weight'] / 100;

@@ -6,7 +6,6 @@
 <div class = "row">
   <div class = "col-md-8" id = 'meals-content'>
  
-
     @if ( !$meals->count() )
       <span style = "font-size:19px;font-weight:bold">There is no meals for {{$now->format('d')}} {{$now->format('F')}} {{$now->format('Y')}}</span>
       <br/>
@@ -106,11 +105,20 @@
       @endif
   </div> <!-- class="col-md-8" id='meals-content' -->
   <div class = "col-md-4">
+      <div class="row" id="calendar-controls">
+        <div class = "col-xs-2 col-md-2" >
+          <button class="btn monthChange prev"  id="prevMonth"><i class="fa fa-chevron-left fa-lg"></i></button>
+        </div>
+        <div class = "col-md-offset-2 col-xs-8 col-md-6" id="calendar-month"> {{$now->format('F')}} {{$now->format('Y')}}</div>
+        <div class = "col-xs-2 col-md-2" >
+          <button class="btn monthChange next"  id="nextMonth"><i class="fa fa-chevron-right fa-lg"></i></button>
+        </div>
 
-    <h3 class = "smallHeader">{{$now->format('F')}} {{$now->format('Y')}}</h3>
+      </div>
 
-
-      {!!$calendar!!}
+      <div id="calendar-container">
+        {!!$calendar!!}
+      </div>
      
       <form action = "/new-meal" method = "post" class = "ajax">
         <input type = "hidden" name = "_token" value = "{{ csrf_token() }}">

@@ -5,16 +5,18 @@ use App\Http\Requests\Request;
 use App\User;
 use Auth;
 
-class FoodFormRequest extends Request {
+class FoodFormRequest extends Request
+{
 
   /**
    * Determine if the user is authorized to make this request.
    *
    * @return bool
    */
-  public function authorize() {    
+  public function authorize()
+  {    
 
-    if($this->user()->is_admin() || $this->user()->is_user()) {
+    if ($this->user()->is_admin() || $this->user()->is_user()) {
 
       return true;
     }
@@ -27,7 +29,8 @@ class FoodFormRequest extends Request {
    *
    * @return array
    */
-  public function rules() {
+  public function rules()
+  {
     
     return [
       'name' => 'required|unique:foods|max:255',

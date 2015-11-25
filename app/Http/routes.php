@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth']], function()
  Route::post('meal/update', 'MealController@update');
  Route::get('meal/delete/{id}', 'MealController@destroy');
  Route::get('meal/ajax_meal', 'MealController@ajax_meal');
+ Route::get('meal/ajax_calendar', 'MealController@ajax_calendar');
  Route::get('meal/all', 'MealController@all');
  Route::post('meal/planed', 'MealController@planed');
  Route::get('meal/user_meal/{id}', 'MealController@user_meal');

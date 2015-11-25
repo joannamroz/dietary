@@ -1,7 +1,44 @@
-input.form-control.short{
+nav {
+	height:100px;
+	
+}
+nav.navbar {
+	border-radius: 0px;
+	/*background-color: green;*/
+	border:0px;
+}
+nav.navbar.navbar-default {
+	/*background-color: green;*/
+	height: 70px;
+}
+div.container-fluid {
+	background-color: #007A00;
+	height:70px;
+	/*padding:2%;*/
+	font-size:18px;
+	color:white;
+}
+div.navbar-header {
+	height:70px;
+	background-color: yellow;
+	
+}
+.navbar-header>a.navbar-brand {
+	color:#007A00;
+
+}
+ul.nav.navbar-nav>li>a {
+	color:white;
+}
+ul.nav.navbar-nav>li>a:hover{
+	color:yellow;
+}
+
+
+input.form-control.short {
 	width:300px;
 }
-.select2{
+.select2 {
 	width:200px;
 }
 /* calendar */
@@ -206,6 +243,13 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+ /* background-image: url('../img/vegetable.jpg');
+	 background-size: cover;
+	 width:100%;
+	 background-repeat: no-repeat;*/
+}
+div.row {
+	padding:2%;
 }
 .footer {
   position: absolute;
@@ -224,6 +268,7 @@ body {
 
 .container .text-muted {
   margin: 20px 0;
+
 }
 div.block-blur {
 	margin-top:10%;
@@ -232,4 +277,8 @@ div.block-blur {
 	background-color: #CCFF33;
 	text-align: center;
 	font-weight: bold;
+}
+
+#additional-fields {
+	display:none;
 }

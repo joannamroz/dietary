@@ -2,13 +2,12 @@
  
 use Illuminate\Database\Eloquent\Model;
 
-class Brands extends Model {
+class Brands extends Model
+{
  
  
   protected $guarded = [];
 
   public $timestamps = false;
-
- 
  
 }

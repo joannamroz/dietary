@@ -17,15 +17,11 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-  
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="{{ asset('/js/mainscript.js') }}"></script>
@@ -33,6 +29,7 @@
 
   </head>
   <body>
+   <!--  <header style="height:100px; background-color:white"></header> -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -47,11 +44,9 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
+
             <li>
-                <a href="{{ url('/') }}">Home</a>
-            </li>
-            <li>
-                <a href="{{ url('/food/index') }}">Foods</a>
+                <a href="{{ url('/food/index') }}">Home</a>
             </li>
             <li>
                 <a href="{{ url('/brand/index') }}">Brands</a>
@@ -90,8 +85,6 @@
         </div>
       </div>
     </nav>
-
-    <div class="container">
       @if (Session::has('message'))
       <div class="flash alert-info">
         <p class="panel-body">

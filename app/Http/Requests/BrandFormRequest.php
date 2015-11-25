@@ -5,14 +5,16 @@ use App\Http\Requests\Request;
 use App\User;
 use Auth;
 
-class BrandFormRequest extends Request {
+class BrandFormRequest extends Request
+{
 
   /**
    * Determine if the user is authorized to make this request.
    *
    * @return bool
    */
-  public function authorize() {  
+  public function authorize()
+  {  
 
     if ($this->user()->is_admin() || $this->user()->is_user()) {
       return true;
@@ -25,7 +27,8 @@ class BrandFormRequest extends Request {
    *
    * @return array
    */
-  public function rules() {
+  public function rules()
+  {
     return [
       'name' => 'required|unique:brands|max:255'
      // 'name' => array('Regex:/^[A-Za-z0-9 ]+$/'),                      
