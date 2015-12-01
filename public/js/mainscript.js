@@ -84,6 +84,8 @@ $(document).ready(function() {
 			var month = $('.calendar').data('month');
 			var year = $('.calendar').data('year');
 
+
+
 	  		var values = {
 		    	'day':$('#selectedDay').val(),
 		    	'month':month,
@@ -506,14 +508,7 @@ $(document).ready(function() {
 		}
 
 		$('#selectedMonth').val(month);
-		//alert(next);
-
-		//var now = new Date();
-		//var thisMonth = now.getMonth()+1;
-		//var prevMonth = thisMonth-1;
 		
-
-
    	var values = {
 		    	'month':month,
 		    	'year':year

@@ -1,20 +1,19 @@
-nav {
+/*nav {
 	height:100px;
 	
 }
 nav.navbar {
 	border-radius: 0px;
-	/*background-color: green;*/
 	border:0px;
 }
 nav.navbar.navbar-default {
-	/*background-color: green;*/
+	
 	height: 70px;
 }
 div.container-fluid {
 	background-color: #007A00;
 	height:70px;
-	/*padding:2%;*/
+	
 	font-size:18px;
 	color:white;
 }
@@ -33,13 +32,13 @@ ul.nav.navbar-nav>li>a {
 ul.nav.navbar-nav>li>a:hover{
 	color:yellow;
 }
-
+*/
 
 input.form-control.short {
-	width:300px;
+	width:100%
 }
 .select2 {
-	width:200px;
+	width:100%;
 }
 /* calendar */
 table.calendar		{ border-left:1px solid #ddd; }
@@ -125,27 +124,30 @@ table.table.table-bordered tr td {
 .tableBold.left{
  	text-align: left;
 }
+form.ajax {
+	width:100%;
+}
 form.ajax div>input.short {
-	width:212px;
+	width:100%;
 	
 }
-#addNewFood{
+#addNewFood {
 margin-left:10px;
 }
 form.ajax.form-control.short{
 	display:inline-block;
-	width:50px;
+	width:100%;
 }
 .form-group.noMarginBottom{
 	margin-bottom:1px;
 	margin-top:10px;
 }
 div.form-group.noMarginBottom input.form-control.short{
-	display:inline-block;
-	float:right;
+	/*display:inline-block;
+	float:right;*/
 }
 label.control-label.short{
-	max-width: 300px;
+	max-width: 100%;
 	display:inline-block;
 }
 form#editMealForm div.form-group.noMarginBottom label .col-sm-2{
@@ -249,7 +251,9 @@ body {
 	 background-repeat: no-repeat;*/
 }
 div.row {
-	padding:2%;
+	/*padding:2%;*/
+	margin-left: 0px;
+	margin-right: 0px;
 }
 .footer {
   position: absolute;

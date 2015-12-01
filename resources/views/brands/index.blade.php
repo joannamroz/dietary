@@ -11,23 +11,18 @@ There is no brands till now. Login and add a new brand now!!!
 @else
 <div class = "row">
   <div class = "col-md-6">
-    
-    <div class = "list-group">
-      <div class = "list-group-item">
-      <table class = "table table-bordered">
-       <tr>
-        <th>Brand name</th>
-        <th>Edit</th>
-       </tr>
-        @foreach( $brands as $brand )
-        <tr>
-          <td>{{ $brand->name }}</td>
-          <td><a href = "{{ url('brand/edit/'.$brand->id)}}"><i class = "fa fa-pencil"></i></a></td>
-        </tr>
-      @endforeach
-      </table>
-      </div>
-    </div>
+    <table class = "table table-bordered">
+     <tr>
+      <th>Brand name</th>
+      <th>Edit</th>
+     </tr>
+      @foreach( $brands as $brand )
+      <tr>
+        <td>{{ $brand->name }}</td>
+        <td><a href = "{{ url('brand/edit/'.$brand->id)}}"><i class = "fa fa-pencil"></i></a></td>
+      </tr>
+    @endforeach
+    </table>   
   </div>
   <div class = "col-md-6">
     <button class = "btn btn-info" id = "btnNewBrand">Add new brand </button> <!-- {{ url('brand/new-brand') }} -->

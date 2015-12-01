@@ -4,20 +4,19 @@
 @endsection
 
 @section('content')
-
-<div class = "row">
-	<div class = "col-md-12">
-		<div class = "row">
-			<div class = "col-md-3" style = " margin-bottom:20px; border:solid lightgrey 1px; padding:5px; border-radius:5px">
+<div class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-3" style="margin-bottom:20px; border:solid lightgrey 1px; padding:5px; border-radius:5px">
 				<h4 style="text-align:center; font-weight:bold">Body Measurements</h4>
-				<span>Your weight range</span><span style="float:right"> {{ isset($userMeasure[0]) ? $userBMIrange : " - "  }}</span><br/>
+				<span>Your weight range</span><span style="float:right; font-weight:bold"> {{ isset($userMeasure[0]) ? $userBMIrange : " - "  }}</span><br/>
 				<span>Height </span><span style="float:right">{{ isset($userMeasure[0]) ? $userHeight : " - "  }}</span><br/>
 				<span>Weight </span><span style="float:right">{{ isset($userMeasure[0]) ? $userWeight : " - "  }}</span><br/>
 				<span>Body Fat </span><span style="float:right">{{ isset($userMeasure[0]) ? $userBodyFat : " - "  }}</span>
 				<p><strong><span>Your BMI is </span><span  class="{{ isset($userMeasure[0]) ? strtolower(str_replace(' ', '-', $userBMIrange)) : "-"  }}" style="float:right">{{ isset($userMeasure[0]) ? $userBMI.' ' : " - " }}<button id="showRanges"> <i class="fa fa-search"></i></button></span></strong></p> <br/>
 	
 				<div id="rangesInfo">
-					<span>Starvation </span><span class="starvation" >Less - 16 </span><br/>
+					<span>Starvation </span><span class="starvation">Less - 16 </span><br/>
 					<span>Emaciation </span><span class="emaciation">16,0–17,0 </span><br/>
 					<span>Underweight </span><span class="underweight" >17–18,5 </span><br/>
 					<span>Healthy </span><span class="healthy" >18,5–25,0 </span><br/>
@@ -27,7 +26,7 @@
 					<span>Second stage of obesity </span><span class="third-stage-of-obesity">40 - more  </span><br/>
 				</div>	
 			</div>
-			<div class = "col-md-3" style = " margin-bottom:20px; border:solid lightgrey 1px; padding:5px; border-radius:5px">
+			<div class="col-md-3" style=" margin-bottom:20px; border:solid lightgrey 1px; padding:5px; border-radius:5px">
 				<h4 style="text-align:center;font-weight:bold">Calculate BMI</h4>
 				<div class="form-group">
 		  		<label class="col-sm-6 control-label">Weight (kg)</label>
@@ -54,11 +53,11 @@
 			    </div>
 		 	 	</div>	
 			</div>
-			<div class="col-md-6" style = " margin-bottom:20px; border:solid lightgrey 1px; padding:5px; border-radius:5px">
+			<div class="col-md-6" style=" margin-bottom:20px; border:solid lightgrey 1px; padding:5px; border-radius:5px">
 				<h4 style="text-align:center;font-weight:bold">Calculate BMR</h4>
 				<div class="form-group">
 		  		<label class="col-sm-3 control-label">Sex</label>
-		  		<div class = "col-sm-3">
+		  		<div class="col-sm-3">
 			  		<select class="select2 form-control" name="sexBMR" id="sexBMR">
 			  			<option value=""></option>
 			  			<option value="female" @if($userData->sex == "female") selected=selected @endif>Female</option>
@@ -111,50 +110,55 @@
 		  	</div>	
 			</div>
 		</div>
-		<div class = "row">
-			<div class = "col-md-12">	
+		<div class="row">
+			<div class="col-md-12">	
 				@include('users.measurements_form', ['userData' => 'data'])
 			</div>
 		</div>
-		@if( isset($userMeasure[0]) )
+		@if( isset($userMeasureData[0]) )
 
 			<?php  
 				$now = new \DateTime(); 
-				$measurementsInArray = $userMeasure->toArray();
+				$measurementsInArray = $userMeasure->toArray();	
 				$latest = $measurementsInArray[0];
+				
 			?>
-		<div class = "row">
-			<div class = "col-md-12 col-xs-6">
-				<table class = "table table-striped bodyMeasurement">
-					<tr>
-						<th>Date</th><th>Weight</th><th>Body fat %</th><th>Body water %</th><th>Muscle %</th><th>BMI</th><th>Internal fat %</th><th>Waist</th><th>Chest</th><th>Neck</th><th>Hips</th><th>Biceps</th><th>Bust</th><th>Thigh</th><th>Upper arm</th><th>Delete</th>	
-					</tr>
-
-					@foreach($userMeasure as $measure)
-					<tr>
-						<td>{{ date("d/m/Y", strtotime($measure->date)) }}</td>
-						<td>{{ $measure->weight }}</td>	
-						<td>{{ $measure->body_fat }}</td>
-						<td>{{ $measure->water }}</td>
-						<td>{{ $measure->muscle }}</td>
-						<td>{{ $measure->bmi }}</td>
-						<td>{{ $measure->internal_fat }}</td>
-						<td>{{ $measure->waist }}</td>
-						<td>{{ $measure->chest }}</td>
-						<td>{{ $measure->neck }}</td>
-						<td>{{ $measure->hips }}</td>
-						<td>{{ $measure->biceps }}</td>
-						<td>{{ $measure->bust }}</td>
-						<td>{{ $measure->thigh }}</td>
-						<td>{{ $measure->upper_arm }}</td>
-						<td><a href = "{{  url('measurement/delete/'.$measure->id.'?_token='.csrf_token()) }}" >Delete</a></td>
-					</tr>
-					<tr>
-						<th>Comment: </th>
-						<td colspan = '16'>{{ $measure->comment }}</td>
-					</tr>						
-					@endforeach
-				</table>	
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<div class="table-responsive">
+					<table class="table table-striped bodyMeasurement">
+						<tr>
+							<th>Date</th><th>Weight</th><th>Body fat %</th><th>Body water %</th><th>Muscle %</th><th>BMI</th><th>Internal fat %</th><th>Waist</th><th>Chest</th><th>Neck</th><th>Hips</th><th>Biceps</th><th>Bust</th><th>Thigh</th><th>Upper arm</th><th>Delete</th>	
+						</tr>
+	
+						@foreach($userMeasureData as $new_measure)
+					
+						<tr>
+						
+							<td class="{{ $new_measure['weight']}}">{{ $new_measure['weight'] }}</td>
+							<td >{{ $new_measure['weight'] }}</td>	
+							<td >{{ $new_measure['body_fat'] }}</td>
+							<td >{{ $new_measure['water'] }}</td>
+							<td >{{ $new_measure['muscle'] }}</td>
+							<td >{{ $new_measure['bmi'] }}</td>
+							<td >{{ $new_measure['internal_fat'] }}</td>
+							<td >{{ $new_measure['waist'] }}</td>
+							<td >{{ $new_measure['chest'] }}</td>
+							<td >{{ $new_measure['neck'] }}</td>
+							<td >{{ $new_measure['hips'] }}</td>
+							<td >{{ $new_measure['biceps'] }}</td>
+							<td >{{ $new_measure['bust'] }}</td>
+							<td >{{ $new_measure['thigh'] }}</td>
+							<td >{{ $new_measure['upper_arm'] }}</td>
+							<td><a href="{{  url('measurement/delete/'.$new_measure['id'].'?_token='.csrf_token()) }}" >Delete</a></td>
+						</tr>
+						<tr>
+							<th>Comment: </th>
+							<td colspan='16'>{{ $new_measure['comment'] }}</td>
+						</tr>						
+						@endforeach
+					</table>
+				</div>	
 			</div>
 		</div>
 		@endif

@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Auth;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -68,53 +68,24 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     return false;
   }
 
-
-  // public function can_add_food() {
-
-  //     $role = $this->role;
-  //     if ($role == 'user') {
-  //       return true;
-  //     }
-  //     return false;
-  // }    
-  // public function can_add_brand() {
-
-  //     $role = $this->role;
-  //     if ($role == 'user') {
-  //       return true;
-  //     }
-  //     return false;
-  // }   
- 
-
   /* Need to redesign this function and move it to some sort of helper */
   public static function draw_calendar($month, $year) {
 
     $selectedMonth = Carbon::create($year,$month,1); /*creating calendar starting from day 1*/
     
-
     $now = new \DateTime();
 
     $thisMonth = $now->format('m'); 
     $nameMonth = $now->format('F');
     $thisYear = $now->format('Y');
     $thisDay = null;
-    // var_dump($thisMonth); die();
+
 
     if ($month == $thisMonth && $year == $thisYear) {
         $thisDay = $now->format('d');
     }
     /* draw table */
     $calendar = '<table cellpadding="0" cellspacing="0" class="calendar table" data-year="'.$year.'" data-month="'.$month.'">';
-
-    /*table controls */
-    // $calendar.='<tr class="calendar-row">
-    //               <th id="prevYear" class="calendar-day-head"><<</th>
-    //               <th id="prevMonth" class="calendar-day-head"><</th>
-    //               <th class="calendar-day-head" colspan="3">'.$nameMonth.' '.$year.'</th>
-    //               <th id="nextMonth" class="calendar-day-head">></th>
-    //               <th id="nextYear" class="calendar-day-head">>></th>
-    //             </tr>';
 
     /* table headings */
     $headings = array('Mon.','Tue.','Wed.','Thu.','Fr.','Sat.','Sun.');
@@ -126,7 +97,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      /* 0-tue, 1-wed, 2-thu, 3-Fr, 4-sat, 5-sun, 6-mon*/
     $days_in_month = date('t',mktime(0,0,0,$month,1,$year)); /*how many days in month*/
     $running_day_name = date('l', mktime(0,0,0,$month,'1',$year)); /*FIRST falls on what day of week Full Name*/
-    // var_dump( $running_day_name); die();
+  
     $days_in_this_week = 1;
     $day_counter = 0;
     $dates_array = array();
@@ -146,27 +117,34 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     /* keep going with days.... */
     for ($list_day = 1; $list_day <= $days_in_month; $list_day++):
-      if ($thisDay==$list_day){
+
+      if ($thisDay==$list_day) {
         $calendar.= '<td class="calendar-day today">';
       } else {
         $calendar.= '<td class="calendar-day">';
       }
-        /* add in the day number */
-        $calendar.= '<div class="day-number">'.$list_day.'</div>';
+      /* add in the day number */
+      $calendar.= '<div class="day-number">'.$list_day.'</div>';
 
-        /** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
-        $calendar.= str_repeat('<p> </p>',2);
+      /** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
+      $calendar.= str_repeat('<p> </p>',2);
           
       $calendar.= '</td>';
+
       if ($running_day == 7):
         $calendar.= '</tr>';
+
         if (($day_counter+1) != $days_in_month):
           $calendar.= '<tr class="calendar-row">';
         endif;
+
         $running_day = 0;
         $days_in_this_week = 0;
+
       endif;
+
       $days_in_this_week++; $running_day++; $day_counter++;
+
     endfor;
 
     /* finish the rest of the days in the week */
@@ -197,19 +175,126 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
     }
   }
-  public function can_add_meal()
+
+  public static function getCurrentMeasurements()
   {
-    $role = $this->role;
-    if ($role == 'user') {
-      return true;
-    }
-    return false;
-  }  
+    $sessionId =  Auth::user()->id;
+    $currentMeasurements = Measurements::where('user_id', $sessionId)->orderBy('date', 'desc')->select('height', 'weight','body_fat')->get();
+    return $currentMeasurements;
+   
+  }
+
+  // public function can_add_meal()
+  // {
+  //   $role = $this->role;
+  //   if ($role == 'user') {
+  //     return true;
+  //   }
+  //   return false;
+  // }  
   public function getUserAge()
   {
 
     $formattedDateStr = Carbon::createFromFormat("Y-m-d H:i:s", $this->date_of_birth);
     
     return  $formattedDateStr->diffInYears(Carbon::now());
+  }
+  public static function isLeapYear($year)
+  {
+      return ($year % 4 == 0 && $year % 100 != 0 || $year % 400 == 0);
+  }
+
+  public static function calendar($year, $month)
+  {
+    $calendar = '<table cellpadding="0" cellspacing="0" class="calendar table table-bordered" data-year="'.$year.'" data-month="'.$month.'">';
+
+    $headings = array('Mon.','Tue.','Wed.','Thu.','Fr.','Sat.','Sun.');
+    $calendar.= '<tr class="calendar-row">';
+
+    //we draw a row with headings
+    for ($i = 0; $i < count($headings); $i++ ) {
+      $calendar.= '<th class="calendar-day-head">'.$headings[$i].'</th>';
+  
+    }
+   
+    $calendar.= '</tr>';
+    $date = Carbon::create($year,$month,1);
+    $thisMonth = $date->month;                
+    $thisYear = $date->year;                 
+    $daysInMonth = $date->daysInMonth;    
+    $now = Carbon::now();
+
+    $thisDay = null;
+   
+    if ($month == $thisMonth && $year == $thisYear) {
+        $thisDay = $now->day;
+    }
+
+    // $daysInYear = isLeapYear($year) ? 366 : 365;
+    $firstOfMonth = $date->firstOfMonth(); //first day of month 2015 11 01
+    $numericFirstDayOfMonth = $firstOfMonth->dayOfWeek; // falls on what day of week (0-6) -> in November it's sunday so int(0)   // 0-sun, 1-mon, 2-tue, 3-wed, 4-thu, 5-fr, 6-sat
+   
+    $leadingEmpty = 0; // sum of empty td , if it's 0 it's monday so we don't need empty spaces
+    $lastOfMonth = $date->lastOfMonth()->dayOfWeek;
+    
+    if ($numericFirstDayOfMonth != 1) { //if it's not 1 - it's not a monday!
+      if ($numericFirstDayOfMonth == 0) { //if 0 it's - it's sunday 
+        $leadingEmpty = 6; //so we need 6 empty spaces
+      } else {
+        $leadingEmpty = $numericFirstDayOfMonth-1; //if its e.g. Thursday (4) we need 3 empty spaces before 
+      }
+    }
+
+    $daysNumber = 1; //var which help to iterate days in month from 1 to $daysInMonth
+    $calendar.='<tr class="calendar-row">';
+    //first row with empty td
+    for ( $i = 1 ; $i <= 7; $i ++) {
+      if ($i <= $leadingEmpty) { 
+        $calendar.= '<td class="calendar-day-np"></td>'; 
+      } else { 
+
+        if ($thisDay == $i) {
+          $calendar.='<td class="calendar-day today"><div class="day-number">'.$daysNumber.'</div></td>';
+        } else {
+          $calendar.='<td class="calendar-day"><div class="day-number">'.$daysNumber.'</div></td>';
+        }
+        $daysNumber++;
+      }
+    }
+    $calendar.='</tr>';
+
+  
+    $daysInThisWeek = 1;
+
+    //- from currentDay after first row untill daysInMonth ex. 4 to 31
+    for ($i = $daysNumber; $i <= $daysInMonth; $i++) {
+
+      $currentDate = Carbon::create($year,$month,$i);
+
+      //- It's Monday! we start new calendar row
+      if ($currentDate->dayOfWeek === Carbon::MONDAY) {
+        $calendar.='<tr class="calendar-row">';
+      }
+
+      if ($currentDate->isToday()) {
+        $calendar.='<td class="calendar-day today"><div class="day-number">'.$i.'</div></td>';
+      } else  {
+        $calendar.='<td class="calendar-day"><div class="day-number">'.$i.'</div></td>';
+      }
+
+      //- It's Sunday! we  end calendar row
+      if ($currentDate->dayOfWeek === Carbon::SUNDAY) {
+        $calendar.='</tr>';
+      }      
+    }
+
+    $empty_fields = 7-(int)$lastOfMonth;
+    for ($i = 0; $i < $empty_fields; $i ++) {
+      $calendar.= '<td class="calendar-day-np"></td>'; 
+    }
+
+
+    $calendar.= '</table>';
+    return $calendar;
   }
 }

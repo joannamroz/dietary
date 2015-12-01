@@ -11,6 +11,7 @@ use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BrandFormRequest;
+use Carbon\Carbon;
  
 use Illuminate\Http\Request;
 
@@ -28,6 +29,7 @@ class UserController extends Controller
     $this->middleware('auth');
   }
 
+ 
   public function profile(Request $request)
   {
 
@@ -35,35 +37,56 @@ class UserController extends Controller
     $userData = User::where('id', $sessionId)->first();
     $title = 'Your profile';
     $userMeasure = Measurements::where('user_id', $sessionId)->orderBy('date', 'desc')->get();
-    $age = $userData->getUserAge();
-
+    $age = $userData->getUserAge();   
 
     if (!$userMeasure->count()) {
 
       return view('users.profile')->with('userData', $userData)->with('title', $title)->with('age', $age);
     }
-    
-    $userMeasureForBmi = Measurements::where('user_id', $sessionId)->orderBy('date','desc')->first();
-    $userWeight = $userMeasureForBmi->weight;
-    $userHeight = $userMeasureForBmi->height;
-    $userBodyFat = $userMeasureForBmi->body_fat;
-    $userBMI = $userWeight / (($userHeight / 100) * ($userHeight / 100));
-    $userBMI = number_format($userBMI,2); //change to float(2)
-    $userBMIrange = User:: getUserBMIrange($userBMI);//function from User Model
-    
-    if ($userData) 
 
-      return view('users.profile')->with('userData', $userData)->with('title', $title)->with('userMeasure', $userMeasure)->with('userWeight', $userWeight)->with('userHeight', $userHeight)->with('userBodyFat', $userBodyFat)->with('userBMI', $userBMI)->with('userBMIrange', $userBMIrange)->with('age', $age);
+    $userMeasureData = $userMeasure->toArray();
+
+    $numberOfMeasurements = count($userMeasureData);
+
+    for ($i = 0; $i < $numberOfMeasurements-1; $i++) {
+ 
+      foreach($userMeasureData[$i] as $key => $value) {
+    
+        if($value > $userMeasureData[$i+1][$key ]) {
+          $userMeasureData[$i][$key.'_class'] = 'better';
+        } elseif ($value == $userMeasureData[$i+1][$key ]) {
+           $userMeasureData[$i][$key.'_class'] = 'equal';
+        } else {
+           $userMeasureData[$i][$key.'_class'] = 'worse';
+        }
+
+      }
+
+    }
+
+    $currentMeasurements = User::getCurrentMeasurements();  
+
+    $userWeight = $currentMeasurements[0]['weight'];
+    $userHeight = $currentMeasurements[0]['height'];
+    $userBodyFat = $currentMeasurements[0]['body_fat'];
+
+    $userBMI = $userWeight / (($userHeight / 100) * ($userHeight / 100));
+    $userBMI = number_format($userBMI,2);
+    $userBMIrange = User:: getUserBMIrange($userBMI);//function from User Model
+   
+   
+   
+    if ($userData) 
+      return view('users.profile')->with(compact(array('userData', 'title', 'userWeight', 'userHeight', 'userMeasure',  'userMeasureData', 'userBodyFat', 'userBMI', 'userBMIrange', 'age')));
 
     return redirect('/food/index')->withErrors('You do not have sufficient permissions');
     
   }
-
   
   public function index()
   { 
     $user_id = Auth::user()->id; 
-    $users = User:: where('id','!=',$user_id)->get();
+    $users = User:: where('id', '!=', $user_id)->get();
     $title = "All users";
     
 

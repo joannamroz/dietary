@@ -31,19 +31,30 @@ class MealController extends Controller
       // The user is logged in...
       return redirect('auth/login');
     }
+    //data for old function draw_calendar
+    // $now = new \DateTime();
+    // $today = $now->format('Y-m-d');
+    // $month = $now->format('m');
+    // $year = $now->format('Y'); 
+    // $calendar = User::draw_calendar($month, $year);
 
-    $now = new \DateTime();
-    $today = $now->format('Y-m-d');
-    $month = $now->format('m');
-    $year = $now->format('Y'); 
-    $calendar = User::draw_calendar($month, $year);
+    $now = Carbon::now();
+    $year = $now->year;
+    $month = $now->month;
+    $day = $now->day;
+    $today = $now->toDateString(); // we receive only date without hour
+  
+    
+    $calendar = User::calendar($year, $month);
+
+
+
     $foods = Foods::all();
 
 
     $user_id = Auth::user()->id;
 
     $meals_with_totals = Meals::getMealsWithTotals($today, $user_id);
-
     $meals =  $meals_with_totals['meals'];
     $meals_planed = $meals_with_totals['meals_planed'];
     $totals =  $meals_with_totals['totals'];
@@ -54,7 +65,7 @@ class MealController extends Controller
     //page heading
     $title = 'Meals added at '.$today;
 
-    return view('meals.index')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('today', $today)->with('permissions', $permissions);
+    return view('meals.index')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('today', $today)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('permissions', $permissions);
 
   }
 
@@ -76,11 +87,15 @@ class MealController extends Controller
       return redirect('user/index')->withMessage($message);
     }
 
-    $now = new \DateTime();
-    $today = $now->format('Y-m-d');
-    $month = $now->format('m');
-    $year = $now->format('Y'); 
-    $calendar = User::draw_calendar($month, $year);
+
+    $now = Carbon::now();
+    $year = $now->year;
+    $month = $now->month;
+    $day = $now->day;
+    $today = $now->toDateString();
+    $calendar = User::calendar($year, $month);
+   
+
     $foods = Foods::all();
 
     $meals_with_totals = Meals::getMealsWithTotals($today, $user_id);
@@ -148,11 +163,8 @@ class MealController extends Controller
     $month = $request->get('month'); 
     $year = $request->get('year'); 
 
-
-    $date = new \DateTime();
-
-    $date->setDate($year, $month, $day);
-    $meal->date = $date->format('Y-m-d');
+    $date =Carbon::create( $year ,$month, $day);
+    $meal->date = $date;
 
     $meal->comment = $request->get('comment');
   
@@ -260,12 +272,9 @@ class MealController extends Controller
       $day =  $request->input('day');
       $year =  $request->input('year');
       $month =  $request->input('month');
-
-      $date = new \DateTime();
-
-      $date->setDate($year, $month, $day);
-      $selectedDate = $date->format('Y-m-d');
-
+      $date =Carbon::create( $year ,$month, $day);
+  
+      $selectedDate = $date->toDateString();//without a hour
       $user_id = Auth::user()->id;
       
       $meals_with_totals = Meals::getMealsWithTotals($selectedDate, $user_id);
@@ -321,8 +330,6 @@ class MealController extends Controller
       $year =  $request->input('year');
 
       $date = Carbon::create($year,$month,1);
-
-     // $date = new \DateTime();
       $monthName = $date->format('F Y');
 
       $returnHTML = User::draw_calendar($month, $year);

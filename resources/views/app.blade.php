@@ -8,7 +8,7 @@
     <title>Dietary | Joanna & Matt</title>
 
     <!-- <link href=" //asset('/css/app.css') " rel="stylesheet"> -->
-    <link href="{{ asset('css/style.css') }} " rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -33,7 +33,7 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle Navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -60,7 +60,7 @@
             </li>
           </ul>
 
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav">
             @if (Auth::guest())
             <li>
               <a href="{{ url('/auth/login') }}">Login</a>
@@ -85,53 +85,44 @@
         </div>
       </div>
     </nav>
-      @if (Session::has('message'))
-      <div class="flash alert-info">
-        <p class="panel-body">
-          {{ Session::get('message') }}
-        </p>
-      </div>
-      @endif
-      @if ($errors->any())
-      <div class='flash alert-danger'>
-        <ul class="panel-body">
-          @foreach ( $errors->all() as $error )
-          <li>
-            {{ $error }}
-          </li>
-          @endforeach
-        </ul>
-      </div>
-      @endif
-      <div class="row">
-        <div class="col-md-12">
 
-            <!-- Page title -->
-            <h4><strong>@yield('title')</strong></h4>
-
-
-            @yield('title-meta')
-
-
-            <!-- Page content is added here  -->
-            @yield('content')
-          </div>
-        </div>
-
-      </div>
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-          <!-- <p>Copyright &copy; 2015 | <a href="/">Dietary </a></p> -->
-        </div>
-      </div>
+    @if (Session::has('message'))
+    <div class="flash alert-info">
+      <p class="panel-body">
+        {{ Session::get('message') }}
+      </p>
     </div>
-
-    <!-- Scripts -->
+    @endif
+    @if ($errors->any())
+    <div class='flash alert-danger'>
+      <ul class="panel-body">
+        @foreach ( $errors->all() as $error )
+        <li>
+          {{ $error }}
+        </li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
+    <div class="container">
     
-      <!-- Latest compiled and minified JavaScript -->
+      <div class="row">
 
-        <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-    
+        <div class="col-md-12">
+          <!-- Page title -->
+         @yield('title')
+
+
+          @yield('title-meta')
+
+          <!-- Page content is added here  -->
+          @yield('content')
+        </div> <!-- main-container -->
+      </div> <!-- row -->
+    </div> <!-- container -->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
   </body>
 </html>

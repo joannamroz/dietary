@@ -5,23 +5,24 @@
 <div class = "row">
   <div class = "col-md-8">
   	<h4>Name : {{ $food->name}}</h4>
-	<p>Kcal:  {{ $food->kcal}} / 100g</p>
-	<table class = "table table bordered">
-		<tr>
-			<th>Name</th><th>Brand</th><th>Weight</th><th>Kcal</th><th>Proteins</th><th>Carbs</th><th>Fats</th><th>Fibre</th>
-		</tr>
+		<p>Kcal:  {{ $food->kcal}} / 100g</p>
 		
-		<?php 
-		$totalWeight = 0;
-		$totalKcal = 0;
-		$totalProteins = 0;
-		$totalCarbs = 0;
-		$totalFats = 0;
-		$totalFibre = 0;?>
+		<table class = "table table bordered">
+			<tr>
+				<th>Name</th><th>Brand</th><th>Weight</th><th>Kcal</th><th>Proteins</th><th>Carbs</th><th>Fats</th><th>Fibre</th>
+			</tr>
+			
+			<?php 
+			$totalWeight = 0;
+			$totalKcal = 0;
+			$totalProteins = 0;
+			$totalCarbs = 0;
+			$totalFats = 0;
+			$totalFibre = 0;?>
 
 
-		@foreach ($food_ingredient as $food_one)   
-		<tr>
+			@foreach ($food_ingredient as $food_one)   
+			<tr>
 	  		<?php 
 	  		$weight = $food_one->weight;
 	  		$totalWeight += $weight;
@@ -44,20 +45,14 @@
 	  		<td>{{ $carbs }}</td>
 	  		<td>{{ $fats }}</td>
 	  		<td>{{ $fibre }}</td>
-	  		
-	  	</tr>
-		@endforeach
-		
-	  	<tr>
+		  		
+		  </tr>
+			@endforeach
+			
+		  <tr>
 	  		<th>Total</th><td>-</td><td>{{ $totalWeight }}g</td><td>{{ $totalKcal }}</td><td>{{ $totalProteins }}</td><td>{{ $totalCarbs }}</td><td>{{ $totalFats }}</td><td>{{ $totalFibre }}</td>
 	  	</tr>
-	  </table>
-
-	  	
-
-
-	
-
+		 </table>
   </div>          
 </div>
 
