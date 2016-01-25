@@ -53,17 +53,17 @@ class UserController extends Controller
       foreach($userMeasureData[$i] as $key => $value) {
     
         if($value > $userMeasureData[$i+1][$key ]) {
-          $userMeasureData[$i][$key.'_class'] = 'better';
+          $userMeasureData[$i][$key.'_class'] = 'up';
         } elseif ($value == $userMeasureData[$i+1][$key ]) {
-           $userMeasureData[$i][$key.'_class'] = 'equal';
+           $userMeasureData[$i][$key.'_class'] = 'same';
         } else {
-           $userMeasureData[$i][$key.'_class'] = 'worse';
+           $userMeasureData[$i][$key.'_class'] = 'down';
         }
 
       }
 
     }
-
+ 
     $currentMeasurements = User::getCurrentMeasurements();  
 
     $userWeight = $currentMeasurements[0]['weight'];

@@ -85,12 +85,42 @@ Route::group(['middleware' => ['auth']], function()
  Route::get('permission/add-permission/{id}', 'UserPermissionController@create');
  Route::post('add-permission', 'UserPermissionController@store');
 
+ Route::get('exercise/index', ['as' => 'exercise', 'uses' => 'ExerciseController@index']);
+ Route::get('exercise/new-exercise', 'ExerciseController@create');
+ Route::post('new-exercise', 'ExerciseController@store');
+ Route::get('exercise/edit/{id}', 'ExerciseController@edit');
+ Route::post('exercise/update', 'ExerciseController@update');
+ Route::get('exercise/delete/{id}', 'ExerciseController@destroy');
  
+ Route::get('training/new-training', 'TrainingController@create');
+ Route::post('new-training', 'TrainingController@store');
+ Route::get('training/edit/{id}', 'TrainingController@edit');
+ Route::post('training/update', 'TrainingController@update');
+ Route::get('training/delete/{id}', 'TrainingController@destroy');
+ Route::get('training/userTraining', 'TrainingController@userTraining');
+
+ Route::get('training/new-exercise-training', 'TrainingController@createExerciseTraining');
+ Route::post('new-exercise-training', 'TrainingController@storeExerciseTraining');
+ Route::get('training/future-training', 'TrainingController@futureTraining');
+ Route::post('future-training', 'TrainingController@storefutureTraining');
+
 });
  
 //users profile
 Route::get('user/profile/{id}','UserController@profile')->where('id', '[0-9]+');
 
 
+
+//Tutaj wersja wymagajaca zalogowanego uzytkownika Route::group(['prefix' => 'api','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'api'], function () {
+
+ 	Route::get('foods', 'ApiController@getFoods');
+	Route::get('foods/{id}/{secret}', 'ApiController@getFoodById');
+
+
+ 	//Route::get('foods/{$id}', 'ApiController@getFoodById');
+
+ 	Route::get('meals', 'ApiController@getMeals');
+});
 
 

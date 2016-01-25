@@ -2,6 +2,7 @@
 namespace App;
  
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
  
 class Meals extends Model
 {
@@ -15,7 +16,7 @@ class Meals extends Model
 	}
 
 	public static function getMealsWithTotals($selectedDate, $user_id)
-	{
+	{	
 
 		$meals = Meals::select( \DB::raw('*, meals.id as meal_id') ) 
 			->leftJoin('foods', 'meals.food_id', '=', 'foods.id')

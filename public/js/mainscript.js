@@ -11,24 +11,26 @@ $(document).ready(function() {
 	$(".use-select2").select2({
 		
 		width:'100%'
+
 	});
 
 	$(".use-select2-addFoodForUser").select2({
+
 		placeholder:'Add for other user',
 		width:'100%'
+
 	});
 
 	$(".use-select2-food").select2({
+
 		placeholder:'Select food from the list',
 		width:'100%'
+
 	});
 	
 
 	//Calendar day click event
 	$(document).on('click','.calendar-day', function() {
-
-
-
 
 		$('#selectedDay').val($(this).children('.day-number').text());
 		$('#selectedMonth').val($('.calendar').data('month'));		
@@ -258,10 +260,15 @@ $(document).ready(function() {
 
 
 	$('#addNewFood').on('mouseenter', function(){
+
 		$(this).text('Add new food');
+
 	});
+
 	$('#addNewFood').on('mouseleave', function(){
+
 		$(this).text(' + ');
+
 	});
 
 	function drawTable() {
@@ -304,6 +311,7 @@ $(document).ready(function() {
 
 	$('#compound_food').on('click',function() {
 		$('.compound_food').show();
+
 		if ($("#compound_food").is(':checked')) {
 			$('.compound_food').show();
 			$('.simple_food').hide();
@@ -329,6 +337,7 @@ $(document).ready(function() {
 
 			$('.planed_food').val('0');
 		}
+		
 	});
 
 	function addDataToInputs() {
@@ -494,7 +503,6 @@ $(document).ready(function() {
 
 	$('.monthChange').on('click', function () {
 
-		// $('#calendar-controls').next().remove();
 		var month = parseInt($('#selectedMonth').val());
 		var year = parseInt($('#selectedYear').val());
 
@@ -537,6 +545,55 @@ $(document).ready(function() {
 		    });
 	});
 
+	$('#newExercise').on('click', function() {
+
+		$('#newExerciseForm').toggle();
+	});
+
+	// $('#btnAddTraining').on('click', function() {
+
+	// 	$('#newTrainingForm').toggle();
+	// });
+	
+	$('textarea').keypress(function(){
+
+	    if(this.value.length > 255){
+	        return false;
+	    }
+	    $(".remainingC").html("Remaining characters : " +(255 - this.value.length));
+	});
+
+	// $('#newTrainingInput').on('click', function() {
+	// 	$('#trainingSelect').val('').trigger('change');
+	// 	$('#newTrainingBtn').show();
+
+	// });
+
+	$('#trainingSelect').change( function() {
+    	
+		var valuess = $(this).find(':selected').attr('data-exercises');
+		valuess = JSON.parse(valuess);
+		console.log(valuess);
+
+		var table = "<table class='table table-condensed'> \
+				<tr> \
+					<th >Name</th> \
+					<th >Series</th> \
+					<th >Repeats</td> \
+				</tr>";
+
+		for (var input in valuess) { 
+
+			var name = valuess[input]['name'];
+			var repeats = valuess[input]['pivot']['num_of_exercises'];
+			var series = valuess[input]['pivot']['num_of_series'];
+			table += '<tr><td>'+name+'</td><td>'+series+'</td><td>'+repeats+'</td></tr>';
+			
+		}
+		table+= '</table>';
+		$("#listExercise").html(table);
+
+	});
 });
  
 	

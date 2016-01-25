@@ -31,22 +31,14 @@ class MealController extends Controller
       // The user is logged in...
       return redirect('auth/login');
     }
-    //data for old function draw_calendar
-    // $now = new \DateTime();
-    // $today = $now->format('Y-m-d');
-    // $month = $now->format('m');
-    // $year = $now->format('Y'); 
-    // $calendar = User::draw_calendar($month, $year);
-
     $now = Carbon::now();
     $year = $now->year;
     $month = $now->month;
     $day = $now->day;
-    $today = $now->toDateString(); // we receive only date without hour
+    $today = $now->toDateString(); // only date without hour
   
     
     $calendar = User::calendar($year, $month);
-
 
 
     $foods = Foods::all();
@@ -163,7 +155,7 @@ class MealController extends Controller
     $month = $request->get('month'); 
     $year = $request->get('year'); 
 
-    $date =Carbon::create( $year ,$month, $day);
+    $date = Carbon::create($year, $month, $day);
     $meal->date = $date;
 
     $meal->comment = $request->get('comment');
@@ -269,19 +261,23 @@ class MealController extends Controller
 
    if ($request->ajax()) {
 
+      $now = Carbon::now();
+      $now = $now->toDateString();
       $day =  $request->input('day');
       $year =  $request->input('year');
       $month =  $request->input('month');
-      $date =Carbon::create( $year ,$month, $day);
+      $date = Carbon::create( $year, $month, $day);
   
       $selectedDate = $date->toDateString();//without a hour
+      // var_dump($selectedDate);die();
       $user_id = Auth::user()->id;
       
       $meals_with_totals = Meals::getMealsWithTotals($selectedDate, $user_id);
 
+
       $title = 'Meals added at '.$selectedDate;
 
-      $returnHTML = view('meals.ajax_meal')->withMeals($meals_with_totals['meals'])->withMealsPlaned($meals_with_totals['meals_planed'])->withTitle($title)->with('selectedDate', $selectedDate)->withTotals($meals_with_totals['totals'])->withTotalsPlaned($meals_with_totals['totals_planed'])->render();
+      $returnHTML = view('meals.ajax_meal')->withMeals($meals_with_totals['meals'])->withMealsPlaned($meals_with_totals['meals_planed'])->withTitle($title)->with('selectedDate', $selectedDate)->withTotals($meals_with_totals['totals'])->withTotalsPlaned($meals_with_totals['totals_planed'])->with('now', $now)->render();
       return response()->json(array('success' => true, 'html'=>$returnHTML));
 
     } else { 
@@ -331,8 +327,8 @@ class MealController extends Controller
 
       $date = Carbon::create($year,$month,1);
       $monthName = $date->format('F Y');
-
-      $returnHTML = User::draw_calendar($month, $year);
+      
+      $returnHTML = User::calendar($year,$month);
 
       return response()->json(array('success' => true, 'html' => $returnHTML, 'monthName' => $monthName));
 

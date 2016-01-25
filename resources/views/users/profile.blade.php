@@ -132,24 +132,39 @@
 						</tr>
 	
 						@foreach($userMeasureData as $new_measure)
-					
+				
 						<tr>
 						
-							<td class="{{ $new_measure['weight']}}">{{ $new_measure['weight'] }}</td>
-							<td >{{ $new_measure['weight'] }}</td>	
-							<td >{{ $new_measure['body_fat'] }}</td>
-							<td >{{ $new_measure['water'] }}</td>
-							<td >{{ $new_measure['muscle'] }}</td>
-							<td >{{ $new_measure['bmi'] }}</td>
-							<td >{{ $new_measure['internal_fat'] }}</td>
-							<td >{{ $new_measure['waist'] }}</td>
-							<td >{{ $new_measure['chest'] }}</td>
-							<td >{{ $new_measure['neck'] }}</td>
-							<td >{{ $new_measure['hips'] }}</td>
-							<td >{{ $new_measure['biceps'] }}</td>
-							<td >{{ $new_measure['bust'] }}</td>
-							<td >{{ $new_measure['thigh'] }}</td>
-							<td >{{ $new_measure['upper_arm'] }}</td>
+							<td >{{ $new_measure['date'] }}</td>
+
+							<td >{{ $new_measure['weight'] }} {!! isset($new_measure['weight_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['weight_class'].'"></i>' : '-' !!}</td>
+
+							<td >{{ $new_measure['body_fat'] }} {!! isset($new_measure['body_fat_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['body_fat_class'].'"></i>' : '-' !!}</td>
+
+							<td >{{ $new_measure['water'] }} {!! isset($new_measure['water_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['water_class'].'"></i>' : '-' !!}</td>
+
+							<td >{{ $new_measure['muscle'] }} {!! isset($new_measure['muscle_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['muscle_class'].'"></i>' : '-' !!}</td>
+
+							<td >{{ $new_measure['bmi'] }} {!! isset($new_measure['bmi_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['bmi_class'].'"></i>' : '-' !!}</td>
+
+							<td >{{ $new_measure['internal_fat'] }} {!! isset($new_measure['internal_fat_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['internal_fat_class'].'"></i>' : '-' !!}</td>
+
+							<td >{{ $new_measure['waist'] }} {!! isset($new_measure['waist_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['waist_class'].'"></i>' : '-' !!}</td>
+
+							<td >{{ $new_measure['chest'] }} {!! isset($new_measure['chest_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['chest_class'].'"></i>' : '-' !!}</td>
+
+							<td >{{ $new_measure['neck'] }} {!! isset($new_measure['neck_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['neck_class'].'"></i>' : '-' !!}</td>
+
+							<td >{{ $new_measure['hips'] }} {!! isset($new_measure['hips_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['hips_class'].'"></i>' : '-' !!}</td>	
+
+							<td >{{ $new_measure['biceps'] }} {!! isset($new_measure['biceps_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['biceps_class'].'"></i>' : '-' !!}</td>	
+
+							<td >{{ $new_measure['bust'] }} {!! isset($new_measure['bust_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['bust_class'].'"></i>' : '-' !!}</td>
+
+							<td >{{ $new_measure['thigh'] }} {!! isset($new_measure['thigh_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['thigh_class'].'"></i>' : '-' !!}</td>
+							
+							<td >{{ $new_measure['upper_arm'] }} {!! isset($new_measure['upper_arm_class']) ? '<i class="fa fa-long-arrow-'.$new_measure['upper_arm_class'].'"></i>' : '-' !!}</td>
+						
 							<td><a href="{{  url('measurement/delete/'.$new_measure['id'].'?_token='.csrf_token()) }}" >Delete</a></td>
 						</tr>
 						<tr>
