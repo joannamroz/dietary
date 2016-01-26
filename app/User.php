@@ -71,7 +71,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
   /* Need to redesign this function and move it to some sort of helper */
   public static function draw_calendar($month, $year) {
 
-    $selectedMonth = Carbon::create($year,$month,1); /*creating calendar starting from day 1*/
+    $selectedMonth = Carbon::create($year, $month, 1); /*creating calendar starting from day 1*/
     
     $now = new \DateTime();
 
@@ -253,7 +253,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $calendar.= '<td class="calendar-day-np"></td>'; 
       } else { 
 
-        if ($thisDay == $i) {
+        if ($thisDay == $daysNumber) {
           $calendar.='<td class="calendar-day today"><div class="day-number">'.$daysNumber.'</div></td>';
         } else {
           $calendar.='<td class="calendar-day"><div class="day-number">'.$daysNumber.'</div></td>';

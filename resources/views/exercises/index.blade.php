@@ -6,7 +6,9 @@
 @if ( !$exercises->count() )
   <h3>There is no exercises till now. Add one </h3>
 @else
+<a class="btn btn-danger" style="margin-bottom:1%; padding:15px" href="../training/userTraining">View your planed/finished trainings</a>
 <div class="row">
+
   <div class="col-md-4" id="exercises_div">
   <h3>Exercises</h3>
     <table class="table table-bordered">

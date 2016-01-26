@@ -7,11 +7,14 @@ use Auth;
 use App\Exercises;
 use App\Trainings;
 use App\ExerciseTraining;
+use App\Activities;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TrainingFormRequest;
 use App\Http\Requests\ExerciseTrainingFormRequest;
+use App\Http\Requests\ActivityFormRequest;
+
 
 class TrainingController extends Controller
 {
@@ -32,14 +35,14 @@ class TrainingController extends Controller
      */
     public function create(Request $request)
     {
-        if ($request->user()->is_user()) {
+       // if ($request->user()->is_user()) {
 
           return view('trainings.create');
 
-        } else {
+       // } else {
             
-          return redirect('/exercise/index')->withErrors('You have not sufficient permissions for adding new exercises.');
-        }
+       //   return redirect('/exercise/index')->withErrors('You have not sufficient permissions for adding new exercises.');
+       // }
     }
 
     public function createExerciseTraining(Request $request)
@@ -105,30 +108,33 @@ class TrainingController extends Controller
 
         } else {
             
-          return redirect('/training/userTraining')->withErrors('You have not sufficient permissions for adding new training.');
+          return redirect('/training/userTraining')->withErrors('You have not sufficient permissions planning new training.');
         }
     }
 
-    // public function storeFutureTraining(ExerciseTrainingFormRequest $request)
-    // {
-    //     $exercises = $request->get('exercise');
-    //     $user_id = Auth::user()->id;
+    public function storeFutureTraining(ActivityFormRequest $request)
+    {
+        $user_id = Auth::user()->id;
 
-    //     foreach($exercises as $exercise) {
+        $activity = new Activities();
+        $activity->training_id = $request->get('training');
+        $activity->date = $request->get('date');
+        $activity->user_id = $user_id;
+
+        if (null !== $request->get('done')) {
+           
+          $activity->done = 1;
+          $message = "Great job for finishing this training on ".$activity->date. "!";
+        } else {
             
-    //         $exercise_training = new ExerciseTraining();
-    //         $exercise_training->exercises_id = $exercise;
-    //         $exercise_training->trainings_id = $request->get('training');
-    //         $exercise_training->user_id = $user_id;
-    //         $exercise_training->num_of_series = $request->get('num_of_series');
-    //         $exercise_training->num_of_exercises = $request->get('num_of_exercises');
-    //         $exercise_training->save();
+          $activity->done = 0;
+          $message = "You have planed new activity for: ".$activity->date. "! Good luck!";
+        }
 
-    //     }
+        $activity->save();
 
-    //     $message = "Training has been successfully added";
-    //    return redirect('/training/userTraining')->withMessage($message);
-    // }
+       return redirect('/training/userTraining')->withMessage($message);
+    }
     /**
      * Display the specified resource.
      *
@@ -142,19 +148,12 @@ class TrainingController extends Controller
     public function userTraining() {
 
         $user_id = Auth::user()->id;
+        $trainings = Trainings::where('user_id', $user_id)->orderBy('created_at', 'desc')->limit(3)->get();
 
-        // $trainings = Trainings::find(1)->exercises()->get();
-        // var_dump($trainings);die();
-
-        $trainings = Trainings::where('user_id', $user_id)->get();
-        // var_dump($trainings);die();
-       //  foreach ($trainings as $training) {
-       //      foreach ($training->exercises as $value) {
-       //         var_dump($value->pivot->num_of_exercises);
-       //      }
-       //  }
-       // die();
-        return view('trainings.userTraining')->with('trainings', $trainings);
+        $activities = Activities::with('training')->where('user_id', $user_id)->get();
+        // dd($activities);die();
+    
+        return view('trainings.userTraining')->with('trainings', $trainings)->with('activities', $activities);
     }
     /**
      * Show the form for editing the specified resource.

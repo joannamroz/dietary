@@ -52,7 +52,13 @@
 	              <div class="form-group">
 	              	<label  class="col-sm-4 control-label">Select date</label>
 	              	<div class="col-sm-8">
-    					<input type="date" name="date_for_exercise" class="form-control" value="{{ old('date_for_exercise') }}">
+    					<input type="date" name="date" class="form-control" value="{{ old('date') }}">
+    				</div>
+	              </div>
+	              <div class="form-group">
+	              	<label  class="col-sm-4 control-label">Finished?</label>
+	              	<div class="col-sm-8">
+    					<input type="checkbox" name="done" class="form-control" value="{{ old('done') }}">
     				</div>
 	              </div>
 	              <div class="form-group">
@@ -62,6 +68,29 @@
 		           </div>
 	            </div>
 			</form>
+		</div>
+		<div class="col-md-12">
+			<table class="table table-bordered">
+				<tr>
+					<th>Nazwa</th>
+					<th>Date</th>
+					<th>Done</th>
+				</tr>
+				<?php //dd($activities); die(); ?>
+				@foreach ($activities as $activity) 
+
+					
+					
+					<tr>
+						<td>{{ $activity->training->name }}</td>
+						<td>{{ $activity->date }}</td>
+						<td>{{ $activity->done }}</td>
+					
+					</tr>
+					
+				@endforeach
+			</table>
+
 		</div>
 
 	</div>
