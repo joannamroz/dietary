@@ -25,6 +25,7 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="{{ asset('/js/mainscript.js') }}"></script>
+    <script src="{{ asset('/js/training.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
   </head>
@@ -49,6 +50,7 @@
             <li><a href="{{ url('/brand/index') }}">Brands</a></li>
             <li><a href="{{ url('/meal/index') }}">Meals</a></li>
             <li><a href="{{ url('/exercise/index') }}">Activity</a></li>
+             <li><a href="{{ url('/training/new-training-template') }}">Mata sposób</a></li>
             <li><a href="{{ url('/user/index') }}">Users</a></li>
              @if (Auth::guest())
               <li><a href="{{ url('/auth/login') }}">Login</a></li>

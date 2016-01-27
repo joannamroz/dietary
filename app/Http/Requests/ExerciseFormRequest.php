@@ -31,7 +31,7 @@ class ExerciseFormRequest extends Request
   {
     return [
       'name' => 'required|unique:exercises|max:255' ,
-      'description' => 'max:255'                  
+      'description' => 'max:255'              
     ];
   }	
 }

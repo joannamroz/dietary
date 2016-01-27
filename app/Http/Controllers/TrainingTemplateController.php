@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Exercises;
-use App\Trainings;
+use App\TrainingTemplates;
 use App\ExerciseTraining;
 use App\Activities;
 
@@ -16,7 +16,7 @@ use App\Http\Requests\ExerciseTrainingFormRequest;
 use App\Http\Requests\ActivityFormRequest;
 
 
-class TrainingController extends Controller
+class TrainingTemplateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -65,17 +65,33 @@ class TrainingController extends Controller
      */
     public function store(TrainingFormRequest $request)
     {
-        $exercises = $request->get('exercise');
-    
-        $training = new Trainings(); 
-        $training->name = $request->get('name');
-        $training->user_id = $request->user()->id;
-        $training->save();
+
+
+       // var_dump('here'); die();
+       //  $exercises = $request->get('exercise');
+        $id = $request->get('id');
+       // var_dump($id); die();
         
-        $message = "Training has been successfully added";
+        // If id exists ( TrainingTemplate exists)
+        if ($id) {
+            $training_template =  TrainingTemplates::find($id); 
+        } else {
+            //If its first time its saved
+            $training_template = new TrainingTemplates(); 
+            $training_template->user_id = $request->user()->id;
+        }
 
+        $training_template->name = $request->get('name');
+       
+        $training_template->save();
+        
+      //  $message = "Training has been successfully added";
+        
 
-       return redirect('/exercise/index')->withMessage($message);
+        $id = $training_template->id;
+       //return redirect('/exercise/index')->withMessage($message);
+       // var_dump($id); die();
+        return response()->json(array('success' => true, 'id'=>$id));
     }
 
     public function storeExerciseTraining(ExerciseTrainingFormRequest $request)
@@ -148,7 +164,7 @@ class TrainingController extends Controller
     public function userTraining() {
 
         $user_id = Auth::user()->id;
-        $trainings = Trainings::where('user_id', $user_id)->orderBy('created_at', 'desc')->limit(3)->get();
+        $trainings = TrainingTemplates::where('user_id', $user_id)->orderBy('created_at', 'desc')->limit(3)->get();
 
         $activities = Activities::with('training')->where('user_id', $user_id)->get();
         // dd($activities);die();
@@ -163,7 +179,7 @@ class TrainingController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $training = Trainings::where('id', $id)->first();
+        $training = TrainingTemplates::where('id', $id)->first();
         
         if ($training && ($request->user()->id == $training->user_id || $request->user()->is_admin()))
           return view('trainings.edit')->with('training', $training);
@@ -180,7 +196,7 @@ class TrainingController extends Controller
     public function update(Request $request)
     {
         $training_id = $request->input('training_id');
-        $training = Trainings::find($training_id);
+        $training = TrainingTemplates::find($training_id);
 
         if ($training && ($training->user_id == $request->user()->id || $request->user()->is_admin())) {
 
@@ -208,7 +224,7 @@ class TrainingController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $training = Trainings::find($id);
+        $training = TrainingTemplates::find($id);
 
         if ($training && ($training->user_id == $request->user()->id || $request->user()->is_admin())) {
 

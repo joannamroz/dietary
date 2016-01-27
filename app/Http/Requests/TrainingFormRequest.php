@@ -15,11 +15,15 @@ class TrainingFormRequest extends Request
    */
   public function authorize()
   {  
+  //  var_dump('tu?'); die();
 
-    if ($this->user()->is_admin() || $this->user()->is_user()) {
+   // var_dump($this->user()); die();
+    //if ($this->user()->is_admin() || $this->user()->is_user()) {
+
+
       return true;
-    }
-    return false;
+   // }
+    //return false;
   }
 
   /**
@@ -30,7 +34,7 @@ class TrainingFormRequest extends Request
   public function rules()
   {
     return [
-      'name' => 'required|unique:trainings|min:6|max:255',
+      'name' => 'required|unique:training_templates,id|min:6|max:255',
                 
     ];
   }	

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use Auth;
 use Log;
 use App\Exercises;
 use App\Trainings;
@@ -20,7 +22,7 @@ class ExerciseController extends Controller
     public function index()
     {
         $exercises = Exercises::all();
-        $trainings = Trainings::all();
+        $trainings = TrainingTemplates::all();
         
         return view('exercises.index')->with('exercises', $exercises)->with('trainings', $trainings);
         
@@ -54,6 +56,13 @@ class ExerciseController extends Controller
         $exercise = new Exercises(); 
         $exercise->name = $request->get('name');
         $exercise->description = $request->get('description');
+        if (null !== $request->get('time')) {
+           
+          $exercise->time = 1;
+        } else {
+            
+           $exercise->time = 0;
+        }
         $exercise->user_id = $request->user()->id;
         $exercise->save();
         $message = "Exercise has been successfully added";
@@ -138,4 +147,19 @@ class ExerciseController extends Controller
         
         return redirect('/exercise/index')->with($data);
     }
+
+    public function all()
+    {
+
+        if (!Auth::check()) {
+            // The user is logged in...
+            return redirect('auth/login');
+        }
+
+            $exercises = Exercises::all();
+    
+        return response()->json(array('success' => true, 'data'=> $exercises));
+
+    }
+
 }

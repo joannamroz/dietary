@@ -2,8 +2,11 @@
 namespace App;
  
 use Illuminate\Database\Eloquent\Model;
- 
-class Trainings extends Model
+
+/**
+ * 
+ */
+class TrainingTemplates extends Model
 {
  
 	// protected $guarded = [];

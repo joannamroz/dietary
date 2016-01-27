@@ -91,9 +91,14 @@ Route::group(['middleware' => ['auth']], function()
  Route::get('exercise/edit/{id}', 'ExerciseController@edit');
  Route::post('exercise/update', 'ExerciseController@update');
  Route::get('exercise/delete/{id}', 'ExerciseController@destroy');
+
+Route::get('exercise/all', 'ExerciseController@all'); 
  
- Route::get('training/new-training', 'TrainingController@create');
- Route::post('new-training', 'TrainingController@store');
+
+
+Route::get('training/new-training-template', 'TrainingTemplateController@create');
+Route::post('new-training-template', 'TrainingTemplateController@store');
+
  Route::get('training/edit/{id}', 'TrainingController@edit');
  Route::post('training/update', 'TrainingController@update');
  Route::get('training/delete/{id}', 'TrainingController@destroy');

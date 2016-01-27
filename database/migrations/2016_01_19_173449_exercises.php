@@ -18,6 +18,7 @@ class Exercises extends Migration
           $table->string('name');
           $table->string('description');
           $table->integer('user_id');
+          $table->integer('time');
           $table->timestamps();
         });
     }

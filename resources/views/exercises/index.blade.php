@@ -1,6 +1,5 @@
 @extends('app')
 
-
 @section('content')
 
 @if ( !$exercises->count() )
@@ -8,7 +7,6 @@
 @else
 <a class="btn btn-danger" style="margin-bottom:1%; padding:15px" href="../training/userTraining">View your planed/finished trainings</a>
 <div class="row">
-
   <div class="col-md-4" id="exercises_div">
   <h3>Exercises</h3>
     <table class="table table-bordered">
@@ -41,6 +39,13 @@
          <!--  <input required="required" value="{{ old('description') }}" placeholder="Enter name" type ="text" name ="description" class="form-control" /> -->
          <textarea name="description" rows="4" cols="50" class="form-control" value="{{ old('description') }}"></textarea><span class='remainingC'></span>
         </div>  
+      </div>
+      <div class="form-group">
+        <label class="col-sm-5 control-label">Time *</label>
+        <div class="col-sm-7">
+          <input type="checkbox" name="time" class="form-control">
+        </div> 
+        <span class="col-sm-12" style="color:red; font-size:10px">*Can you express this exercise only in units of time( i.e. 30 min)?</span> 
       </div>
       <div class="form-group">
         <div class="col-sm-1 col-sm-offset-9">
@@ -77,6 +82,8 @@
         <div class="col-md-10">
           <h4>Choose training and add exercise to it</h4>
           <hr>
+
+          
           <form action="/new-exercise-training" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
