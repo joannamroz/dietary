@@ -549,11 +549,6 @@ $(document).ready(function() {
 
 		$('#newExerciseForm').toggle();
 	});
-
-	// $('#btnAddTraining').on('click', function() {
-
-	// 	$('#newTrainingForm').toggle();
-	// });
 	
 	$('textarea').keypress(function(){
 
@@ -562,12 +557,6 @@ $(document).ready(function() {
 	    }
 	    $(".remainingC").html("Remaining characters : " +(255 - this.value.length));
 	});
-
-	// $('#newTrainingInput').on('click', function() {
-	// 	$('#trainingSelect').val('').trigger('change');
-	// 	$('#newTrainingBtn').show();
-
-	// });
 
 	$('#trainingSelect').change( function() {
     	
@@ -590,7 +579,7 @@ $(document).ready(function() {
 			table += '<tr><td>'+name+'</td><td>'+series+'</td><td>'+repeats+'</td></tr>';
 			
 		}
-		table+= '</table>';
+		table += '</table>';
 		$("#listExercise").html(table);
 
 	});

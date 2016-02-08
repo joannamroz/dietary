@@ -1,16 +1,14 @@
 $(document).ready(function() {
 
-	//alert('aha!');
-
   	var exercise_data = null;
 
 	$(document).on('click','#add-exercise', function() {
 
 
-		$("<div class='form-group'> <div class='col-sm-9'> <select name='exercise[]' class='form-control exercise-select new-exercise'> </select> </div>\
-			<div class='col-sm-1'> <input name='exercise-series[]' class='exercise-series form-control' type=text value=0 /> </div> \
-		<div class='col-sm-1'> <input name='exercise-reps[]' class='exercise-reps form-control col-sm-1' type=text value=0 /> </div>\
-		<div class='col-sm-1'> <input name='exercise-time[]' class='exercise-time form-control col-sm-1' type=text value=0 /> </div> </div> ").insertBefore('#add-exercise');
+		$("<div class='form-group'> <div class='col-sm-6'> <select name='exercise[]' class='form-control exercise-select new-exercise'> </select> </div>\
+			<div class='col-sm-2'> <input name='exercise-series[]' class='exercise-series form-control' type=text value=0 /> </div> \
+		<div class='col-sm-2'> <input name='exercise-reps[]' class='exercise-reps form-control col-sm-2' type=text value=0 /> </div>\
+		<div class='col-sm-2'> <input name='exercise-time[]' class='exercise-time form-control col-sm-2' type=text value=0 /> </div> </div> ").insertBefore('#add-exercise');
 
 
 		if (exercise_data == null) {
@@ -32,12 +30,7 @@ $(document).ready(function() {
 		        		exercise.id = response.data[i]['id'];
 		        		exercise.text = response.data[i]['name'];
 		        		exercise.time = response.data[i]['time'];
-		        		//exercise.kcal = response.data[i]['kcal'];
-		        		//exercise.proteins = response.data[i]['proteins'];
-		        		//exercise.carbs = response.data[i]['carbs'];
-		        		//exercise.fats = response.data[i]['fats'];
-		        		//exercise.fibre = response.data[i]['fibre'];
-
+		        	
 		        		//Data for select2
 		        		data.push(exercise);
 

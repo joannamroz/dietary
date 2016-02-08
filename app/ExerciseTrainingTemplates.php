@@ -7,5 +7,5 @@ class ExerciseTrainingTemplates extends Model
 {
  
 	// protected $guarded = [];
- 	protected $table = 'exercise_training';
+ 	protected $table = 'exercise_training_template';
 }

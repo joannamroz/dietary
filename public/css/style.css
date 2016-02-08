@@ -1,39 +1,76 @@
-/*nav {
-	height:100px;
-	
+html {
+  position: relative;
+  min-height: 100%;
 }
-nav.navbar {
+
+div.row {
+	/*padding:2%;*/
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+nav {
+	position:fixed;
+/*	top:30px;*/
+}
+nav.navbar-default {
 	border-radius: 0px;
 	border:0px;
+	background-color: #A30000; /*bordo*/
+	background-image: none;
 }
-nav.navbar.navbar-default {
-	
-	height: 70px;
-}
+
 div.container-fluid {
-	background-color: #007A00;
-	height:70px;
-	
-	font-size:18px;
-	color:white;
+	background-color: #A30000; /*bordo*/
+	font-size:15px;
+	position: relative;
+  top: 50%;
+  width:80%;
 }
+
 div.navbar-header {
-	height:70px;
-	background-color: yellow;
+	height:50px;
+	margin-left:15px;
+	background-color: #FFCC99; /*cream*/
 	
 }
 .navbar-header>a.navbar-brand {
-	color:#007A00;
+	color:#3D3D3D; /*dark grey*/
 
 }
-ul.nav.navbar-nav>li>a {
-	color:white;
+
+/*li.dropdown.open>a {
+	background-color: green;
 }
-ul.nav.navbar-nav>li>a:hover{
-	color:yellow;
+
+div.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: black;
+    background-color: #e7e7e7;
 }
+
 */
 
+ul.nav.navbar-nav>li>a {
+	color:#FFCC99;
+	font-weight: bold;
+}
+ul.nav.navbar-nav>li>a:hover{
+	color:white;
+
+}
+
+.container {
+	position: relative;
+  top: 60px;
+}
 input.form-control.short {
 	width:100%
 }
@@ -46,7 +83,7 @@ tr.calendar-row	{  }
 tr.calendar-row	th { 
 	text-align: center;
 	font-size: 12px;
- }
+}
 td.calendar-day	{ min-height:70px; font-size:11px; position:relative; } 
 * html div.calendar-day { height:70px; }
 td.calendar-day:hover	{ background:#eceff5; }
@@ -64,7 +101,7 @@ th.calendar-day-head {
 }
    
 
-div.day-number	{ 
+div.day-number { 
 	background:#fff; 
 	padding:6px; 
 	color:#333; 
@@ -84,17 +121,17 @@ td.calendar-day, td.calendar-day-np {
 
 
 
-td.calendar-day.today div{
+td.calendar-day.today div {
 
-    color: #333;
-    border: 1px solid #ABA9A9;
-    padding: 5px;
-    background-color: #f9f9f9;
+  color: #333;
+  border: 1px solid #ABA9A9;
+  padding: 5px;
+  background-color: #f9f9f9;
 
 }
 
-table.calendar.table tbody td.calendar-day.today{
-      padding: 0px;
+table.calendar.table tbody td.calendar-day.today {
+  padding: 0px;
 
 }
 
@@ -102,9 +139,9 @@ td.tableBold {
 	font-weight:bold;
 	text-align:center;
 	line-height: 25px;
-   min-height: 25px;
-   height: 5px;
-   padding:2px;
+  min-height: 25px;
+  height: 5px;
+  padding:2px;
 	
 }
 
@@ -121,7 +158,7 @@ table.table.table-bordered tr td {
    height: 25px;*/
    padding:2px;
 }
-.tableBold.left{
+.tableBold.left {
  	text-align: left;
 }
 form.ajax {
@@ -134,23 +171,23 @@ form.ajax div>input.short {
 #addNewFood {
 margin-left:10px;
 }
-form.ajax.form-control.short{
+form.ajax.form-control.short {
 	display:inline-block;
 	width:100%;
 }
-.form-group.noMarginBottom{
+.form-group.noMarginBottom {
 	margin-bottom:1px;
 	margin-top:10px;
 }
-div.form-group.noMarginBottom input.form-control.short{
+div.form-group.noMarginBottom input.form-control.short {
 	/*display:inline-block;
 	float:right;*/
 }
-label.control-label.short{
+label.control-label.short {
 	max-width: 100%;
 	display:inline-block;
 }
-form#editMealForm div.form-group.noMarginBottom label .col-sm-2{
+form#editMealForm div.form-group.noMarginBottom label .col-sm-2 {
   position: relative;
   min-height: 1px;
   padding-right: 15px;
@@ -177,10 +214,10 @@ table.calendar.table tbody th {
 }
 
 
-#brandForm{
+#brandForm {
 	display:none;
 }
-table.table.table-striped.bodyMeasurement tr td{
+table.table.table-striped.bodyMeasurement tr td {
 	text-align: center;
 }
 
@@ -236,40 +273,6 @@ div.block-blur {
 }
 
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
- /* background-image: url('../img/vegetable.jpg');
-	 background-size: cover;
-	 width:100%;
-	 background-repeat: no-repeat;*/
-}
-div.row {
-	/*padding:2%;*/
-	margin-left: 0px;
-	margin-right: 0px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #f5f5f5;
-}
-
-
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-
 .container .text-muted {
   margin: 20px 0;
 
@@ -285,4 +288,73 @@ div.block-blur {
 
 #additional-fields {
 	display:none;
+}
+.fa-long-arrow-up {
+	color:red;
+}
+.fa-long-arrow-down {
+	color:green;
+}
+
+#newExerciseForm {
+	display:none;
+}
+#newTrainingForm {
+	display:none;
+}
+.btn.square-button {
+	width:40px;
+	height:40px;
+	background-color: #A30000;
+	color:#FFCC99;
+	padding:1%;
+	border-radius:0px;
+	font-weight: bold;
+	font-size: 150%;
+	
+	transition: background-color 0.5s ease;
+	
+}
+.btn.square-button:hover {
+	background-color:#FFCC99;
+	color:#A30000;
+	border:2px solid #A30000;
+}
+#exercises_div {
+	background-color: #FFCC99;
+	padding:1%;
+	
+}
+
+#training_div {
+	background-color: rgba(253, 255, 153, 0.62);
+	padding:1%;
+	
+}
+#challenge_div {
+	background-color: #FFCC99;
+	padding:1%;
+}
+.step_div {
+	width:20%;
+	height:100%;
+	background-color: beige;
+}
+#newTrainingBtn {
+	display:none;
+}
+@media (max-width: 850px) {
+
+ .pull-right-only-desktop {
+    text-align: left;
+  }
+}
+
+@media (min-width: 850px) {
+
+  /* Here change menu for desktop */
+  .pull-right-only-desktop {
+    float:right !important;
+  }
+
 }

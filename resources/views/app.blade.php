@@ -50,7 +50,7 @@
             <li><a href="{{ url('/brand/index') }}">Brands</a></li>
             <li><a href="{{ url('/meal/index') }}">Meals</a></li>
             <li><a href="{{ url('/exercise/index') }}">Activity</a></li>
-             <li><a href="{{ url('/training/new-training-template') }}">Mata sposób</a></li>
+             <li><a href="{{ url('/training') }}">Training</a></li>
             <li><a href="{{ url('/user/index') }}">Users</a></li>
              @if (Auth::guest())
               <li><a href="{{ url('/auth/login') }}">Login</a></li>

@@ -16,7 +16,7 @@ use App\Http\Requests\ExerciseTrainingFormRequest;
 use App\Http\Requests\ActivityFormRequest;
 
 
-class TrainingTemplateController extends Controller
+class TrainingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,6 +25,9 @@ class TrainingTemplateController extends Controller
      */
     public function index()
     {
+
+
+         return view('trainings.index');
         //
     }
 

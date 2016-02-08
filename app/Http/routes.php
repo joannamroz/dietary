@@ -94,20 +94,22 @@ Route::group(['middleware' => ['auth']], function()
 
 Route::get('exercise/all', 'ExerciseController@all'); 
  
+	/** Training related routes */
 
+	Route::get('training', 'TrainingController@index');
 
-Route::get('training/new-training-template', 'TrainingTemplateController@create');
-Route::post('new-training-template', 'TrainingTemplateController@store');
+	Route::get('training/new-training-template', 'TrainingTemplateController@create');
+	Route::post('new-training-template', 'TrainingTemplateController@store');
 
- Route::get('training/edit/{id}', 'TrainingController@edit');
- Route::post('training/update', 'TrainingController@update');
- Route::get('training/delete/{id}', 'TrainingController@destroy');
- Route::get('training/userTraining', 'TrainingController@userTraining');
+ Route::get('training/edit/{id}', 'TrainingTemplateController@edit');
+ Route::post('training/update', 'TrainingTemplateController@update');
+ Route::get('training/delete/{id}', 'TrainingTemplateController@destroy');
+ Route::get('training/userTraining', 'TrainingTemplateController@userTraining');
 
- Route::get('training/new-exercise-training', 'TrainingController@createExerciseTraining');
- Route::post('new-exercise-training', 'TrainingController@storeExerciseTraining');
- Route::get('training/future-training', 'TrainingController@futureTraining');
- Route::post('future-training', 'TrainingController@storefutureTraining');
+ Route::get('training/new-exercise-training', 'TrainingTemplateController@createExerciseTraining');
+ Route::post('new-exercise-training', 'TrainingTemplateController@storeExerciseTraining');
+ Route::get('training/future-training', 'TrainingTemplateController@futureTraining');
+ Route::post('future-training', 'TrainingTemplateController@storefutureTraining');
 
 });
  
