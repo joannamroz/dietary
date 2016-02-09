@@ -3,10 +3,10 @@ namespace App\Http\Controllers;
 use Log;
 use Auth;
 use App\User;
-use App\Foods;
-use App\Brands;
-use App\UserPermissions;
-use App\Measurements;
+use App\Food;
+use App\Brand;
+use App\UserPermission;
+use App\Measurement;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -15,7 +15,7 @@ use Carbon\Carbon;
  
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -36,7 +36,7 @@ class UserController extends Controller
     $sessionId = $request->user()->id ;
     $userData = User::where('id', $sessionId)->first();
     $title = 'Your profile';
-    $userMeasure = Measurements::where('user_id', $sessionId)->orderBy('date', 'desc')->get();
+    $userMeasure = Measurement::where('user_id', $sessionId)->orderBy('date', 'desc')->get();
     $age = $userData->getUserAge();   
 
     if (!$userMeasure->count()) {

@@ -17,17 +17,14 @@
 // });
 
 //Following tutorial
-Route::get('/','MealController@index');
+Route::get('/','MealsController@index');
  
-Route::get('/home',['as' => 'home', 'uses' => 'MealController@index']);
-Route::get('/food',['as' => 'food', 'uses' => 'FoodController@index']);
-Route::get('/brand',['as' => 'brand', 'uses' => 'BrandController@index']);
-Route::get('/meal',['as' => 'meal', 'uses' => 'MealController@index']);
-Route::get('/user',['as' => 'user', 'uses' => 'UserController@index']);
-Route::get('/permission',['as' => 'permission', 'uses' => 'UserPermissionController@index']);
-
-
-
+Route::get('/home',['as' => 'home', 'uses' => 'MealsController@index']);
+Route::get('/food',['as' => 'food', 'uses' => 'FoodsController@index']);
+Route::get('/brand',['as' => 'brand', 'uses' => 'BrandsController@index']);
+Route::get('/meal',['as' => 'meal', 'uses' => 'MealsController@index']);
+Route::get('/user',['as' => 'user', 'uses' => 'UsersController@index']);
+Route::get('/permission',['as' => 'permission', 'uses' => 'UserPermissionsController@index']);
 
 
 //authentication
@@ -40,81 +37,86 @@ Route::controllers([
 Route::group(['middleware' => ['auth']], function()
 {
 
- Route::get('food/index', ['as' => 'food', 'uses' => 'FoodController@index']);
- Route::get('food/new-food', 'FoodController@create');
- Route::post('new-food', 'FoodController@store');
- Route::get('food/edit/{id}', 'FoodController@edit');
- Route::post('food/update', 'FoodController@update');
- Route::get('food/delete/{id}', 'FoodController@destroy');
- Route::get('food/show/{id}', 'FoodController@show');
+	 Route::get('food/index', ['as' => 'food', 'uses' => 'FoodsController@index']);
+	 Route::get('food/new-food', 'FoodsController@create');
+	 Route::post('new-food', 'FoodsController@store');
+	 Route::get('food/edit/{id}', 'FoodsController@edit');
+	 Route::post('food/update', 'FoodsController@update');
+	 Route::get('food/delete/{id}', 'FoodsController@destroy');
+	 Route::get('food/show/{id}', 'FoodsController@show');
 
- Route::get('brand/index', ['as' => 'brand', 'uses' => 'BrandController@index']);
- Route::get('brand/new-brand', 'BrandController@create');
- Route::post('new-brand', 'BrandController@store');
- Route::get('brand/edit/{id}', 'BrandController@edit');
- Route::post('brand/update', 'BrandController@update');
- Route::get('brand/delete/{id}', 'BrandController@destroy');
+	 Route::get('brand/index', ['as' => 'brand', 'uses' => 'BrandsController@index']);
+	 Route::get('brand/new-brand', 'BrandsController@create');
+	 Route::post('new-brand', 'BrandsController@store');
+	 Route::get('brand/edit/{id}', 'BrandsController@edit');
+	 Route::post('brand/update', 'BrandsController@update');
+	 Route::get('brand/delete/{id}', 'BrandsController@destroy');
 
- Route::get('meal/index', ['as' => 'meal', 'uses' => 'MealController@index']);
- Route::get('meal/new-meal', 'MealController@create');
- Route::post('new-meal', 'MealController@store');
- Route::get('meal/edit/{id}', 'MealController@edit'); 
- Route::post('meal/update', 'MealController@update');
- Route::get('meal/delete/{id}', 'MealController@destroy');
- Route::get('meal/ajax_meal', 'MealController@ajax_meal');
- Route::get('meal/ajax_calendar', 'MealController@ajax_calendar');
- Route::get('meal/all', 'MealController@all');
- Route::post('meal/planed', 'MealController@planed');
- Route::get('meal/user_meal/{id}', 'MealController@user_meal');
+	 Route::get('meal/index', ['as' => 'meal', 'uses' => 'MealsController@index']);
+	 Route::get('meal/new-meal', 'MealsController@create');
+	 Route::post('new-meal', 'MealsController@store');
+	 Route::get('meal/edit/{id}', 'MealsController@edit'); 
+	 Route::post('meal/update', 'MealsController@update');
+	 Route::get('meal/delete/{id}', 'MealsController@destroy');
+	 Route::get('meal/ajax_meal', 'MealsController@ajax_meal');
+	 Route::get('meal/ajax_calendar', 'MealsController@ajax_calendar');
+	 Route::get('meal/all', 'MealsController@all');
+	 Route::post('meal/planed', 'MealsController@planed');
+	 Route::get('meal/user_meal/{id}', 'MealsController@user_meal');
 
 
- Route::get('measurement/new-measure', 'MeasurementController@create');
- Route::post('new-measure', 'MeasurementController@store');
- Route::get('measurement/delete/{id}', 'MeasurementController@destroy');
+	 Route::get('measurement/new-measure', 'MeasurementsController@create');
+	 Route::post('new-measure', 'MeasurementsController@store');
+	 Route::get('measurement/delete/{id}', 'MeasurementsController@destroy');
 
- // Authentication routes...
- Route::get('auth/login', 'Auth\AuthController@getLogin');
- Route::post('auth/login', 'Auth\AuthController@postLogin');
- Route::get('auth/logout', 'Auth\AuthController@getLogout');
+	 // Authentication routes...
+	 Route::get('auth/login', 'Auth\AuthController@getLogin');
+	 Route::post('auth/login', 'Auth\AuthController@postLogin');
+	 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-// Registration routes...
- Route::get('auth/register', 'Auth\AuthController@getRegister');
- Route::post('auth/register', 'Auth\AuthController@postRegister');
- Route::get('user/index', ['as' => 'user', 'uses' => 'UserController@index']);
+	// Registration routes...
+	 Route::get('auth/register', 'Auth\AuthController@getRegister');
+	 Route::post('auth/register', 'Auth\AuthController@postRegister');
+	 Route::get('user/index', ['as' => 'user', 'uses' => 'UsersController@index']);
 
- Route::get('permission/add-permission/{id}', 'UserPermissionController@create');
- Route::post('add-permission', 'UserPermissionController@store');
+	 Route::get('permission/add-permission/{id}', 'UserPermissionsController@create');
+	 Route::post('add-permission', 'UserPermissionsController@store');
 
- Route::get('exercise/index', ['as' => 'exercise', 'uses' => 'ExerciseController@index']);
- Route::get('exercise/new-exercise', 'ExerciseController@create');
- Route::post('new-exercise', 'ExerciseController@store');
- Route::get('exercise/edit/{id}', 'ExerciseController@edit');
- Route::post('exercise/update', 'ExerciseController@update');
- Route::get('exercise/delete/{id}', 'ExerciseController@destroy');
+	 Route::get('exercise/index', ['as' => 'exercise', 'uses' => 'ExercisesController@index']);
+	 Route::get('exercise/new-exercise', 'ExercisesController@create');
+	 Route::post('new-exercise', 'ExercisesController@store');
+	 Route::get('exercise/edit/{id}', 'ExercisesController@edit');
+	 Route::post('exercise/update', 'ExercisesController@update');
+	 Route::get('exercise/delete/{id}', 'ExercisesController@destroy');
 
-Route::get('exercise/all', 'ExerciseController@all'); 
+	Route::get('exercise/all', 'ExercisesController@all'); 
  
 	/** Training related routes */
 
-	Route::get('training', 'TrainingController@index');
+	Route::get('training', 'TrainingsController@index');
 
-	Route::get('training/new-training-template', 'TrainingTemplateController@create');
-	Route::post('new-training-template', 'TrainingTemplateController@store');
+	Route::get('new-training', 'TrainingsController@create');
+	Route::post('new-training', 'TrainingsController@store');
 
- Route::get('training/edit/{id}', 'TrainingTemplateController@edit');
- Route::post('training/update', 'TrainingTemplateController@update');
- Route::get('training/delete/{id}', 'TrainingTemplateController@destroy');
- Route::get('training/userTraining', 'TrainingTemplateController@userTraining');
+	Route::get('training/new-training-template', 'TrainingTemplatesController@create');
+	Route::post('new-training-template', 'TrainingTemplatesController@store');
 
- Route::get('training/new-exercise-training', 'TrainingTemplateController@createExerciseTraining');
- Route::post('new-exercise-training', 'TrainingTemplateController@storeExerciseTraining');
- Route::get('training/future-training', 'TrainingTemplateController@futureTraining');
- Route::post('future-training', 'TrainingTemplateController@storefutureTraining');
+
+
+	 Route::get('training/edit/{id}', 'TrainingTemplatesController@edit');
+	 Route::post('training/update', 'TrainingTemplatesController@update');
+	 Route::get('training/delete/{id}', 'TrainingTemplatesController@destroy');
+	 Route::get('training/userTraining', 'TrainingTemplatesController@userTraining');
+
+	 Route::get('training/new-exercise-training', 'TrainingTemplatesController@createExerciseTraining');
+	 Route::post('new-exercise-training', 'TrainingTemplatesController@storeExerciseTraining');
+	 Route::get('training/future-training', 'TrainingTemplatesController@futureTraining');
+	 Route::post('future-training', 'TrainingTemplatesController@storefutureTraining');
 
 });
  
 //users profile
-Route::get('user/profile/{id}','UserController@profile')->where('id', '[0-9]+');
+Route::get('user/profile/{id}','UsersController@profile')->where('id', '[0-9]+');
 
 
 
@@ -123,7 +125,6 @@ Route::group(['prefix' => 'api'], function () {
 
  	Route::get('foods', 'ApiController@getFoods');
 	Route::get('foods/{id}/{secret}', 'ApiController@getFoodById');
-
 
  	//Route::get('foods/{$id}', 'ApiController@getFoodById');
 

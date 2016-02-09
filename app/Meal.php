@@ -4,7 +4,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
  
-class Meals extends Model
+class Meal extends Model
 {
  
 	protected $guarded = [];
@@ -12,13 +12,13 @@ class Meals extends Model
 	public function food()
 	{
 		
-		return $this->belongsTo('App\Foods');
+		return $this->belongsTo('App\Food');
 	}
 
 	public static function getMealsWithTotals($selectedDate, $user_id)
 	{	
 
-		$meals = Meals::select( \DB::raw('*, meals.id as meal_id') ) 
+		$meals = Meal::select( \DB::raw('*, meals.id as meal_id') ) 
 			->leftJoin('foods', 'meals.food_id', '=', 'foods.id')
 			->where('planed_food', '0')
 			->where('date', $selectedDate)
@@ -26,7 +26,7 @@ class Meals extends Model
 			->orderBy('meals.created_at','desc')
 			->paginate(100);
 
-		$meals_planed = Meals::select( \DB::raw('*, meals.id as meal_id') ) 
+		$meals_planed = Meal::select( \DB::raw('*, meals.id as meal_id') ) 
 			->leftJoin('foods', 'meals.food_id', '=', 'foods.id')
 			->where('planed_food', '1')
 			->where('date', $selectedDate)

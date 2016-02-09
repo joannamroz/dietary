@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\Exercises;
-use App\TrainingTemplates;
+use App\Exercise;
+use App\TrainingTemplate;
 use App\ExerciseTrainingTemplate;
-use App\Activities;
+use App\Activity;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -16,7 +16,7 @@ use App\Http\Requests\ExerciseTrainingFormRequest;
 use App\Http\Requests\ActivityFormRequest;
 
 
-class TrainingController extends Controller
+class TrainingTemplatesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,9 +25,6 @@ class TrainingController extends Controller
      */
     public function index()
     {
-
-
-         return view('trainings.index');
         //
     }
 
@@ -77,10 +74,10 @@ class TrainingController extends Controller
         
         // If id exists ( TrainingTemplate exists)
         if ($id) {
-            $training_template =  TrainingTemplates::find($id); 
+            $training_template =  TrainingTemplate::find($id); 
         } else {
             //If its first time its saved
-            $training_template = new TrainingTemplates(); 
+            $training_template = new TrainingTemplate(); 
             $training_template->user_id = $request->user()->id;
         }
 
@@ -135,7 +132,7 @@ class TrainingController extends Controller
     {
         $user_id = Auth::user()->id;
 
-        $activity = new Activities();
+        $activity = new Activity();
         $activity->training_id = $request->get('training');
         $activity->date = $request->get('date');
         $activity->user_id = $user_id;
@@ -168,7 +165,7 @@ class TrainingController extends Controller
 
         $user_id = Auth::user()->id;
 
-        $trainings = TrainingTemplates::where('user_id', $user_id)->orderBy('created_at', 'desc')->limit(3)->get();
+        $trainings = TrainingTemplate::where('user_id', $user_id)->orderBy('created_at', 'desc')->limit(3)->get();
 
 
        // $activities = Activities::with('training')->where('user_id', $user_id)->get();

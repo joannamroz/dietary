@@ -34,7 +34,7 @@ class TrainingFormRequest extends Request
   public function rules()
   {
     return [
-      'name' => 'required|unique:training_templates,id|min:6|max:255',
+     // 'name' => 'required|unique:training_templates,id|min:6|max:255',
                 
     ];
   }	

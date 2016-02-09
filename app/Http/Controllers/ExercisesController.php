@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Log;
-use App\Exercises;
+use App\Exercise;
+use App\Training;
 use App\TrainingTemplates;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExerciseFormRequest;
 
-class ExerciseController extends Controller
+class ExercisesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,8 +22,8 @@ class ExerciseController extends Controller
      */
     public function index()
     {
-        $exercises = Exercises::all();
-        $trainings = TrainingTemplates::all();
+        $exercises = Exercise::all();
+        $trainings = Training::all();
         
         return view('exercises.index')->with('exercises', $exercises)->with('trainings', $trainings);
         
@@ -156,7 +157,7 @@ class ExerciseController extends Controller
             return redirect('auth/login');
         }
 
-            $exercises = Exercises::all();
+        $exercises = Exercise::all();
     
         return response()->json(array('success' => true, 'data'=> $exercises));
 

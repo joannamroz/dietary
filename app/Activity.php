@@ -2,8 +2,10 @@
 namespace App;
  
 use Illuminate\Database\Eloquent\Model;
-
-class Activities extends Model
+/**
+ * This class probably does not make sense, should be just exercise
+ */
+class Activity extends Model
 {
  
  

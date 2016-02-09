@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 use Log;
 use Auth;
-use App\Exercises;
-use App\TrainingTemplates;
-use App\ExerciseTrainingTemplates;
+use App\Foods;
+use App\Ingredients;
+use App\Brands;
+use App\User;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -13,7 +14,7 @@ use App\Http\Requests\FoodFormRequest;
  
 use Illuminate\Http\Request;
 
-class ExerciseTrainingTemplateController extends Controller
+class IngredientsController extends Controller
 {
   /**
    * Display a listing of the resource.

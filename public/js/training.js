@@ -5,10 +5,10 @@ $(document).ready(function() {
 	$(document).on('click','#add-exercise', function() {
 
 
-		$("<div class='form-group'> <div class='col-sm-6'> <select name='exercise[]' class='form-control exercise-select new-exercise'> </select> </div>\
-			<div class='col-sm-2'> <input name='exercise-series[]' class='exercise-series form-control' type=text value=0 /> </div> \
-		<div class='col-sm-2'> <input name='exercise-reps[]' class='exercise-reps form-control col-sm-2' type=text value=0 /> </div>\
-		<div class='col-sm-2'> <input name='exercise-time[]' class='exercise-time form-control col-sm-2' type=text value=0 /> </div> </div> ").insertBefore('#add-exercise');
+		$("<div class='form-group'> <div class='col-sm-6'> <select name='exercise_id[]' class='form-control exercise-select new-exercise'> </select> </div>\
+			<div class='col-sm-2'> <input name='series[]' class='exercise_series form-control' type=text value=0 /> </div> \
+		<div class='col-sm-2'> <input name='reps[]' class='exercise-reps form-control col-sm-2' type=text value=0 /> </div>\
+		<div class='col-sm-2'> <input name='duration[]' class='exercise-time form-control col-sm-2' type=text value=0 /> </div> </div> ").insertBefore('#add-exercise');
 
 
 		if (exercise_data == null) {
