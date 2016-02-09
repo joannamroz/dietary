@@ -60,15 +60,18 @@ class MealsController extends Controller
 
 
     $date = clone $now;
-    $date->modify('-24 hours');
-    $formatted_date = $date->format('Y-m-d H:i:s');
+    
+    //$date->modify('-24 hours');
+
+    //$formatted_date = $date->format('Y-m-d H:i:s');
 
 
-    $training_done = Training::where('finished_at','>=',$formatted_date)->where('user_id', Auth::user()->id)->get();
+   // $training_done = Training::where('finished_at','>=',$formatted_date)->where('user_id', Auth::user()->id)->get();
+
+    $training_done = Training::getTrainingsForDate($date);
 
 
-
-    return view('meals.index')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('today', $today)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('permissions', $permissions)->with('training_done', $training_done);
+    return view('meals.index')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('date', $date)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('permissions', $permissions)->with('training_done', $training_done);
 
   }
 
@@ -277,18 +280,27 @@ class MealsController extends Controller
       $day =  $request->input('day');
       $year =  $request->input('year');
       $month =  $request->input('month');
-      $date = Carbon::create( $year, $month, $day);
+      
+      $selected_date = Carbon::create( $year, $month, $day);
   
-      $selectedDate = $date->toDateString();//without a hour
+      $date = $selected_date->toDateString();//without a hour
       // var_dump($selectedDate);die();
       $user_id = Auth::user()->id;
       
-      $meals_with_totals = Meal::getMealsWithTotals($selectedDate, $user_id);
+      $meals_with_totals = Meal::getMealsWithTotals($date, $user_id);
 
 
-      $title = 'Meals added at '.$selectedDate;
 
-      $returnHTML = view('meals.ajax_meal')->withMeals($meals_with_totals['meals'])->withMealsPlaned($meals_with_totals['meals_planed'])->withTitle($title)->with('selectedDate', $selectedDate)->withTotals($meals_with_totals['totals'])->withTotalsPlaned($meals_with_totals['totals_planed'])->with('now', $now)->render();
+      // $training_done = Training::where('finished_at','>=', $selected_date->startOfDay())->where('finished_at', '<=',$selected_date->endOfDay())->where('user_id', Auth::user()->id)->get();
+
+
+      $training_done = Training::getTrainingsForDate($selected_date);
+
+
+
+      $title = 'Meals added at '.$date;
+
+      $returnHTML = view('meals.ajax_meal')->withMeals($meals_with_totals['meals'])->withMealsPlaned($meals_with_totals['meals_planed'])->withTitle($title)->with('date', $date)->withTotals($meals_with_totals['totals'])->withTotalsPlaned($meals_with_totals['totals_planed'])->with('now', $now)->with('training_done', $training_done)->render();
       return response()->json(array('success' => true, 'html'=>$returnHTML));
 
     } else { 

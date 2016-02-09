@@ -15,7 +15,7 @@
           <div class = "col-md-12">
             <form action = "/new-meal" method ="post" class="ajax form-horizontal">
               <input type = "hidden" name = "_token" value = "{{ csrf_token() }}">
-              <input type = "hidden" value = "{{$today}}" name = "thisDay">
+              <input type = "hidden" value = "{{$date}}" name = "thisDay">
               <input type = "hidden" value = "{{$now->day}}" name = 'day' id = "selectedDay"/>
               <input type = "hidden" value = "{{$now->month}}" name = 'month' id = "selectedMonth"/>
               <input type = "hidden" value = "{{$now->year}}" name = 'year' id = "selectedYear"/> 

@@ -15,7 +15,7 @@ use App\Http\Requests\TrainingFormRequest;
 use App\Http\Requests\ExerciseTrainingFormRequest;
 use App\Http\Requests\ActivityFormRequest;
 
-use DateTime;
+use Carbon\Carbon;
 class TrainingsController extends Controller
 {
     /**
@@ -26,12 +26,13 @@ class TrainingsController extends Controller
     public function index()
     {
 
-        $date = new DateTime();
-        $date->modify('-24 hours');
-        $formatted_date = $date->format('Y-m-d H:i:s');
+        $date = new Carbon();
+       //$date->modify('-24 hours');
+       // $formatted_date = $date->format('Y-m-d H:i:s');
 
 
-        $training_done = Training::where('finished_at','>=',$formatted_date)->where('user_id', Auth::user()->id)->get();
+        //$training_done = Training::where('finished_at','>=',$formatted_date)->where('user_id', Auth::user()->id)->get();
+        $training_done = Training::getTrainingsForDate($date);
 
         return view('trainings.index')->with('training_done', $training_done);
     }
@@ -97,10 +98,10 @@ class TrainingsController extends Controller
         
         //dump($exercise_data);
 
-       
+        $user_id = Auth::user()->id;
         //array_walk($exercise_data, 'array_push', $training->id);
-        foreach ($exercise_data as $exercise) {
-            //$exercise_training[] = new Exercise($exercise);
+        foreach ($exercise_data as &$exercise) {
+            $exercise['user_id'] = $user_id;
         }
 
 
@@ -109,28 +110,10 @@ class TrainingsController extends Controller
         $training->exercises()->attach($exercise_data);
 
             
-            dd($exercise_data); die();
-     //   $training->exercises()->saveMany()   
+      //      dd($exercise_data); die();
 
-        // If id exists ( TrainingTemplate exists)
-      //   if ($id) {
-      //       $training_template =  TrainingTemplates::find($id); 
-      //   } else {
-      //       //If its first time its saved
-      //       $training_template = new TrainingTemplates(); 
-      //       $training_template->user_id = $request->user()->id;
-      //   }
 
-      //   $training_template->name = $request->get('name');
-       
-      //   $training_template->save();
-        
-      // //  $message = "Training has been successfully added";
-        
 
-      //   $id = $training_template->id;
-       //return redirect('/exercise/index')->withMessage($message);
-       // var_dump($id); die();
         return response()->json(array('success' => true, 'id'=>$id));
     }
 
