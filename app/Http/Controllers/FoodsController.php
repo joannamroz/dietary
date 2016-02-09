@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 use Log;
 use Auth;
-use App\Foods;
-use App\Ingredients;
-use App\Brands;
+use App\Food;
+use App\Ingredient;
+use App\Brand;
 use App\User;
 use Redirect;
 use App\Http\Requests;
@@ -14,7 +14,7 @@ use App\Http\Requests\FoodFormRequest;
  
 use Illuminate\Http\Request;
 
-class FoodController extends Controller
+class FoodsController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -25,7 +25,7 @@ class FoodController extends Controller
   {
 
     //fetch 20 foods from database which are latest
-    $foods = Foods::with('brand')->orderBy('created_at','desc')->paginate(20);
+    $foods = Food::with('brand')->orderBy('created_at','desc')->paginate(20);
                                                 
     //page heading
     $title = 'Food list';
@@ -41,7 +41,7 @@ class FoodController extends Controller
   public function create(Request $request)
   {
 
-    $brands = Brands::orderBy('name','asc')->get();
+    $brands = Brand::orderBy('name','asc')->get();
 
     if ($request->user()->is_user() || $request->user()->is_admin()) {
 
@@ -64,7 +64,7 @@ class FoodController extends Controller
     $data = $request->all();
     $user_id = Auth::user()->id;
 
-    $food = new Foods();
+    $food = new Food();
     $food->name = $request->get('name');
 
     if (isset($data['compound_food'])) {
@@ -102,7 +102,7 @@ class FoodController extends Controller
     
       foreach ($ingredientsInArray as $smallArray) {
 
-        $ingredient = new Ingredients();
+        $ingredient = new Ingredient();
         $ingredient->food_id = $last_inserted_id;
         $ingredient->ingredient_id = $smallArray['ingredient_id'];
         $ingredient->weight = $smallArray["ingredient_weight"];
@@ -126,7 +126,7 @@ class FoodController extends Controller
   public function show(Request $request, $id)
   {
 
-    $food = Foods::where('id', $id)->first();
+    $food = Food::where('id', $id)->first();
     $food_ingredient = Ingredients::where('food_id', $id)->get();
 
     return view('foods.show')->with('food', $food)->with('food_ingredient',  $food_ingredient);
@@ -141,8 +141,8 @@ class FoodController extends Controller
   public function edit(Request $request, $id)
   {
 
-    $food = Foods::where('id',$id)->first();
-    $brands = Brands::orderBy('name','asc')->get();
+    $food = Food::where('id',$id)->first();
+    $brands = Brand::orderBy('name','asc')->get();
 
     if ($food && ($request->user()->id == $food->user_id || $request->user()->is_admin()))
 
@@ -161,7 +161,7 @@ class FoodController extends Controller
   {
 
     $food_id = $request->input('food_id');
-    $food = Foods::find($food_id);
+    $food = Food::find($food_id);
 
     if ($food && ($food->user_id == $request->user()->id || $request->user()->is_admin())) {
 
@@ -199,7 +199,7 @@ class FoodController extends Controller
   public function destroy(Request $request, $id)
   {
       
-    $food = Foods::find($id);
+    $food = Food::find($id);
 
     if ($food && ($food->user_id == $request->user()->id || $request->user()->is_admin())) {
 

@@ -9,7 +9,8 @@
 
     <!-- <link href=" //asset('/css/app.css') " rel="stylesheet"> -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    
+    <link href="{{ asset('css/fuchsia.css') }}" rel="stylesheet">
+
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -30,10 +31,12 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
   </head>
-  <body>
+  <body class='fuchsia'>
  
-    <nav class="navbar navbar-default">
+    <div class='wrapper'> 
 
+
+<!--     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -72,7 +75,9 @@
            
         </div>
       </div>
-    </nav>
+    </nav> -->
+
+    @include('elements.navbar')
 
     @if (Session::has('message'))
     <div class="flash alert-info">
@@ -92,11 +97,39 @@
       </ul>
     </div>
     @endif
-    <div class="container">
-    
-      <div class="row">
 
-        <div class="col-md-12">
+       <div class='dashboard'>
+        @include('elements/sidebar')
+
+
+          <div class='main'>
+
+          <div class="scroll-wrapper scrollable scrollbar-macosx" style="position: relative;">
+          <div class="scrollable scrollbar-macosx scroll-content scroll-scrolly_visible" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 582px;">
+            <div class="main__cont">
+              <div class="main-heading">
+                <div class="main-title">
+                  <ol class="breadcrumb">
+                    <li class="active">Dashboard</li>
+                  </ol>
+                </div>
+                <div class="main-filter">
+                  <form class="main-filter__search">
+                    <div class="input-group">
+                      <input type="text" placeholder="Search..." class="form-control"><span class="input-group-btn">
+                        <button type="button" class="btn btn-default">
+                          <div class="fa fa-search"></div>
+                        </button></span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="container-fluid half-padding">
+                <div class="pages pages_dashboard">
+                  <div class="row">
+                    <div class="col-md-9">
+
+
           <!-- Page title -->
          @yield('title')
 
@@ -105,9 +138,16 @@
 
           <!-- Page content is added here  -->
           @yield('content')
-        </div> <!-- main-container -->
-      </div> <!-- row -->
-    </div> <!-- container -->
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+    </div>
+    </div>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>

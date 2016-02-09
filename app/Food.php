@@ -10,13 +10,13 @@ class Food extends Model
 	
 	public function ingredient()
 	{
-		return $this->hasMany('App\Ingredients');
+		return $this->hasMany('App\ingredient');
 	}
 
 
 	public function brand()
 	{
-		return $this->hasOne('App\Brands','id', 'brand_id');
+		return $this->hasOne('App\Brand','id', 'brand_id');
 	}  	
  	
 }
