@@ -28,10 +28,10 @@
         <li class="active"><a href="./">
             <div class="nav-menu__ico"><i class="fa fa-fw fa-star"></i></div>
             <div class="nav-menu__text"><span>Foods</span></div></a></li>
-        <li><a href="products.html">
+        <li><a href="{{ url('/brand/index') }}">
             <div class="nav-menu__ico"><i class="fa fa-fw fa-cube"></i></div>
             <div class="nav-menu__text"><span>Brands</span></div></a></li>
-        <li><a href="#">
+<!--         <li><a href="#">
             <div class="nav-menu__ico"><i class="fa fa-fw fa-envelope"></i></div>
             <div class="nav-menu__text"><span>Mailbox</span></div>
             <div class="nav-menu__right"><i class="fa fa-fw fa-angle-right arrow"></i></div></a>
@@ -40,7 +40,7 @@
             <li><a href="sent.html">Sent</a></li>
             <li><a href="compose.html">Compose</a></li>
           </ul>
-        </li>
+        </li> -->
         <li><a href="orders.html">
             <div class="nav-menu__ico"><i class="fa fa-fw fa-truck"></i></div>
             <div class="nav-menu__text"><span>Orders</span></div>
