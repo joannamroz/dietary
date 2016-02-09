@@ -27,10 +27,10 @@
       <ul class="nav nav-menu">
         <li class="active"><a href="./">
             <div class="nav-menu__ico"><i class="fa fa-fw fa-star"></i></div>
-            <div class="nav-menu__text"><span>Dashboard</span></div></a></li>
+            <div class="nav-menu__text"><span>Foods</span></div></a></li>
         <li><a href="products.html">
             <div class="nav-menu__ico"><i class="fa fa-fw fa-cube"></i></div>
-            <div class="nav-menu__text"><span>Products</span></div></a></li>
+            <div class="nav-menu__text"><span>Brands</span></div></a></li>
         <li><a href="#">
             <div class="nav-menu__ico"><i class="fa fa-fw fa-envelope"></i></div>
             <div class="nav-menu__text"><span>Mailbox</span></div>
