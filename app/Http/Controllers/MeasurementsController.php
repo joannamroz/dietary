@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Log;
-use App\Measurements;
+use App\Measurement;
 use App\User;
 use Redirect;
 use App\Http\Requests;
@@ -11,7 +11,7 @@ use App\Http\Requests\MeasurementFormRequest;
  
 use Illuminate\Http\Request;
 
-class MeasurementController extends Controller
+class MeasurementsController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -49,7 +49,7 @@ class MeasurementController extends Controller
   public function store(MeasurementFormRequest $request)
   {
   
-    $measure = new Measurements();
+    $measure = new Measurement();
     $measure->weight = $request->get('weight');
     $measure->date=$request->get('date');
     $measure->height = $request->get('height');
@@ -116,7 +116,7 @@ class MeasurementController extends Controller
    */
   public function destroy(Request $request, $id)
   {
-    $measure = Measurements::find($id);
+    $measure = Measurement::find($id);
 
     if ($measure && ($measure->user_id == $request->user()->id || $request->user()->is_admin())) {
 

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 use Auth;
 use Log;
-use App\Foods;
-use App\Meals;
-use App\Brands;
+use App\Food;
+use App\Meal;
+use App\Brand;
 use App\User;
-use App\UserPermissions;
+use App\UserPermission;
+use App\Training;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -17,7 +18,7 @@ use Illuminate\Http\Request;
 
 use Carbon\Carbon;
 
-class MealController extends Controller
+class MealsController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -41,23 +42,33 @@ class MealController extends Controller
     $calendar = User::calendar($year, $month);
 
 
-    $foods = Foods::all();
+    $foods = Food::all();
 
 
     $user_id = Auth::user()->id;
 
-    $meals_with_totals = Meals::getMealsWithTotals($today, $user_id);
+    $meals_with_totals = Meal::getMealsWithTotals($today, $user_id);
     $meals =  $meals_with_totals['meals'];
     $meals_planed = $meals_with_totals['meals_planed'];
     $totals =  $meals_with_totals['totals'];
     $totals_planed =  $meals_with_totals['totals_planed'];
 
-    $permissions = UserPermissions::with('user')->where('authorized_user_id', $user_id)->where('write_permission', 1)->get();
+    $permissions = UserPermission::with('user')->where('authorized_user_id', $user_id)->where('write_permission', 1)->get();
     
     //page heading
     $title = 'Meals added at '.$today;
 
-    return view('meals.index')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('today', $today)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('permissions', $permissions);
+
+    $date = clone $now;
+    $date->modify('-24 hours');
+    $formatted_date = $date->format('Y-m-d H:i:s');
+
+
+    $training_done = Training::where('finished_at','>=',$formatted_date)->where('user_id', Auth::user()->id)->get();
+
+
+
+    return view('meals.index')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('today', $today)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('permissions', $permissions)->with('training_done', $training_done);
 
   }
 
@@ -70,7 +81,7 @@ class MealController extends Controller
     $userName = $user->name;
     $title = ucfirst($userName).'\'s meals';
 
-    $permissionsForLoggedUser = UserPermissions::where('authorized_user_id', $sessionId)->where('user_id', $user_id)->where('read_permission', 1);
+    $permissionsForLoggedUser = UserPermission::where('authorized_user_id', $sessionId)->where('user_id', $user_id)->where('read_permission', 1);
 
     if ( !$permissionsForLoggedUser->count()) {
 
@@ -88,9 +99,9 @@ class MealController extends Controller
     $calendar = User::calendar($year, $month);
    
 
-    $foods = Foods::all();
+    $foods = Food::all();
 
-    $meals_with_totals = Meals::getMealsWithTotals($today, $user_id);
+    $meals_with_totals = Meal::getMealsWithTotals($today, $user_id);
 
     $meals =  $meals_with_totals['meals'];
     $meals_planed = $meals_with_totals['meals_planed'];
@@ -109,7 +120,7 @@ class MealController extends Controller
   public function create(Request $request)
   {
 
-    $foods = Foods::all();
+    $foods = Food::all();
 
     if ($request->user()->can_add_meal()) {
 
@@ -129,7 +140,7 @@ class MealController extends Controller
   public function store(MealFormRequest $request)
   {
       
-    $meal = new Meals();
+    $meal = new Meal();
     $meal->food_id = $request->get('food_id');
     $meal->weight = $request->get('weight');
 
@@ -186,8 +197,8 @@ class MealController extends Controller
   public function edit(Request $request, $id)
   {
 
-    $foods = Foods::all();
-    $meal = Meals::where('id', $id)->first();
+    $foods = Food::all();
+    $meal = Meal::where('id', $id)->first();
 
     if ($meal && ($request->user()->id == $meal->user_id || $request->user()->is_admin()))
 
@@ -205,7 +216,7 @@ class MealController extends Controller
   public function update(Request $request)
   {
     $meal_id = $request->input('meal_id');
-    $meal = Meals::find($meal_id);
+    $meal = Meal::find($meal_id);
 
     if ($meal && ($meal->user_id == $request->user()->id || $request->user()->is_admin())) {
 
@@ -241,7 +252,7 @@ class MealController extends Controller
   public function destroy(Request $request, $id)
   {
 
-    $meal = Meals::find($id);
+    $meal = Meal::find($id);
 
     if ($meal && ($meal->user_id == $request->user()->id || $request->user()->is_admin())) {
 
@@ -272,7 +283,7 @@ class MealController extends Controller
       // var_dump($selectedDate);die();
       $user_id = Auth::user()->id;
       
-      $meals_with_totals = Meals::getMealsWithTotals($selectedDate, $user_id);
+      $meals_with_totals = Meal::getMealsWithTotals($selectedDate, $user_id);
 
 
       $title = 'Meals added at '.$selectedDate;
@@ -295,7 +306,7 @@ class MealController extends Controller
       return redirect('auth/login');
     }
 
-    $foods = Foods::all();
+    $foods = Food::all();
     return response()->json(array('success' => true, 'data'=>$foods));
     
   }
@@ -304,7 +315,7 @@ class MealController extends Controller
   {
 
     $meal_id = $request->id;
-    $meal = Meals::find($meal_id);
+    $meal = Meal::find($meal_id);
 
     if ($meal && ($meal->user_id == $request->user()->id || $request->user()->is_admin())) {
 

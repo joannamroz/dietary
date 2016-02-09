@@ -2,7 +2,7 @@
  
 use Illuminate\Database\Eloquent\Model;
 
-class Brands extends Model
+class Brand extends Model
 {
  
  

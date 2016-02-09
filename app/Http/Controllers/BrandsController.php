@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Log;
-use App\Foods;
-use App\Brands;
+use App\Food;
+use App\Brand;
 use App\User;
 use Redirect;
 use App\Http\Requests;
@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BrandFormRequest;
  
 use Illuminate\Http\Request;
-class BrandController extends Controller
+class BrandsController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -22,7 +22,7 @@ class BrandController extends Controller
   public function index() 
   {
       
-    $brands = Brands::all();
+    $brands = Brand::all();
     //page heading
     $title = 'Brand List';
     //return home.blade.php template from resources/views folder
@@ -55,7 +55,7 @@ class BrandController extends Controller
   public function store(BrandFormRequest $request) 
   {
 
-    $brand = new Brands(); 
+    $brand = new Brand(); 
     $brand->name = $request->get('name');
     $brand->user_id = $request->user()->id;
     $brand->save();
@@ -85,7 +85,7 @@ class BrandController extends Controller
   public function edit(Request $request,$id) 
   {
       
-    $brand = Brands::where('id',$id)->first();
+    $brand = Brand::where('id',$id)->first();
     if ($brand && ($request->user()->id == $brand->user_id || $request->user()->is_admin()))
       return view('brands.edit')->with('brand', $brand);
     return redirect('/brand/index')->withErrors('You have not sufficient permissions');
@@ -101,7 +101,7 @@ class BrandController extends Controller
   {
 
     $brand_id = $request->input('brand_id');
-    $brand = Brands::find($brand_id);
+    $brand = Brand::find($brand_id);
     if ($brand && ($brand->user_id == $request->user()->id || $request->user()->is_admin())) {
 
       $brand->name = $request->input('name');  
@@ -129,7 +129,7 @@ class BrandController extends Controller
   public function destroy(Request $request, $id)
   {
 
-    $brand = Brands::find($id);
+    $brand = Brand::find($id);
 
     if ($brand && ($brand->user_id == $request->user()->id || $request->user()->is_admin())) {
 

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Exercises;
-use App\TrainingTemplates;
-use App\ExerciseTrainingTemplate;
+use App\Training;
+use App\Exercise;
 use App\Activities;
 
 use App\Http\Requests;
@@ -15,8 +15,8 @@ use App\Http\Requests\TrainingFormRequest;
 use App\Http\Requests\ExerciseTrainingFormRequest;
 use App\Http\Requests\ActivityFormRequest;
 
-
-class TrainingTemplateController extends Controller
+use DateTime;
+class TrainingsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,15 @@ class TrainingTemplateController extends Controller
      */
     public function index()
     {
-        //
+
+        $date = new DateTime();
+        $date->modify('-24 hours');
+        $formatted_date = $date->format('Y-m-d H:i:s');
+
+
+        $training_done = Training::where('finished_at','>=',$formatted_date)->where('user_id', Auth::user()->id)->get();
+
+        return view('trainings.index')->with('training_done', $training_done);
     }
 
     /**
@@ -66,29 +74,61 @@ class TrainingTemplateController extends Controller
     public function store(TrainingFormRequest $request)
     {
 
-
-       // var_dump('here'); die();
-       //  $exercises = $request->get('exercise');
         $id = $request->get('id');
-       // var_dump($id); die();
         
-        // If id exists ( TrainingTemplate exists)
-        if ($id) {
-            $training_template =  TrainingTemplates::find($id); 
-        } else {
-            //If its first time its saved
-            $training_template = new TrainingTemplates(); 
-            $training_template->user_id = $request->user()->id;
+       
+
+        $exercise_fields = ['exercise_id', 'reps', 'series', 'duration'];
+        $exercise_data = [];
+
+        $training = new Training();
+        $training->user_id = Auth::user()->id;
+        $training->save();
+
+        foreach($exercise_fields as $field) {
+
+            $data = $request->input($field);
+
+            foreach ($data as $key => $value ) {
+                $exercise_data[$key][$field] = $value;
+            }
+        }
+        
+        
+        //dump($exercise_data);
+
+       
+        //array_walk($exercise_data, 'array_push', $training->id);
+        foreach ($exercise_data as $exercise) {
+            //$exercise_training[] = new Exercise($exercise);
         }
 
-        $training_template->name = $request->get('name');
+
+
+       //   dd($exercise_training); die();
+        $training->exercises()->attach($exercise_data);
+
+            
+            dd($exercise_data); die();
+     //   $training->exercises()->saveMany()   
+
+        // If id exists ( TrainingTemplate exists)
+      //   if ($id) {
+      //       $training_template =  TrainingTemplates::find($id); 
+      //   } else {
+      //       //If its first time its saved
+      //       $training_template = new TrainingTemplates(); 
+      //       $training_template->user_id = $request->user()->id;
+      //   }
+
+      //   $training_template->name = $request->get('name');
        
-        $training_template->save();
+      //   $training_template->save();
         
-      //  $message = "Training has been successfully added";
+      // //  $message = "Training has been successfully added";
         
 
-        $id = $training_template->id;
+      //   $id = $training_template->id;
        //return redirect('/exercise/index')->withMessage($message);
        // var_dump($id); die();
         return response()->json(array('success' => true, 'id'=>$id));

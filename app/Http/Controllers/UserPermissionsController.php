@@ -11,7 +11,7 @@ use App\Http\Requests\UserPermissionFormRequest;
  
 use Illuminate\Http\Request;
 
-class UserPermissionController extends Controller
+class UserPermissionsController extends Controller
 {	
 	public function index()
   {

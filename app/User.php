@@ -179,7 +179,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
   public static function getCurrentMeasurements()
   {
     $sessionId =  Auth::user()->id;
-    $currentMeasurements = Measurements::where('user_id', $sessionId)->orderBy('date', 'desc')->select('height', 'weight','body_fat')->get();
+    $currentMeasurements = Measurement::where('user_id', $sessionId)->orderBy('date', 'desc')->select('height', 'weight','body_fat')->get();
     return $currentMeasurements;
    
   }

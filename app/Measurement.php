@@ -3,7 +3,7 @@ namespace App;
  
 use Illuminate\Database\Eloquent\Model;
  
-class Measurements extends Model
+class Measurement extends Model
 {
  
 	protected $guarded = [];

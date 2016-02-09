@@ -95,6 +95,10 @@
         </table>                
       <h5 style="color:red; font-weight:bold">Total kcal:{{ number_format($suma_kcal, 1) }}</h5>
       @endif
+
+      @include('trainings.training_done')
+
+
   </div> <!-- class="col-md-8" id='meals-content' -->
   <div class="col-md-5">
 
