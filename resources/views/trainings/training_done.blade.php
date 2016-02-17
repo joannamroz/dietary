@@ -1,10 +1,10 @@
 @if ( !$training_done->count() )
 
-  <h4 style="font-weight:bold">Training done today: - </h4><br/>
+  <h3 class="panel-title" style="margin-top:50px">Training done today: - </h3><br/>
 
 @else
 
-  <h4 style = "font-weight:bold">Training done today:</h4>
+  <h3 class="panel-title" style="margin-top:50px">Training done today:</h3>
     <ul>
     @foreach($training_done as $training )
     <li> {{ $training->finished_at }} 

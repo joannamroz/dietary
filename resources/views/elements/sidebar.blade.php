@@ -6,7 +6,7 @@
                 <div class="quickmenu__item active">
                   <div class="fa fa-fw fa-home"></div>
                 </div>
-                <div class="quickmenu__item">
+                <!-- <div class="quickmenu__item">
                   <div class="fa fa-fw fa-envelope-o"></div>
                 </div>
                 <div class="quickmenu__item new">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="quickmenu__item">
                   <div class="fa fa-fw fa-cog"></div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -28,11 +28,34 @@
                 <ul class="nav nav-menu">
                   <li><a href="./">
                       <div class="nav-menu__ico"><i class="fa fa-fw fa-star"></i></div>
-                      <div class="nav-menu__text"><span>Dashboard</span></div></a></li>
-                  <li><a href="products.html">
-                      <div class="nav-menu__ico"><i class="fa fa-fw fa-cube"></i></div>
-                      <div class="nav-menu__text"><span>Products</span></div></a></li>
-                  <li><a href="#">
+                      <div class="nav-menu__text"><span>Dashboard</span></div></a>
+                  </li>
+                  <li><a href="{{ url('/food/index') }}">
+                      <div class="nav-menu__ico"><i class="fa fa-shopping-basket"></i></div>
+                      <div class="nav-menu__text"><span>Foods</span></div></a>
+                  </li>
+                  <li><a href="{{ url('/brand/index') }}">
+                      <div class="nav-menu__ico"><i class="fa fa-registered"></i></div>
+                      <div class="nav-menu__text"><span>Brands</span></div></a>
+                  </li>
+                  <li><a href="{{ url('/meal/index') }}">
+                      <div class="nav-menu__ico"><i class="fa fa-cutlery"></i></div>
+                      <div class="nav-menu__text"><span>Meals</span></div></a>
+                  </li>
+                  <li><a href="{{ url('/exercise/index') }}">
+                      <div class="nav-menu__ico"><i class="fa fa-bicycle"></i></div>
+                      <div class="nav-menu__text"><span>Activity</span></div></a>
+                  </li>
+                  <li><a href="{{ url('/training') }}">
+                      <div class="nav-menu__ico"><i class="fa fa-heart"></i></div>
+                      <div class="nav-menu__text"><span>Training</span></div></a>
+                  </li>
+                  <li><a href="{{ url('/user/index') }}">
+                      <div class="nav-menu__ico"><i class="fa fa-users"></i></div>
+                      <div class="nav-menu__text"><span>Users</span></div></a>
+                  </li>
+
+                  <!-- <li><a href="#">
                       <div class="nav-menu__ico"><i class="fa fa-fw fa-envelope"></i></div>
                       <div class="nav-menu__text"><span>Mailbox</span></div>
                       <div class="nav-menu__right"><i class="fa fa-fw fa-angle-right arrow"></i></div></a>
@@ -41,14 +64,16 @@
                       <li><a href="sent.html">Sent</a></li>
                       <li><a href="compose.html">Compose</a></li>
                     </ul>
-                  </li>
-                  <li><a href="orders.html">
+                  </li> -->
+                  <!-- <li><a href="orders.html">
                       <div class="nav-menu__ico"><i class="fa fa-fw fa-truck"></i></div>
                       <div class="nav-menu__text"><span>Orders</span></div>
-                      <div class="nav-menu__right"><i class="badge">2</i></div></a></li>
+                      <div class="nav-menu__right"><i class="badge">2</i></div></a>
+                  </li>
                   <li><a href="users.html">
                       <div class="nav-menu__ico"><i class="fa fa-fw fa-user"></i></div>
-                      <div class="nav-menu__text"><span>Users</span></div></a></li>
+                      <div class="nav-menu__text"><span>Users</span></div></a>
+                  </li>
                   <li><a href="#">
                       <div class="nav-menu__ico"><i class="fa fa-fw fa-folder-o"></i></div>
                       <div class="nav-menu__text"><span>Other</span></div>
@@ -57,9 +82,9 @@
                       <li><a href="blank.html">Blank</a></li>
                       <li><a href="login.html">Login</a></li>
                     </ul>
-                  </li>
+                  </li> -->
                 </ul>
-                <div class="sidebar__title">Template</div>
+<!--                 <div class="sidebar__title">Template</div>
                 <ul class="nav nav-menu">
                   <li><a href="#">
                       <div class="nav-menu__ico"><i class="fa fa-fw fa-th-large"></i></div>
@@ -95,10 +120,11 @@
                   </li>
                   <li><a href="charts.html">
                       <div class="nav-menu__ico"><i class="fa fa-fw fa-pie-chart"></i></div>
-                      <div class="nav-menu__text"><span>Charts</span></div></a></li>
-                </ul>
-              </div>
-              <div class="sidebar__menu">
+                      <div class="nav-menu__text"><span>Charts</span></div></a>
+                  </li>
+                </ul> -->
+              </div> <!-- sidebar menu -->
+              <!-- <div class="sidebar__menu">
                 <div class="sidebar__btn"><a href="compose.html" class="btn btn-block btn-default">Compose Mail</a></div>
                 <div class="sidebar__title">Mail</div>
                 <ul class="nav nav-menu">
@@ -123,8 +149,8 @@
                       <div class="nav-menu__ico tag_support"><i class="fa fa-fw fa-tag"></i></div>
                       <div class="nav-menu__text"><span>Support</span></div></a></li>
                 </div>
-              </div>
-              <div class="sidebar__menu">
+              </div> -->
+              <!-- <div class="sidebar__menu">
                 <div class="sidebar__title">New Messages</div>
                 <div class="lm-widget">
                   <div class="lm-widget__list">
@@ -183,8 +209,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="sidebar__menu">
+              </div> -->
+              <!-- <div class="sidebar__menu">
                 <div class="sidebar__title">Recent activity</div>
                 <div class="ra-widget">
                   <div class="ra-widget__cont">
@@ -264,8 +290,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="sidebar__menu">
+              </div> -->
+     <!--          <div class="sidebar__menu">
                 <div class="sidebar__title">Settings</div>
                 <div class="ss-widget">
                   <div class="ss-widget__cont">
@@ -319,7 +345,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div> -->
+            </div> <!-- sidebar count -->
           </div>
         </div>

@@ -23,7 +23,7 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet">
@@ -64,7 +64,7 @@
           <div class='main'>
             <div class="scrollable scrollbar-macosx">
               <div class="main__cont">
-                <div class="main-heading">
+                <!-- <div class="main-heading">
                   <div class="main-title">
                     <ol class="breadcrumb">
                       <li class="active">Dashboard</li>
@@ -80,7 +80,7 @@
                       </div>
                     </form>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="container-fluid half-padding">
                   <div class="pages pages_dashboard">             

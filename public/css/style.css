@@ -155,7 +155,7 @@ form.ajax div>input.short {
 	
 }
 #addNewFood {
-margin-left:10px;
+	margin-left:10px;
 }
 form.ajax.form-control.short {
 	display:inline-block;
@@ -266,9 +266,9 @@ div.block-blur {
 	margin-top:10%;
 }
 .total-row> td{
-	background-color: #CCFF33;
-	text-align: center;
-	font-weight: bold;
+	background-color: #30363c;
+	/*text-align: center;
+	font-weight: bold;*/
 }
 
 #additional-fields {
@@ -344,5 +344,11 @@ div.block-blur {
 }
 
 .container-fluid.half-padding {
-	color:white;
+	/*color:white;*/
+}
+.table-meals>tr>td {
+	font-size:1px;
+}
+.table-meals>thead>tr>th {
+	font-size:13px;
 }

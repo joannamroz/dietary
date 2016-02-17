@@ -10,8 +10,8 @@
 There is no food till now.
 @else
 <a href = "{{ url('food/new-food') }}">Add new food position</a>
-<div class="table-responsive">
-  <table class ="table table-bordered table-hover">
+<div class="scrollable scrollbar-macosx">
+  <table id="" class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%">
     <tr>
       <th>Name</th><th>Brand</th><th>Kcal</th><th>Proteins</th><th>Carbs</th><th>Fats</th><th>Fibre</th><th>Edit</th>
     </tr>

@@ -15,7 +15,7 @@
 
         <div class="row">
           <div class="col-md-10" style="padding:1%" >
-            <center><b id="calendar-month">{{$now->format('F')}} {{$now->format('Y')}}</b></center>
+            <center><b id="calendar-month" class="panel-title">{{$now->format('F')}} {{$now->format('Y')}}</b></center>
           </div>
         </div>
         <div class="row">

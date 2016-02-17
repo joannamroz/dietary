@@ -6,7 +6,8 @@
     <div class="header-navbar-mobile__title"><span>Dashboard</span></div>
     <div class="header-navbar-mobile__settings dropdown"><a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="btn dropdown-toggle"><i class="fa fa-power-off"></i></a>
       <ul class="dropdown-menu dropdown-menu-right">
-        <li><a href="#">Log Out</a></li>
+        <li><a href="{{url('/user/profile/'.Auth::id())}}">Profile</a></li>
+        <li><a href="{{ url('/auth/logout') }}">Log Out</a></li>
       </ul>
     </div>
   </div>
@@ -17,7 +18,7 @@
   <div class="topnavbar">
     <ul class="nav navbar-nav navbar-left">
       <li class="active"><a href="/"><span>Dashboard</span></a></li>
-      <li><a href="/"><span>Foods</span></a></li>
+     <!--  <li><a href="/"><span>Foods</span></a></li>
       <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><span>Pages&nbsp;<i class="caret"></i></span></a>
         <ul class="dropdown-menu">
           <li><a href="products.html"><span>Products</span></a></li>
@@ -27,12 +28,13 @@
           <li><a href="login.html">Login</a></li>
           <li><a href="blank.html">Blank</a></li>
         </ul>
-      </li>
+      </li> -->
     </ul>
     <ul class="userbar nav navbar-nav">
       <li class="dropdown"><a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="userbar__settings dropdown-toggle"><i class="fa fa-power-off"></i></a>
         <ul class="dropdown-menu dropdown-menu-right">
-          <li><a href="#">Log Out</a></li>
+          <li><a href="{{url('/user/profile/'.Auth::id())}}">Profile</a></li>
+          <li><a href="{{ url('/auth/logout') }}">Log Out</a></li>
         </ul>
       </li>
     </ul>

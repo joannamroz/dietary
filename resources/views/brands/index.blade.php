@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-{{$title}}
+<!-- {{$title}} -->
 @endsection
 
 @section('content')
@@ -11,18 +11,22 @@ There is no brands till now. Login and add a new brand now!!!
 @else
 <div class = "row">
   <div class = "col-md-6">
-    <table class = "table table-bordered">
-     <tr>
-      <th>Brand name</th>
-      <th>Edit</th>
-     </tr>
-      @foreach( $brands as $brand )
-      <tr>
-        <td>{{ $brand->name }}</td>
-        <td><a href = "{{ url('brand/edit/'.$brand->id)}}"><i class = "fa fa-pencil"></i></a></td>
-      </tr>
+    <div class="scrollable scrollbar-macosx">
+      <table id="" class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>Brand name</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        @foreach( $brands as $brand )
+        <tr>
+          <td>{{ $brand->name }}</td>
+          <td><a href = "{{ url('brand/edit/'.$brand->id)}}"><i class = "fa fa-pencil"></i></a></td>
+        </tr>
     @endforeach
-    </table>   
+      </table> 
+    </div>  
   </div>
   <div class = "col-md-6">
     <button class = "btn btn-info" id = "btnNewBrand">Add new brand </button> <!-- {{ url('brand/new-brand') }} -->

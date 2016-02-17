@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Auth;
 use App\User;
-use App\UserPermissions;
+use App\UserPermission;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -24,7 +24,7 @@ class UserPermissionsController extends Controller
     $user_id = Auth::user()->id;
     $userData = User::find($id);
 
-    $userPermissions = UserPermissions::where('authorized_user_id', $id)->where('user_id', $user_id)->get();
+    $userPermissions = UserPermission::where('authorized_user_id', $id)->where('user_id', $user_id)->get();
     $userWritePermission = '';
     $userReadPermission = '';
 
@@ -50,13 +50,13 @@ class UserPermissionsController extends Controller
   	$user_id = Auth::user()->id;
     $authorized_user_id = $request->get('user_id');
 
-    $userPermissions = UserPermissions::where('authorized_user_id',  $authorized_user_id)->where('user_id', $user_id);
+    $userPermissions = UserPermission::where('authorized_user_id',  $authorized_user_id)->where('user_id', $user_id);
     if ($userPermissions) {
 
       $userPermissions ->delete();
     } 
     //var_dump($userPermissions)
-  	$permission = new UserPermissions();
+  	$permission = new UserPermission();
   	$permission->user_id = $user_id ;
     $permission->authorized_user_id = $authorized_user_id;
 
