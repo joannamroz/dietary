@@ -29,7 +29,7 @@ There is no brands till now. Login and add a new brand now!!!
     </div>  
   </div>
   <div class = "col-md-6">
-    <button class = "btn btn-info" id = "btnNewBrand">Add new brand </button> <!-- {{ url('brand/new-brand') }} -->
+    <button class = "btn btn-default" id = "btnNewBrand">Add new brand </button> <!-- {{ url('brand/new-brand') }} -->
     <form action = "/new-brand" method = "post" class = "form-horizontal" id = "brandForm">
       <input type = "hidden" name = "_token" value = "{{ csrf_token() }}">
       <div class = "form-group">
@@ -40,7 +40,7 @@ There is no brands till now. Login and add a new brand now!!!
       </div>
       <div class = "form-group">
         <div class = "col-sm-offset-4 col-sm-8">
-          <input type = "submit" name = 'save' class = "btn btn-success" value = "Save"/>
+          <input type = "submit" name = 'save' class = "btn btn-default" value = "Save"/>
         </div>
       </div>
     </form>

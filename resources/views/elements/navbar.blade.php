@@ -4,7 +4,7 @@
       <button type="button" class="btn"><i class="fa fa-bars"></i></button>
     </div>
     <div class="header-navbar-mobile__title"><span>Dashboard</span></div>
-    <div class="header-navbar-mobile__settings dropdown"><a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="btn dropdown-toggle"><i class="fa fa-power-off"></i></a>
+    <div class="header-navbar-mobile__settings dropdown"><a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="btn dropdown-toggle"><i class="fa fa-bars"></i></a>
       <ul class="dropdown-menu dropdown-menu-right">
         <li><a href="{{url('/user/profile/'.Auth::id())}}">Profile</a></li>
         <li><a href="{{ url('/auth/logout') }}">Log Out</a></li>
@@ -31,7 +31,7 @@
       </li> -->
     </ul>
     <ul class="userbar nav navbar-nav">
-      <li class="dropdown"><a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="userbar__settings dropdown-toggle"><i class="fa fa-power-off"></i></a>
+      <li class="dropdown"><a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="userbar__settings dropdown-toggle"><i class="fa fa-bars"></i></a>
         <ul class="dropdown-menu dropdown-menu-right">
           <li><a href="{{url('/user/profile/'.Auth::id())}}">Profile</a></li>
           <li><a href="{{ url('/auth/logout') }}">Log Out</a></li>

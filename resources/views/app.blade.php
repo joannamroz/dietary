@@ -33,9 +33,7 @@
     <link href="{{ asset('css/morris.css') }}" rel="stylesheet">
 
   </head>
-
   <body class='fuchsia'>
- 
     <div class='wrapper'> 
       @include('elements.navbar')
 

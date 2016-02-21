@@ -1,12 +1,10 @@
 <!-- resources/views/auth/register.blade.php -->
 @extends('login')
-@section('title')
-@endsection
 
 @section('content')
 
-<div class="block-blur">
-  <form method="POST" action="/auth/register" class="form-signin">
+<div class="login">
+  <form method="POST" action="/auth/register" class="login__form">
   {!! csrf_field() !!}
     <h2 class="form-signin-heading">Register</h2>
 
@@ -34,7 +32,43 @@
     <label for="inputPassword" class="sr-only">Confirm password</label>
     <input type="password" class="form-control" placeholder="Confirm password" name="password_confirmation" value="{{ old('password') }}"required="" autofocus="">
 
-    <button class="btn btn-blue btn-primary btn-block" type="submit" style="margin-top:10px">Register</button>
+    <button class="btn btn-default register-button" type="submit" style="margin-top:10px">Register</button>
+
+    <div class="panel-body">
+  <div class="form">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Date</label>
+          <div class="input-group date">
+            <input type="text" value="12/01/2015" class="form-control">
+            <div class="input-group-addon">
+              <div class="fa fa-calendar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
   </form>
 </div>
 @endsection
+
+<!-- <div class="panel-body">
+  <div class="form">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Date</label>
+          <div class="input-group date">
+            <input type="text" value="12/01/2015" class="form-control">
+            <div class="input-group-addon">
+              <div class="fa fa-calendar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
