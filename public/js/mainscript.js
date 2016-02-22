@@ -134,6 +134,7 @@ $(document).ready(function() {
 
 	});
 	
+	$('.date').datepicker();
 
 	//Calendar day click event
 	$(document).on('click','.calendar-day', function() {
@@ -701,8 +702,11 @@ $(document).ready(function() {
 		$('.nav-pills, .nav-tabs').tabdrop();
 
 		$('.date').datepicker();
+		
 		$('.input-daterange').datepicker();
 		$('.datepicker-embed').datepicker();
+
+
 		$('.timepicker input').timepicker({showMeridian: false, showSeconds: true});
 
 		$('.slider').ionRangeSlider({

@@ -20,8 +20,9 @@
         <div class="checkbox login__remember">
           <!-- <input id="chb1" type="checkbox">
           <label for="chb1">Remember</label> -->
+          <input id="chb1" type="checkbox" value="remember"> 
           <label for="chb1">
-            <input id="chb1" type="checkbox" value="remember"> Remember me
+            Remember me
           </label>
         </div>
         <div class="login__submit">

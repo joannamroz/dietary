@@ -31,6 +31,8 @@
     <link href="{{ asset('css/ion.rangeSlider.skinFlat.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery.scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/morris.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
+
 
   </head>
   <body class='fuchsia'>
@@ -112,6 +114,8 @@
 
     <script src="{{ asset('/js/bootstrap-switch.min.js') }}"></script>
     <script src="{{ asset('/js/bootstrap-tabdrop.min.js') }}"></script>
+    <script src="{{ asset('/js/bootstrap-datepicker.js') }}"></script>
+
 
     <script src="{{ asset('/js/ion.rangeSlider.min.js') }}"></script>
     <script src="{{ asset('/js/jquery.scrollbar.min.js') }}"></script>
@@ -119,7 +123,9 @@
     <script src="{{ asset('/js/main-extra.js') }}"></script>
     <script src="{{ asset('/js/inputNumber.js') }}"></script>
 
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
 
 
   </body>

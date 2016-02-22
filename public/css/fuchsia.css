@@ -2510,10 +2510,16 @@ body.fuchsia .mailbox-contacts__item:hover {
 .table > tfoot > tr > th,
 .table > thead > tr > td,
 .table > thead > tr > th {
-  padding: 8px;
+  padding: 4px;
   border-top: 0;
   border-bottom: 1px solid #5e6870;
   outline: none;
+}
+
+.table > tbody > tr> th {
+
+  font-weight: normal;
+
 }
 .table > caption + thead > tr:first-child > td,
 .table > caption + thead > tr:first-child > th,
@@ -3490,9 +3496,6 @@ table.dataTable thead > tr > td.sorting {
 .input-number-less {
   bottom: 4px;
   border-color: #5e6870 transparent transparent transparent;
-}
-.input-number-less:hover {
-  border-color: #fff transparent transparent transparent;
 }
 
 

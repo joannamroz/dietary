@@ -10,7 +10,7 @@
     <!-- <link href=" //asset('/css/app.css') " rel="stylesheet"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     
-    <link href="{{ asset('css/fuchsia.css') }}" rel="stylesheet">
+
     <link href="{{ asset('css/style.css') }} " rel="stylesheet">
 
     <!-- Fonts -->
@@ -25,12 +25,20 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
+
+    <link href="{{ asset('css/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/ion.rangeSlider.css') }}" rel="stylesheet">
     <link href="{{ asset('css/ion.rangeSlider.skinFlat.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery.scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/morris.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+
+
+    <link href="{{ asset('css/fuchsia.css') }}" rel="stylesheet">
+
 
   </head>
   <body class="solid_dark">
@@ -87,8 +95,8 @@
 
     <script src="{{ asset('/js/bootstrap-switch.min.js') }}"></script>
 
-    <script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script>
+     <script src=" ('/js/bootstrap-datepicker.min.js') "></script>
+    <!--<script src="('/js/bootstrap-timepicker.min.js') "></script> -->
 
     
     <script src="{{ asset('/js/bootstrap-tabdrop.min.js') }}"></script>

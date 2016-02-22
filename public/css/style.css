@@ -355,3 +355,17 @@ div.block-blur {
 .table-meals>thead>tr>th {
 	font-size:13px;
 }
+
+
+
+.flash {
+	    top: 75px;
+    position: relative;
+}
+
+
+/*input#inputEmail:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #282D31 inset;
+    border-color: #5e6870;
+    color:grey;
+}*/

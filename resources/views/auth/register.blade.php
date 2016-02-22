@@ -23,9 +23,17 @@
       </label>
     </div>
 
-    <label  class="sr-only">Date of birth</label>
+<!--     <label  class="sr-only">Date of birth</label>
     <input type="date" name="date_of_birth" placeholder="Date of birth" class="form-control" value="{{ old('date_of_birth') }}">
-
+ -->
+    <div>
+          <div class="input-group date">
+            <input type="text" value="" placeholder='Date of Birth' class="form-control">
+            <div class="input-group-addon">
+              <div class="fa fa-calendar"></div>
+            </div>
+          </div>
+    </div>
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" class="form-control" placeholder="Password" name="password" value="{{ old('password') }}"required="" autofocus="">
     
@@ -34,23 +42,7 @@
 
     <button class="btn btn-default register-button" type="submit" style="margin-top:10px">Register</button>
 
-    <div class="panel-body">
-  <div class="form">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Date</label>
-          <div class="input-group date">
-            <input type="text" value="12/01/2015" class="form-control">
-            <div class="input-group-addon">
-              <div class="fa fa-calendar"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
   </form>
 </div>
 @endsection
