@@ -69,7 +69,7 @@ class FoodsController extends Controller
 
     if (isset($data['compound_food'])) {
 
-      $food->brand_id = 7; //brand name 'Homemade'
+      $food->brand_id = 23; //brand name 'Homemade'
 
     } else {
 
@@ -127,7 +127,7 @@ class FoodsController extends Controller
   {
 
     $food = Food::where('id', $id)->first();
-    $food_ingredient = Ingredients::where('food_id', $id)->get();
+    $food_ingredient = Ingredient::where('food_id', $id)->get();
 
     return view('foods.show')->with('food', $food)->with('food_ingredient',  $food_ingredient);
   }

@@ -38,7 +38,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
   public function permissions()
   {
 
-    return $this->hasMany('App\UserPermissions', 'id', 'authorized_user_id');
+    return $this->hasMany('App\UserPermission', 'id', 'authorized_user_id');
   }
 
   /**
@@ -179,19 +179,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
   public static function getCurrentMeasurements()
   {
     $sessionId =  Auth::user()->id;
-    $currentMeasurements = Measurement::where('user_id', $sessionId)->orderBy('date', 'desc')->select('height', 'weight','body_fat')->get();
+    $currentMeasurements = Measurement::where('user_id', $sessionId)->orderBy('date', 'desc')->select('height', 'weight', 'body_fat')->get();
     return $currentMeasurements;
    
   }
 
-  // public function can_add_meal()
-  // {
-  //   $role = $this->role;
-  //   if ($role == 'user') {
-  //     return true;
-  //   }
-  //   return false;
-  // }  
   public function getUserAge()
   {
 

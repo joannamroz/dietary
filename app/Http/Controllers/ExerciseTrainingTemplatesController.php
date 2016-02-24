@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 use Log;
 use Auth;
-use App\Exercises;
-use App\TrainingTemplates;
-use App\ExerciseTrainingTemplates;
+use App\Exercise;
+// use App\TrainingTemplate;
+use App\ExerciseTrainingTemplate;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;

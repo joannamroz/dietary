@@ -512,7 +512,9 @@ $(document).ready(function() {
 		$('#btnNewBrand').hide();
 	});
 	$('#showRanges').on('click', function(){
+		$('#showRanges i:first').toggleClass('fa-remove');
 		$('#rangesInfo').toggle('slow');
+
 	});
 
 	$('#calculateBMIBtn').on('click', calculateBMI);

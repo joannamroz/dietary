@@ -181,7 +181,7 @@ class TrainingTemplatesController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $training = TrainingTemplates::where('id', $id)->first();
+        $training = TrainingTemplate::where('id', $id)->first();
         
         if ($training && ($request->user()->id == $training->user_id || $request->user()->is_admin()))
           return view('trainings.edit')->with('training', $training);
@@ -198,7 +198,7 @@ class TrainingTemplatesController extends Controller
     public function update(Request $request)
     {
         $training_id = $request->input('training_id');
-        $training = TrainingTemplates::find($training_id);
+        $training = TrainingTemplate::find($training_id);
 
         if ($training && ($training->user_id == $request->user()->id || $request->user()->is_admin())) {
 
@@ -226,7 +226,7 @@ class TrainingTemplatesController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $training = TrainingTemplates::find($id);
+        $training = TrainingTemplate::find($id);
 
         if ($training && ($training->user_id == $request->user()->id || $request->user()->is_admin())) {
 

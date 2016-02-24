@@ -7,7 +7,8 @@ use Auth;
 use Log;
 use App\Exercise;
 use App\Training;
-use App\TrainingTemplates;
+use App\Template;
+// use App\TrainingTemplates;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -24,6 +25,9 @@ class ExercisesController extends Controller
     {
         $exercises = Exercise::all();
         $trainings = Training::all();
+        // print_r($exercises);
+        // var_dump("<br/>");
+        print_r($trainings);die();
         
         return view('exercises.index')->with('exercises', $exercises)->with('trainings', $trainings);
         
@@ -54,7 +58,7 @@ class ExercisesController extends Controller
      */
     public function store(ExerciseFormRequest $request)
     {
-        $exercise = new Exercises(); 
+        $exercise = new Exercise(); 
         $exercise->name = $request->get('name');
         $exercise->description = $request->get('description');
         if (null !== $request->get('time')) {
@@ -90,7 +94,7 @@ class ExercisesController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $exercise = Exercises::where('id', $id)->first();
+        $exercise = Exercise::where('id', $id)->first();
         if ($exercise && ($request->user()->id == $exercise->user_id || $request->user()->is_admin()))
           return view('exercises.edit')->with('exercise', $exercise);
         return redirect('/exercise/index')->withErrors('You have not sufficient permissions');
@@ -106,7 +110,7 @@ class ExercisesController extends Controller
     public function update(Request $request)
     {
         $exercise_id = $request->input('exercise_id');
-        $exercise = Exercises::find($exercise_id);
+        $exercise = Exercise::find($exercise_id);
         if ($exercise && ($exercise->user_id == $request->user()->id || $request->user()->is_admin())) {
 
             $exercise->name = $request->input('name'); 
@@ -134,7 +138,7 @@ class ExercisesController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $exercise = Exercises::find($id);
+        $exercise = Exercise::find($id);
 
         if ($exercise && ($exercise->user_id == $request->user()->id || $request->user()->is_admin())) {
 

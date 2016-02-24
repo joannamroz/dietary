@@ -3,7 +3,7 @@ namespace App;
  
 use Illuminate\Database\Eloquent\Model;
  
-class ExerciseTrainingTemplates extends Model
+class ExerciseTrainingTemplate extends Model
 {
  
 	// protected $guarded = [];

@@ -82,7 +82,7 @@
                   </div>
                 </div> -->
 
-                <div class="container-fluid half-padding">
+                <div class="">
                   <div class="pages pages_dashboard">             
                       <!-- Page title -->
                      @yield('title')

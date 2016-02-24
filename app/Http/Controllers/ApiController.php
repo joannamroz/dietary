@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Log;
-use App\Foods;
-use App\Meals;
-use App\Brands;
+use App\Food;
+use App\Meal;
+use App\Brand;
 use App\User;
 
  
@@ -21,7 +21,7 @@ class ApiController extends Controller
   public function getFoods() 
   {
       
-    $foods = Foods::all();
+    $foods = Food::all();
 
     //return home.blade.php template from resources/views folder
    /// return view('brands.index')->withBrands($brands)->withTitle($title);
@@ -32,9 +32,9 @@ class ApiController extends Controller
   public function getFoodById($id, $secret = null) 
   {
     if ($secret == '12345') {
-      $foods = Foods::find($id);
+      $foods = Food::find($id);
     } else {
-      $foods = 'fuckk off';
+      $foods = 'nope';
     }
     
 
@@ -47,7 +47,7 @@ class ApiController extends Controller
   public function getMeals() 
   {
       
-    $meals = Meals::all();
+    $meals = Meal::all();
 
     //return home.blade.php template from resources/views folder
    /// return view('brands.index')->withBrands($brands)->withTitle($title);

@@ -11,7 +11,30 @@ html {
   height: 60px;
   background-color: #f5f5f5;*/
 }
-
+button.btn.btn-success,input.btn.btn-success {
+	background-color: #33262F;
+	border-color:#33262F;
+	color:#20c05c;
+	font-weight: bold;
+}
+a.btn.btn-success {
+	background-color: #33262F;
+	border-color:#33262F;
+	color:#20c05c;
+	font-weight: bold;
+}
+button.btn.btn-danger,input.btn.btn-danger {
+	background-color: #33262F;
+	border-color:#33262F;
+	color:red;
+	font-weight: bold;
+}
+a.btn.btn-danger {
+	background-color: #33262F;
+	border-color:#33262F;
+	color:red;
+	font-weight: bold;
+}
 .register-button {
     width: 100%;
     max-width: 300px;
@@ -308,15 +331,15 @@ div.block-blur {
 	color:#A30000;
 	border:2px solid #A30000;
 }
-#exercises_div {
+/*#exercises_div {
 	background-color: #FFCC99;
 	padding:1%;
 	
-}
+}*/
 
 #training_div {
-	background-color: rgba(253, 255, 153, 0.62);
-	padding:1%;
+	/*background-color: rgba(253, 255, 153, 0.62);*/
+	/*padding:1%;*/
 	
 }
 #challenge_div {
@@ -359,8 +382,8 @@ div.block-blur {
 
 
 .flash {
-	    top: 75px;
-    position: relative;
+	top: 75px;
+  position: relative;
 }
 
 

@@ -7,10 +7,9 @@
 
 @section('content')
 
-
 <div class="row">
-  <div class="col-md-8" id='meals-content-viewing'>
-    <h3>Meals for {{$now->format('d')}} {{$now->format('F')}} {{$now->format('Y')}}</h3>
+  <div class="col-md-12">
+    <h3>Meals for {{$now->format('d')}} {{$now->format('F')}} {{$now->format('Y')}} </h3>
  
     @if ( !$meals->count() )
       <h4 style="font-weight:bold">Consumed: - </h4><br/>
@@ -19,7 +18,7 @@
       <h4 style="font-weight:bold">Consumed:</h4>
       <?php $suma_kcal = 0; ?>
      
-        <table class "table table-bordered">
+        <table class = "table table-bordered">
           <tr>
             <th>Name</th><th>Weight</th><th>kcal</th><th>Protein</th><th>Carbohydrate</th><th>Fat</th><th>Fibre</th><th>Comment</th><th>Edit</th>
           </tr>

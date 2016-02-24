@@ -1,7 +1,4 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
- New measure
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -45,13 +42,13 @@
 							@foreach ($required as $field)
 							<div class="form-group">
 								<label class="col-sm-7 control-label"> {{ $field['label'] }}</label>
-								<div class = "col-sm-5">
+								<div class="col-sm-5">
 									<input value="{{ $field['value'] }}" type="{{ $field['type'] }}" name="{{ $field['name'] }}" class="form-control"/>
 								</div>
 							</div>
 							@endforeach
-							 <div class = "form-group">
-						    <div class = "col-sm-offset-7 col-sm-5">
+							 <div class="form-group">
+						    <div class="col-sm-offset-7 col-sm-5">
 									<label><input type="checkbox" id="cbox1" value=""> Additional fields (not required)</label>
 								</div>
 							</div>
@@ -68,8 +65,8 @@
 						  <div class="form-group">
 						    <input required="required" value="{{$now->format('Y-m-d')}}" type="hidden" name="date" class="form-control" />
 						  </div>
-						  <div class = "form-group">
-						    <div class = "col-sm-offset-7 col-sm-5">
+						  <div class="form-group">
+						    <div class="col-sm-offset-7 col-sm-5">
 			        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			        		<input type="submit" name='save' class="btn btn-success" value="Save" id="save-measurements"/>
 			        	</div>

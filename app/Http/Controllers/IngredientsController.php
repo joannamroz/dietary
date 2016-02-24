@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 use Log;
 use Auth;
-use App\Foods;
-use App\Ingredients;
-use App\Brands;
+use App\Food;
+use App\Ingredient;
+use App\Brand;
 use App\User;
 use Redirect;
 use App\Http\Requests;

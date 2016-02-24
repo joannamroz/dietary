@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\Exercises;
 use App\Training;
 use App\Exercise;
-use App\Activities;
+use App\Activity;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -33,6 +32,7 @@ class TrainingsController extends Controller
 
         //$training_done = Training::where('finished_at','>=',$formatted_date)->where('user_id', Auth::user()->id)->get();
         $training_done = Training::getTrainingsForDate($date);
+        // print_r($training_done);die();
 
         return view('trainings.index')->with('training_done', $training_done);
     }
@@ -155,7 +155,7 @@ class TrainingsController extends Controller
     {
         $user_id = Auth::user()->id;
 
-        $activity = new Activities();
+        $activity = new Activity();
         $activity->training_id = $request->get('training');
         $activity->date = $request->get('date');
         $activity->user_id = $user_id;
@@ -188,7 +188,7 @@ class TrainingsController extends Controller
 
         $user_id = Auth::user()->id;
 
-        $trainings = TrainingTemplates::where('user_id', $user_id)->orderBy('created_at', 'desc')->limit(3)->get();
+        $trainings = TrainingTemplate::where('user_id', $user_id)->orderBy('created_at', 'desc')->limit(3)->get();
 
 
        // $activities = Activities::with('training')->where('user_id', $user_id)->get();
@@ -204,7 +204,7 @@ class TrainingsController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $training = TrainingTemplates::where('id', $id)->first();
+        $training = TrainingTemplate::where('id', $id)->first();
         
         if ($training && ($request->user()->id == $training->user_id || $request->user()->is_admin()))
           return view('trainings.edit')->with('training', $training);
@@ -221,7 +221,7 @@ class TrainingsController extends Controller
     public function update(Request $request)
     {
         $training_id = $request->input('training_id');
-        $training = TrainingTemplates::find($training_id);
+        $training = TrainingTemplate::find($training_id);
 
         if ($training && ($training->user_id == $request->user()->id || $request->user()->is_admin())) {
 
@@ -249,7 +249,7 @@ class TrainingsController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $training = TrainingTemplates::find($id);
+        $training = TrainingTemplate::find($id);
 
         if ($training && ($training->user_id == $request->user()->id || $request->user()->is_admin())) {
 

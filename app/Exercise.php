@@ -23,7 +23,7 @@ class Exercise extends Model
 
 	public function training_templates()
 	{
-		return $this->belongsToMany('App\TrainingTemplates', 'exercise_trainingTemplate')
+		return $this->belongsToMany('App\TrainingTemplate', 'exercise_trainingTemplate')
 		->withPivot('description', 'num_of_exercises', 'series')
 		->withTimestamps();
 

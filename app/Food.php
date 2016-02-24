@@ -10,7 +10,7 @@ class Food extends Model
 	
 	public function ingredient()
 	{
-		return $this->hasMany('App\ingredient');
+		return $this->hasMany('App\Ingredient');
 	}
 
 

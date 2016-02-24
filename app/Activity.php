@@ -14,7 +14,7 @@ class Activity extends Model
   public function training()
 	{
 		
-		return $this->belongsTo('App\TrainingTemplates','training_id', 'id');
+		return $this->belongsTo('App\TrainingTemplate','training_id', 'id');
 
 	}
 

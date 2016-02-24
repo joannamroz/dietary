@@ -3,7 +3,7 @@ namespace App;
  
 use Illuminate\Database\Eloquent\Model;
  
-class Ingredients extends Model
+class Ingredient extends Model
 {
  
   //restricts columns from modifying
@@ -11,7 +11,7 @@ class Ingredients extends Model
  
   public function ingredient()
   {
-    return $this->hasOne('App\Foods', 'id', 'ingredient_id');
+    return $this->hasOne('App\Food', 'id', 'ingredient_id');
   }  	
  	
 }
