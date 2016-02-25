@@ -46,7 +46,7 @@ class TrainingsController extends Controller
     {
        // if ($request->user()->is_user()) {
 
-          return view('trainings.create');
+            return view('trainings.create');
 
        // } else {
             

@@ -4,7 +4,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ * This class may be later used as Template for Trainings and Challanges
  */
 class Template extends Model
 {
