@@ -5,12 +5,14 @@ use Auth;
 use App\User;
 use App\Food;
 use App\Brand;
+use App\Task;
 use App\UserPermission;
 use App\Measurement;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BrandFormRequest;
+use App\Http\Requests\TaskFormRequest;
 use Carbon\Carbon;
  
 use Illuminate\Http\Request;
@@ -38,6 +40,9 @@ class UsersController extends Controller
     $title = 'Your profile';
     $userMeasure = Measurement::where('user_id', $sessionId)->orderBy('date', 'desc')->get();
     $age = $userData->getUserAge();   
+    $tasks = Task::where('user_id', $sessionId)->orderBy('created_at', 'desc')->get();
+    $now = $now = Carbon::now();
+    // var_dump($tasks);die();
 
     if (!$userMeasure->count()) {
 
@@ -77,7 +82,7 @@ class UsersController extends Controller
    
    
     if ($userData) 
-      return view('users.profile')->with(compact(array('userData', 'title', 'userWeight', 'userHeight', 'userMeasure',  'userMeasureData', 'userBodyFat', 'userBMI', 'userBMIrange', 'age')));
+      return view('users.profile')->with(compact(array('userData', 'title', 'userWeight', 'userHeight', 'userMeasure',  'userMeasureData', 'userBodyFat', 'userBMI', 'userBMIrange', 'age', 'tasks', 'now')));
 
     return redirect('/food/index')->withErrors('You do not have sufficient permissions');
     
@@ -96,7 +101,26 @@ class UsersController extends Controller
     return redirect('/food/index')->withErrors('You do not have sufficient permissions');
   }
 
- 
+
+  public function store_todo(TaskFormRequest $request)
+  {
+  
+    $task = new Task();
+    $task->name = $request->get('name');
+    $task->date_to_do = $request->get('date_to_do');
+    $user_id = $request->user()->id;
+
+    if ($request->get('user_id')) {
+      $task->user_id = $request->get('user_id');
+    } else {
+      $task->user_id = $user_id;
+    }
+
+    $task->save();
+    
+    return response()->json(array('success' => true, 'task'=>$task));
+  }
+    
   /**
    * Show the form for creating a new resource.
    *
@@ -156,8 +180,22 @@ class UsersController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Request $request)
   {
-      //
-  }
+      $id =  $request->get('id');
+      $task = Task::find($id);
+      $user_id = Auth::user()->id;
+
+
+      if ($task && ($task->user_id == $user_id ||  $user_id->is_admin())) {
+
+        $task->delete();
+        return response()->json(array('success' => true));
+
+      } else  {
+
+        $data['errors'] = 'Invalid Operation. You do not have sufficient permissions';
+        return response()->json(array('success' => true, 'errors'=>$data['errors']));
+      }
+    }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-7">
 		<div class="panel panel-success">
 			<div class="panel-heading">
         <h3 class="panel-title">Measure</h3>
@@ -13,6 +13,7 @@
           <li role="presentation" class="active"><a href="#bodyMeasurements" aria-controls="bodyMeasurements" role="tab" data-toggle="tab">Body Measurements</a></li>
           <li role="presentation"><a href="#bmi" aria-controls="bmi" role="tab" data-toggle="tab">Calculate BMI</a></li>
           <li role="presentation"><a href="#bmr" aria-controls="bmr" role="tab" data-toggle="tab">Calculate BMR</a></li>
+          <li role="presentation"><a href="#measureModal" aria-controls="measureModal" role="tab" data-toggle="tab"><i class="fa fa-plus"></i> New </a></li>
         </ul>
 
         <div class="tab-content">
@@ -36,100 +37,147 @@
           </div> <!-- bodyMeasurements -->
 
           <div id="bmi" role="tabpanel" class="tab-pane">
-            <div class="form-group">
-				  		<label class="col-sm-6 control-label">Weight (kg)</label>
-				      	<div class="col-sm-6">
-				    		<input required="required" value="{{ isset($userWeight) ? $userWeight : ""  }}" id="weightBMI" type="text" name="weight" class="form-control" />
-				    	</div>
-				  	</div>
-				  	<div class="form-group">
-				  		<label class="col-sm-6 control-label">Height (cm)</label>
-				      	<div class="col-sm-6">
-				    		<input required="required" value="{{ isset($userHeight) ? $userHeight : "" }}" id="heightBMI" type="text" name="height" class="form-control" />
-				    	</div>
-				  	</div>
-				  	<div class="form-group" id="resultInputBMI">
-				  		<label class="col-sm-6 control-label">Result</label>
-				      	<div class="col-sm-6">
-				    		<input  value="" type="text" id="resultBMI" name="result" class="form-control" />
-				    	</div>
-				  	</div>
-				  	<div class="form-group">
-				  		<label class="col-sm-6 control-label"></label>
-					    <div class="col-sm-offset-6 col-sm-6">
-					      <input type="submit" name='save' class="btn btn-success" id="calculateBMIBtn" value="Calculate"/>
+            <div class="scrollable scrollbar-macosx">
+              <div class="container-fluid">          
+            		<div class="form-group">
+			  					<label class="col-sm-6 control-label">Weight (kg)</label>
+		      				<div class="col-sm-6">
+		    						<input required="required" value="{{ isset($userWeight) ? $userWeight : ""  }}" id="weightBMI" type="text" name="weight" class="form-control" />
+		    					</div>
+				  			</div>
+						  	<div class="form-group">
+						  		<label class="col-sm-6 control-label">Height (cm)</label>
+						      	<div class="col-sm-6">
+						    		<input required="required" value="{{ isset($userHeight) ? $userHeight : "" }}" id="heightBMI" type="text" name="height" class="form-control" />
+						    	</div>
+						  	</div>
+						  	<div class="form-group" id="resultInputBMI">
+						  		<label class="col-sm-6 control-label">Result</label>
+						      	<div class="col-sm-6">
+						    		<input  value="" type="text" id="resultBMI" name="result" class="form-control" />
+						    	</div>
+						  	</div>
+						  	<div class="form-group">
+						  		<label class="col-sm-6 control-label"></label>
+							    <div class="col-sm-offset-6 col-sm-6">
+							      <input type="submit" name='save' class="btn btn-success" id="calculateBMIBtn" value="Calculate"/>
+							    </div>
+				 				</div>
 					    </div>
-				 	 	</div>
-          </div> <!-- bmi -->
+				 		</div>
+          </div>
+           <!-- bmi -->
 
           <div id="bmr" role="tabpanel" class="tab-pane">
-            <div class="form-group">
-		  				<label class="col-sm-3 control-label">Sex</label>
-						  <div class="col-sm-3">
-							  <select class="select2 form-control" name="sexBMR" id="sexBMR">
-							  	<option value=""></option>
-							  	<option value="female" @if($userData->sex == "female") selected=selected @endif>Female</option>
-							  	<option value="male" @if($userData->sex == "male") selected=selected @endif>Male</option>
-							  </select>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label">Weight (kg)</label>
-							  <div class="col-sm-3">
-							   	<input required="required" value="{{ isset($userWeight) ? $userWeight : ""  }}" id="weightBMR" type="text" name="weight" class="form-control" />
-							  </div>
-						</div>
-						<div class="form-group">
-						  <label class="col-sm-3 control-label">Height (cm)</label>
-						  <div class="col-sm-3">
-						    <input required="required" value="{{ isset($userHeight) ? $userHeight : "" }}" id="heightBMR" type="text" name="height" class="form-control" />
-						  </div>
-						</div>		  
-						<div class="form-group">
-						  <label class="col-sm-3 control-label">Age</label>
-						  <div class="col-sm-3">
-						    <input required="required" value="{{ isset($age) ? $age : "" }}" id="ageBMR" type="text" name="age" class="form-control" />
-						  </div>
-						</div>
-					 	<div class="form-group">
-					  	<label class="col-sm-3 control-label">Activity</label>
-					  	<div class = "col-sm-9">
-					  		<select class="select2 form-control" name="activityBMR" id="activityBMR">
-					  			<option value=""></option>
-					  			<option value="1.2">Little or no exercise</option>
-					  			<option value="1.375">Light exercise (1-3 times/week)</option>
-					  			<option value="1.55">Moderate exercise (3-5 days/week)</option>
-					  			<option value="1.725">Heavy exercise (6-7 days/week)</option>
-					  			<option value="1.9">Very heavy exercise (physical job or exercise twice a day)</option>
-					  		</select>
-				  		</div>
-			  		</div>
-				  	<div class="form-group" id="resultInputBMR">
-				  		<label class="col-sm-9 control-label">Result</label>
-				      	<div class="col-sm-3">
-				    		<input  value="" type="text" id="resultBMR" name="result" class="form-control" />
-				    	</div>
-				  	</div>
-				  	<div class="form-group">
-				  		<label class="col-sm-6 control-label"></label>
-					    <div class="col-sm-offset-6 col-sm-6">
-					      <input type="submit" name='save' class="btn btn-success" id="calculateBMRBtn" value="Calculate"/>
+            <div class="scrollable scrollbar-macosx">
+              <div class="container-fluid">            
+            		<div class="form-group">
+	  							<label class="col-sm-3 control-label">Sex</label>
+				    			<div class="col-sm-3">
+									  <select class="select2 form-control" name="sexBMR" id="sexBMR">
+									  	<option value=""></option>
+									  	<option value="female" @if($userData->sex == "female") selected=selected @endif>Female</option>
+									  	<option value="male" @if($userData->sex == "male") selected=selected @endif>Male</option>
+									  </select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Weight (kg)</label>
+									  <div class="col-sm-3">
+									   	<input required="required" value="{{ isset($userWeight) ? $userWeight : ""  }}" id="weightBMR" type="text" name="weight" class="form-control" />
+									  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-sm-3 control-label">Height (cm)</label>
+								  <div class="col-sm-3">
+								    <input required="required" value="{{ isset($userHeight) ? $userHeight : "" }}" id="heightBMR" type="text" name="height" class="form-control" />
+								  </div>
+								</div>		  
+								<div class="form-group">
+								  <label class="col-sm-3 control-label">Age</label>
+								  <div class="col-sm-3">
+								    <input required="required" value="{{ isset($age) ? $age : "" }}" id="ageBMR" type="text" name="age" class="form-control" />
+								  </div>
+								</div>
+							 	<div class="form-group">
+							  	<label class="col-sm-3 control-label">Activity</label>
+							  	<div class = "col-sm-9">
+							  		<select class="select2 form-control" name="activityBMR" id="activityBMR">
+							  			<option value=""></option>
+							  			<option value="1.2">Little or no exercise</option>
+							  			<option value="1.375">Light exercise (1-3 times/week)</option>
+							  			<option value="1.55">Moderate exercise (3-5 days/week)</option>
+							  			<option value="1.725">Heavy exercise (6-7 days/week)</option>
+							  			<option value="1.9">Very heavy exercise (physical job or exercise twice a day)</option>
+							  		</select>
+						  		</div>
+					  		</div>
+						  	<div class="form-group" id="resultInputBMR">
+						  		<label class="col-sm-9 control-label">Result</label>
+						      	<div class="col-sm-3">
+						    		<input  value="" type="text" id="resultBMR" name="result" class="form-control" />
+						    	</div>
+						  	</div>
+						  	<div class="form-group">
+						  		<label class="col-sm-6 control-label"></label>
+							    <div class="col-sm-offset-6 col-sm-6">
+							      <input type="submit" name='save' class="btn btn-success" id="calculateBMRBtn" value="Calculate"/>
+							    </div>
+						  	</div>
 					    </div>
 				  	</div>
+
         	</div> <!-- bmr -->
+        	<div id="measureModal" role="tabpanel" class="tab-pane active">
+        		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+							New measure
+						</button>
+						@include('users.measurements_form', ['userData' => 'data'])
+ 					</div>
         </div> <!-- tab-content -->
       </div> <!-- panel-body -->
 		</div> <!-- panel-success -->
 	</div>	<!-- col-md-6 -->
 
-	<div class="col-md-6">	
-		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-		 New measure
-		</button>
-
-		@include('users.measurements_form', ['userData' => 'data'])
+	<div class="col-md-5">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Task for today</h3>
+			</div>
+			<div class="panel-body">
+				<h5>Your planed tasks for today:</h5>
+				<ul id="todo-list">
+				@foreach ($tasks as $task)
+					<li>{{ $task->name }}<i class="fa fa-times pull-right li-todo" data-id="{{ $task->id}}"></i></li>
+				@endforeach
+				</ul>
+				<div class="newToDo">
+					<form  method="post" action="/new-todo"  class="ajax-todo">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<div class="form-group">
+							<label class="col-sm-7 control-label"> Name</label>
+							<div class="col-sm-5">
+								<input required="required" value="{{ old('name') }}" type="text" name="name" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-7 control-label"> Date</label>
+							<div class="col-sm-5">
+								<input required="required" value="{{$now->format('Y-m-d')}}" name="date_to_do" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+              <div class="col-sm-12">
+                <input type="submit" name='save' class="btn btn-success" value="Save"/>
+              </div>
+            </div>		
+					</form>
+				</div>
+			</div>	
+		</div>
 	</div>
-	
+
 	@if( isset($userMeasureData[0]) )
 
 		<?php  

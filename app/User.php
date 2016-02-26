@@ -289,4 +289,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     $calendar.= '</table>';
     return $calendar;
   }
+
+  public function tasks()
+  {
+    return $this->hasMany(Task::class);
+  }
 }

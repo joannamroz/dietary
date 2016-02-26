@@ -385,7 +385,43 @@ div.block-blur {
 	top: 75px;
   position: relative;
 }
+button#add {
+  background-color: #46b98a;
+}
 
+  button#add:hover {
+    background-color: #3fa67c;
+  }
+
+button#removeAll {
+  background-color: #E0645C;
+}
+
+  button#removeAll:hover {
+    background-color: #c95a52;
+  }
+
+button.removeMe {
+  padding: 5px;
+  font-size: 13px;
+  margin-left: 10px;
+  font-weight: 700;
+}
+
+  button.removeMe:hover {
+    background-color: #46b98a;
+  }
+
+ul#list {
+  margin: 0; 
+  padding: 20px 0 0 0;
+}
+
+li {
+  list-style: none;
+  font-size: 12px;
+  padding: 4px;
+}
 
 /*input#inputEmail:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px #282D31 inset;

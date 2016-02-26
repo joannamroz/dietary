@@ -148,10 +148,37 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click','.calendar-day', updateMealsList );
+	
+	$(document).on('click','.li-todo', function(){
+			var li_id = $(this).data('id');
+			var task_li = $(this);
+			$.ajax({
 
+	            type     : 'post',
+                url      : '/delete-todo',
+                data     : { id:li_id },
+                cache    : false,
+
+                beforeSend : function() {
+                    
+                },
+
+                success  : function(data) {
+                	if(data.success == true) {
+                		$(task_li).parent().remove();
+
+                	}
+
+                },
+
+                error : function() {
+
+                }
+			})
+	});
 
  	$('form.ajax').on('submit', function(event) {
-
+ 		
             event.preventDefault();
 
             var formData = $(this).serialize(); // form data as string
@@ -177,6 +204,38 @@ $(document).ready(function() {
 
                     $('.select2').val('').trigger('change');
                     updateMealsList();
+
+                },
+
+                error : function() {
+
+                }
+            })
+
+            return false;
+        });
+
+ 	$('form.ajax-todo').on('submit', function(event) {
+ 		
+            event.preventDefault();
+
+            var formData = $(this).serialize(); // form data as string
+            var formAction = $(this).attr('action'); // form handler url
+            var formMethod = $(this).attr('method'); // GET, POST
+
+            $.ajax({
+                type     : formMethod,
+                url      : formAction,
+                data     : formData,
+                cache    : false,
+
+                beforeSend : function() {
+                    
+                },
+
+                success  : function(data) {  
+              
+                   $('#todo-list').append('<li>'+data.task.name+'<i class="fa fa-times pull-right li-todo" data-id="'+data.task.id+'"></i></li>');
 
                 },
 
@@ -749,4 +808,43 @@ $(document).ready(function() {
 		});
 
 	}
+
+	var listToDo = document.getElementById('listToDo'),
+    removeAllToDo = document.getElementById('removeAllToDo'),
+    addToDo = document.getElementById('addToDo');
+ 
+	function addLi(targetUl) {
+	  var inputText = document.getElementById('textToDo').value,
+	      liToDo = document.createElement('li'),
+	      textNode = document.createTextNode(inputText + ' '),
+	      removeButton = document.createElement('button');
+	 
+	      if (inputText.split(' ').join('').length === 0) {
+	        alert('No input');
+	        return false;
+	      }
+	 
+	  removeButton.className = 'removeMe';
+	  removeButton.innerHTML = ' DONE!';
+	  removeButton.setAttribute('onclick', 'removeMe(this);');
+	 
+	  liToDo.appendChild(textNode);
+	  liToDo.appendChild(removeButton);
+	 
+	  targetUl.appendChild(liToDo);
+	}
+ 
+	function removeMe(item){
+	  var parent = item.parentElement;
+	  parent.parentElement.removeChild(parent);
+	}
+	 
+	addToDo.onclick = function () {
+	  addLi(listToDo);
+	};
+	 
+	removeAllToDo.onclick = function () {
+	  listToDo.innerHTML = '';
+	};
+
 });

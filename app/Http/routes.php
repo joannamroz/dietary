@@ -117,7 +117,8 @@ Route::group(['middleware' => ['auth']], function()
  
 //users profile
 Route::get('user/profile/{id}','UsersController@profile')->where('id', '[0-9]+');
-
+Route::post('new-todo', 'UsersController@store_todo');
+Route::post('delete-todo', 'UsersController@destroy');
 
 
 //Tutaj wersja wymagajaca zalogowanego uzytkownika Route::group(['prefix' => 'api','middleware' => 'auth'], function () {
