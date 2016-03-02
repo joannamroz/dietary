@@ -235,7 +235,8 @@ $(document).ready(function() {
 
                 success  : function(data) {  
               
-                   $('#todo-list').append('<li>'+data.task.name+'<i class="fa fa-times pull-right li-todo" data-id="'+data.task.id+'"></i></li>');
+                   $('#todo-list').prepend('<li style="color:white">'+data.task.name+'<i class="fa fa-times pull-right li-todo today" data-id="'+data.task.id+'"></i></li>');
+                   $('form.ajax-todo textarea').val("");
 
                 },
 
@@ -438,38 +439,41 @@ $(document).ready(function() {
 	});
 
 	function drawTable() {
-
+		
 		var table = 
-			"<table class='table table-bordered'> \
-				<tr> \
-					<th >Name</th> \
-					<th >Weight</th> \
-					<th >Kcal</td> \
-					<th >Proteins</th> \
-					<th >Carbs</th> \
-					<th >Fats</th> \
-					<th >Fibre</th> \
-				</tr>";
+			'<div class="scrollable scrollbar-macosx"> \
+				<table class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%"> \
+					<thead> \
+						<tr> \
+							<th> Name </th> \
+							<th> Weight </th> \
+							<th> Kcal </td> \
+							<th> Proteins </th> \
+							<th> Carbs </th> \
+							<th> Fats </th> \
+							<th> Fibre </th> \
+						</tr> \
+					</thead>';
 
-		$('.select2-ingredient').each( function(index) {
+					$('.select2-ingredient').each( function(index) {
 
-			
-			var weight = $(this).next().next().val();
+						
+						var weight = $(this).next().next().val();
 
-			var mealId = $(this).select2('data')[0].id;
-			var mealName = $(this).select2('data')[0].text;
-			var mealKcal = $(this).select2('data')[0].kcal * weight/100;
-			var mealProteins = $(this).select2('data')[0].proteins * weight/100;
-			var mealCarbs = $(this).select2('data')[0].carbs * weight/100;
-			var mealFats = $(this).select2('data')[0].fats * weight/100;
-			var mealFibre = $(this).select2('data')[0].fibre * weight/100;
+						var mealId = $(this).select2('data')[0].id;
+						var mealName = $(this).select2('data')[0].text;
+						var mealKcal = $(this).select2('data')[0].kcal * weight/100;
+						var mealProteins = $(this).select2('data')[0].proteins * weight/100;
+						var mealCarbs = $(this).select2('data')[0].carbs * weight/100;
+						var mealFats = $(this).select2('data')[0].fats * weight/100;
+						var mealFibre = $(this).select2('data')[0].fibre * weight/100;
 
 
-			table += "<tr><td>"+mealName+"</td><td>"+weight+"</td><td>"+mealKcal+"</td><td>"+mealProteins+"</td><td>"+mealCarbs+"</td><td>"+mealFats+"</td><td>"+mealFibre+"</td></tr>";
+						table += "<tr><td>"+mealName+"</td><td>"+weight+"</td><td>"+mealKcal.toFixed(1)+"</td><td>"+mealProteins.toFixed(1)+"</td><td>"+mealCarbs.toFixed(1)+"</td><td>"+mealFats.toFixed(1)+"</td><td>"+mealFibre.toFixed(1)+"</td></tr>";
 
-		});
+					});
 
-		table += "</table>";
+			table += "</table></div>";
 
 		return table;
 	}
@@ -736,7 +740,7 @@ $(document).ready(function() {
 				<tr> \
 					<th >Name</th> \
 					<th >Series</th> \
-					<th >Repeats</td> \
+					<th >Repeats</th> \
 				</tr>";
 
 		for (var input in valuess) { 
@@ -809,42 +813,7 @@ $(document).ready(function() {
 
 	}
 
-	var listToDo = document.getElementById('listToDo'),
-    removeAllToDo = document.getElementById('removeAllToDo'),
-    addToDo = document.getElementById('addToDo');
- 
-	function addLi(targetUl) {
-	  var inputText = document.getElementById('textToDo').value,
-	      liToDo = document.createElement('li'),
-	      textNode = document.createTextNode(inputText + ' '),
-	      removeButton = document.createElement('button');
-	 
-	      if (inputText.split(' ').join('').length === 0) {
-	        alert('No input');
-	        return false;
-	      }
-	 
-	  removeButton.className = 'removeMe';
-	  removeButton.innerHTML = ' DONE!';
-	  removeButton.setAttribute('onclick', 'removeMe(this);');
-	 
-	  liToDo.appendChild(textNode);
-	  liToDo.appendChild(removeButton);
-	 
-	  targetUl.appendChild(liToDo);
-	}
- 
-	function removeMe(item){
-	  var parent = item.parentElement;
-	  parent.parentElement.removeChild(parent);
-	}
-	 
-	addToDo.onclick = function () {
-	  addLi(listToDo);
-	};
-	 
-	removeAllToDo.onclick = function () {
-	  listToDo.innerHTML = '';
-	};
-
+	$('.fa-times').hover( function() {
+		$(this).toggleClass('fa-lg');
+	});
 });

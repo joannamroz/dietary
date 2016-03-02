@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 
 		$("<div class='form-group'> <div class='col-sm-6'> <select name='exercise_id[]' class='form-control exercise-select new-exercise'> </select> </div>\
-			<div class='col-sm-2'> <input name='series[]' class='exercise_series form-control' type=text value=0 /> </div> \
+			<div class='col-sm-2'> <input name='series[]' class='exercise-series form-control' type=text value=0 /> </div> \
 		<div class='col-sm-2'> <input name='reps[]' class='exercise-reps form-control col-sm-2' type=text value=0 /> </div>\
 		<div class='col-sm-2'> <input name='duration[]' class='exercise-time form-control col-sm-2' type=text value=0 /> </div> </div> ").insertBefore('#add-exercise');
 
@@ -41,7 +41,7 @@ $(document).ready(function() {
 						width: '100%'
 					});
 
-					prepareNewExercisegInputs();
+					prepareNewExerciseInputs();
 
 
 
@@ -64,7 +64,7 @@ $(document).ready(function() {
 				width: '100%'
 			});
 
-			prepareNewExercisegInputs();
+			prepareNewExerciseInputs();
 
 
 			$(".new-exercise").removeClass('new-exercise');		
@@ -78,12 +78,12 @@ $(document).ready(function() {
 		var time = $(this).select2('data')[0].time;
 
 		if (time == 0) {
-			//console.log($(this).parent().parent().find('.exercise-time'));
+			
 			$(this).parent().parent().find('.exercise-time').hide();
 			$(this).parent().parent().find('.exercise-reps').show();
 			$(this).parent().parent().find('.exercise-series').show();			
 		} else {
-			//console.log($(this).parent().parent().find('.exercise-reps'));
+			
 			$(this).parent().parent().find('.exercise-time').show();
 			$(this).parent().parent().find('.exercise-reps').hide();
 			$(this).parent().parent().find('.exercise-series').hide();
@@ -95,61 +95,53 @@ $(document).ready(function() {
 
  	$('form.ajax-training').on('submit', function(event) {
 
- 		//alert('aha');
-
+ 		
  		event.preventDefault();
 
- 		//return false;
+ 		
+      event.preventDefault();
 
-            event.preventDefault();
-          //  return false;
-            var formData = $(this).serialize(); // form data as string
-            var formAction = $(this).attr('action'); // form handler url
-            var formMethod = $(this).attr('method'); // GET, POST
+      var formData = $(this).serialize(); // form data as string
+      var formAction = $(this).attr('action'); // form handler url
+      var formMethod = $(this).attr('method'); // GET, POST
+      var formRedirect = $(this).data('redirecturl');
 
-            $.ajax({
-                type     : formMethod,
-                url      : formAction,
-                data     : formData,
-                cache    : false,
+        $.ajax({
+            type     : formMethod,
+            url      : formAction,
+            data     : formData,
+            cache    : false,
 
-                beforeSend : function() {
-                    
-                },
+            beforeSend : function() {
+                
+            },
 
-                success  : function(data) {
+            success  : function(data) {
 
-                	$('#training_template_id').val(data.id);
-               //     return false;
-                    //$('form.ajax')[0].reset();
-                   // $('.use-select2-food').trigger('change');
-                   // $('.use-select2-addFoodForUser').trigger('change');
-                    
-//
-                  //  $('.select2').val('').trigger('change');
-                   // updateMealsList();
+            	$('#training_template_id').val(data.id);
+              window.location.href = formRedirect;
 
-                },
+            },
 
-                error : function() {
-                //	return false;
-                }
-            })
+            error : function() {
+            
+            }
+        })
 
-            return false;
-        });
+    return false;
+  });
 
-	function prepareNewExercisegInputs() {
+	function prepareNewExerciseInputs() {
 
 		var time = $(".new-exercise").select2('data')[0].time;
 
 		if (time == 0) {
-			//console.log($(this).parent().parent().find('.exercise-time'));
+			
 			$(".new-exercise").parent().parent().find('.exercise-time').hide();
 			$(".new-exercise").parent().parent().find('.exercise-reps').show();
 			$(".new-exercise").parent().parent().find('.exercise-series').show();			
 		} else {
-			//console.log($(this).parent().parent().find('.exercise-reps'));
+			
 			$(".new-exercise").parent().parent().find('.exercise-time').show();
 			$(".new-exercise").parent().parent().find('.exercise-reps').hide();
 			$(".new-exercise").parent().parent().find('.exercise-series').hide();
@@ -159,8 +151,5 @@ $(document).ready(function() {
 	}
 	
 
-
-	//$('#add-exercise').trigger('click');
-	
 });
  

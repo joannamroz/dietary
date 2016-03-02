@@ -3,18 +3,18 @@
 @section('content')
 
 <div class="row">
-  <div class="col-md-8">
-  	<div class="panel panel-info">
+  <div class="col-md-12">
+  	<div class="panel panel-success">
   		<div class="panel-heading"> 
   			<h3 class="panel-title"> Name : {{ $food->name}}</h3> 
-  			<h5 style="color:#ed4949">Kcal:  {{ $food->kcal}} / 100g</h5>
+  			<h5 style="color:#ed4949">kcal:  {{ $food->kcal}} / 100g</h5>
   		</div>
   		<div class="panel-body">	
 				<div class="scrollable scrollbar-macosx">
 	        <table id="" class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%">
 	        	<thead>
 							<tr>
-								<th>Name</th><th>Brand</th><th>Weight</th><th>Kcal</th><th>Proteins</th><th>Carbs</th><th>Fats</th><th>Fibre</th>
+								<th>Ingredient</th><th>Brand</th><th>Weight (g)</th><th>kcal</th><th>Proteins</th><th>Carbs</th><th>Fats</th><th>Fibre</th>
 							</tr>
 						</thead>
 						
@@ -46,12 +46,12 @@
 					  		?>
 					  		<td>{{ $food_one->ingredient->name }}</td> <!-- 'ingredient' to metoda z modelu ingredients  -->
 					  		<td>{{ $food_one->ingredient->brand->name}}</td>
-					  		<td>{{ $weight }}g</td>
-					  		<td>{{ $kcal }}</td>
-					  		<td>{{ $proteins }}</td>
-					  		<td>{{ $carbs }}</td>
-					  		<td>{{ $fats }}</td>
-					  		<td>{{ $fibre }}</td>  		
+					  		<td>{{ number_format($weight, 1) }}</td>
+					  		<td>{{ number_format($kcal, 1) }}</td>
+					  		<td>{{ number_format($proteins, 1) }}</td>
+					  		<td>{{ number_format($carbs, 1) }}</td>
+					  		<td>{{ number_format($fats, 1) }}</td>
+					  		<td>{{ number_format($fibre, 1) }}</td>  		
 						  </tr>
 							@endforeach
 						

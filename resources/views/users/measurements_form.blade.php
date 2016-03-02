@@ -1,16 +1,15 @@
 <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Add Measurements</h4>
       </div>
-      <div class="modal-body">
-      	<div class="row">
-					<div class="col-md-12">
+      <div class="modal-body"> -->
+      
 						<form action="/new-measure" method="post" class="form-horizontal" id="measurements-form">
 						  <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -73,13 +72,11 @@
 			        </div>
 						  
 						</form>
-						
-					</div> <!-- col-md-12 -->
-				</div> <!-- row -->
-      </div>
+				
+      <!-- </div>
       <div class="modal-footer">
         
       </div>
     </div>
   </div>
-</div>
+</div> -->

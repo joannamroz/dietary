@@ -11,15 +11,15 @@
         <h4 class="modal-title" id="modalMealLabel">Add meal</h4>
       </div>
       <div class="modal-body">
-        <div class = "row">
-          <div class = "col-md-12">
-            <form action = "/new-meal" method ="post" class="ajax form-horizontal">
-              <input type = "hidden" name = "_token" value = "{{ csrf_token() }}">
-              <input type = "hidden" value = "{{$date}}" name = "thisDay">
-              <input type = "hidden" value = "{{$now->day}}" name = 'day' id = "selectedDay"/>
-              <input type = "hidden" value = "{{$now->month}}" name = 'month' id = "selectedMonth"/>
-              <input type = "hidden" value = "{{$now->year}}" name = 'year' id = "selectedYear"/> 
-              <input required = "required" value = "{{$now->toDateString()}}" type = "hidden" name = "date" class = "form-control" />     
+        <div class="row">
+          <div class="col-md-12">
+            <form action="/new-meal" method="post" class="ajax form-horizontal">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" value="{{$date}}" name="thisDay">
+              <input type="hidden" value="{{$now->day}}" name='day' id="selectedDay"/>
+              <input type="hidden" value="{{$now->month}}" name='month' id="selectedMonth"/>
+              <input type="hidden" value="{{$now->year}}" name='year' id="selectedYear"/> 
+              <input required="required" value="{{$now->toDateString()}}" type="hidden" name="date" class="form-control" />     
               <div class="form-group">
                 <label class="col-sm-5 control-label">Select food:</label>
                 <div class="col-sm-7">

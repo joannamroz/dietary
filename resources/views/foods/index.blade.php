@@ -8,7 +8,7 @@ There is no food till now.
 @else
 <div class="panel panel-success"> 
   <div class="panel-heading">
-    <h3 class="panel-title">Foods <a class='pull-right btn' href="{{ url('food/new-food') }}">Add new +</a></h3>
+    <h3 class="panel-title">Foods <a class='pull-right btn btn-success' href="{{ url('food/new-food') }}">Add new +</a></h3>
   </div>
   <div class='panel-body'> 
     

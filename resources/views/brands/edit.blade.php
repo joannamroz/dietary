@@ -4,12 +4,12 @@
 @section('content')
 
 <div class="row">
-  <div class="col-md-6">
-	  <div class="panel panel-success">
-      <div class="panel-heading">
-          <h3 class="panel-title">Edit Brand</h3>
-      </div>
-      <div class="panel-body">
+  	<div class="col-md-6">
+	  	<div class="panel panel-success">
+      		<div class="panel-heading">
+	          	<h3 class="panel-title">Edit Brand</h3>
+	      	</div>
+	      	<div class="panel-body">
 				<form method="post" action='{{ url("brand/update") }}' class="form-horizontal">
 				  <input type="hidden" name="_token" value="{{ csrf_token() }}">
 				  <input type="hidden" name="brand_id" value="{{ $brand->id }}{{ old('brand_id') }}">

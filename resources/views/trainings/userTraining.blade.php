@@ -76,11 +76,8 @@
 					<th>Date</th>
 					<th>Done</th>
 				</tr>
-				<?php //dd($activities); die(); ?>
-				@foreach ($activities as $activity) 
-
-					
-					
+			
+				@foreach ($activities as $activity) 	
 					<tr>
 						<td>{{ $activity->training->name }}</td>
 						<td>{{ $activity->date }}</td>

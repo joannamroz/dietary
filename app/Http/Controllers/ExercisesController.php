@@ -1,14 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-
 use Auth;
 use Log;
 use App\Exercise;
 use App\Training;
-use App\Template;
-// use App\TrainingTemplates;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -25,9 +21,6 @@ class ExercisesController extends Controller
     {
         $exercises = Exercise::all();
         $trainings = Training::all();
-        // print_r($exercises);
-        // var_dump("<br/>");
-        print_r($trainings);die();
         
         return view('exercises.index')->with('exercises', $exercises)->with('trainings', $trainings);
         

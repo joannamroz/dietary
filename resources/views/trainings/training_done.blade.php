@@ -1,6 +1,6 @@
 @if ( !$training_done->count() )
 
-  <h3 class="panel-title" style="margin-top:50px">Training done today: - </h3><br/>
+  <h3 class="panel-title" style="margin-top:50px">Training done today: - </h3>
 
 @else
 

@@ -10,6 +10,7 @@ class Template extends Model
 {
  
 	// protected $guarded = [];
+	protected $table = 'training_templates';
 	
 	public function exercises()
 	{

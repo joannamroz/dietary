@@ -30,8 +30,7 @@ class TaskFormRequest extends Request
   public function rules()
   {
     return [
-      'name' => 'required|unique:tasks|max:255'
-     // 'name' => array('Regex:/^[A-Za-z0-9 ]+$/'),                      
+      'name' => 'required|unique:tasks|max:255'                
     ];
   }	
 }

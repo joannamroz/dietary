@@ -6,7 +6,7 @@
 
   <h3>There is no exercises till now. Add one </h3>
 @else
-<a class="btn btn-danger" style="margin-bottom:1%; padding:15px" href="../training/userTraining">View your planed/finished trainings</a>
+<!-- <a class="btn btn-danger" style="margin-bottom:1%; padding:15px" href="../training/userTraining">View your planed/finished trainings</a> -->
 <div class="row">
   <div class="col-md-6" id="exercises_div">
     <div class="panel panel-success">
@@ -18,23 +18,22 @@
           <table id="" class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th>Exercise name</th>
-                <th>How to do</th>
-                <th>Edit</th>
+                <th class="wider_th">Exercise name</th>
+                <th class="wider_th">How to do</th>
+                <th >Edit</th>
               </tr>
             </thead>
             @foreach( $exercises as $exercise )
             <tr>
-              <td>{{ $exercise->name }}</td>
-            <!--   <?php $description = wordwrap($exercise->description, 10, '\n',false); ?> -->
-              <td>{{ $exercise->description}}</td>
-              <td><a href="{{ url('exercise/edit/'.$exercise->id)}}"><i class="fa fa-pencil"></i></a></td>
+              <td class="wider_th">{{ $exercise->name }}</td>
+              <td class="wider_th">{{ $exercise->description}}</td>
+              <td ><a href="{{ url('exercise/edit/'.$exercise->id)}}"><i class="fa fa-pencil"></i></a></td>
             </tr>
             @endforeach
         </table>
       </div>
 @endif
-        <button type="button" class="btn square-button" id="newExercise">+</button>
+        <button type="button" class="btn btn-danger" id="newExercise"><i class="fa fa-plus"></i> <b> New</b></button>
         <form action="/new-exercise" method="post" id="newExerciseForm">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="form-group">
@@ -76,14 +75,17 @@
             <table id="" class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                  <th>Training name</th>
-                  <th>Edit</th>
+                  <th>When aded</th>
+                  <th>Completed</th>
+                  <th>View</th>
                 </tr>
               </thead>
+              
               @foreach( $trainings as $training )
               <tr>
-                <td>{{ $training->name }}</td>
-                <td><a href="{{ url('training/edit/'.$training->id)}}"><span class="glyphicon glyphicon-search"></span></a></td>
+                <td>{{ $training->created_at}}</td>
+                <td>{{ $training->finished_at}}</td>
+                <td><a href="{{ url('training/show/'.$training->id)}}"><span class="glyphicon glyphicon-search"></span></a></td>
               </tr>
             @endforeach
           </table>

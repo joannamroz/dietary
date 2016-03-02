@@ -98,20 +98,9 @@ Route::group(['middleware' => ['auth']], function()
 	Route::get('new-training', 'TrainingsController@create');
 	Route::post('new-training', 'TrainingsController@store');
 
-	//Route::get('training/new-training-template', 'TrainingTemplatesController@create');
-	//Route::post('new-training-template', 'TrainingTemplatesController@store');
+	Route::get('training/edit/{id}', 'TrainingsController@edit');
+	Route::get('training/show/{id}', 'TrainingsController@show');
 
-
-
-	// Route::get('training/edit/{id}', 'TrainingTemplatesController@edit');
-	// Route::post('training/update', 'TrainingTemplatesController@update');
-	// Route::get('training/delete/{id}', 'TrainingTemplatesController@destroy');
-	// Route::get('training/userTraining', 'TrainingTemplatesController@userTraining');
-
-	// Route::get('training/new-exercise-training', 'TrainingTemplatesController@createExerciseTraining');
-	// Route::post('new-exercise-training', 'TrainingTemplatesController@storeExerciseTraining');
-	// Route::get('training/future-training', 'TrainingTemplatesController@futureTraining');
-	// Route::post('future-training', 'TrainingTemplatesController@storefutureTraining');
 
 });
  
@@ -124,12 +113,12 @@ Route::post('delete-todo', 'UsersController@destroy');
 //Tutaj wersja wymagajaca zalogowanego uzytkownika Route::group(['prefix' => 'api','middleware' => 'auth'], function () {
 Route::group(['prefix' => 'api'], function () {
 
- 	Route::get('foods', 'ApiController@getFoods');
+	Route::get('foods', 'ApiController@getFoods');
 	Route::get('foods/{id}/{secret}', 'ApiController@getFoodById');
 
- 	//Route::get('foods/{$id}', 'ApiController@getFoodById');
+	//Route::get('foods/{$id}', 'ApiController@getFoodById');
 
- 	Route::get('meals', 'ApiController@getMeals');
+	Route::get('meals', 'ApiController@getMeals');
 });
 
 

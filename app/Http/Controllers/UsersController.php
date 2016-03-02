@@ -35,14 +35,16 @@ class UsersController extends Controller
   public function profile(Request $request)
   {
 
-    $sessionId = $request->user()->id ;
+    $sessionId = $request->user()->id;
+    $now = Carbon::now();
+    $now = $now->format('Y-m-d');
     $userData = User::where('id', $sessionId)->first();
     $title = 'Your profile';
     $userMeasure = Measurement::where('user_id', $sessionId)->orderBy('date', 'desc')->get();
     $age = $userData->getUserAge();   
-    $tasks = Task::where('user_id', $sessionId)->orderBy('created_at', 'desc')->get();
-    $now = $now = Carbon::now();
-    // var_dump($tasks);die();
+    $today_tasks = Task::where('user_id', $sessionId)->where('date_to_do', $now)->orderBy('created_at', 'desc')->get();
+    $not_done_tasks = Task::where('user_id', $sessionId)->where('date_to_do', '!=', $now)->get();
+    
 
     if (!$userMeasure->count()) {
 
@@ -82,7 +84,7 @@ class UsersController extends Controller
    
    
     if ($userData) 
-      return view('users.profile')->with(compact(array('userData', 'title', 'userWeight', 'userHeight', 'userMeasure',  'userMeasureData', 'userBodyFat', 'userBMI', 'userBMIrange', 'age', 'tasks', 'now')));
+      return view('users.profile')->with(compact(array('userData', 'title', 'userWeight', 'userHeight', 'userMeasure',  'userMeasureData', 'userBodyFat', 'userBMI', 'userBMIrange', 'age', 'today_tasks','not_done_tasks', 'now')));
 
     return redirect('/food/index')->withErrors('You do not have sufficient permissions');
     
@@ -92,11 +94,9 @@ class UsersController extends Controller
   { 
     $user_id = Auth::user()->id; 
     $users = User:: where('id', '!=', $user_id)->get();
-    $title = "All users";
     
-
     if ($users)
-      return view('users.index')->with('users', $users)->with('title', $title);
+      return view('users.index')->with('users', $users);
 
     return redirect('/food/index')->withErrors('You do not have sufficient permissions');
   }
@@ -118,7 +118,7 @@ class UsersController extends Controller
 
     $task->save();
     
-    return response()->json(array('success' => true, 'task'=>$task));
+    return response()->json(array('success' => true, 'task' => $task));
   }
     
   /**
@@ -149,7 +149,7 @@ class UsersController extends Controller
    */
   public function show($id)
   {
-    return view('users.show');
+    //
   }
   
   /**
