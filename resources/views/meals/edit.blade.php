@@ -18,7 +18,7 @@
           <div class="form-group noMarginBottom">
            <label class="col-sm-5 control-label">Select food from list:</label>
             <div class="col-sm-7">
-              <select class="select2" name="food_id">
+              <select class="use-select2" name="food_id">
                
                 @foreach ($foods as $food) 
                 <option value="{{ $food->id }}" @if( $meal->food_id == $food->id ) {{ 'selected=selected' }} @endif >{{$food->name}}</option>

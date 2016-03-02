@@ -6,12 +6,12 @@
 @if ( !$foods->count() )
 There is no food till now.
 @else
-<div class="panel panel-success"> 
+<div class="panel panel-success" id='foods-panel'> 
   <div class="panel-heading">
     <h3 class="panel-title">Foods <a class='pull-right btn btn-success' href="{{ url('food/new-food') }}">Add new +</a></h3>
   </div>
   <div class='panel-body'> 
-    
+    <select type='text' id='food-search' placeholder='Find food...' class='form-control selectpicker  foods-select2'> </select>
     <div class="scrollable scrollbar-macosx">
       <table id="" class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%">
         <tr>

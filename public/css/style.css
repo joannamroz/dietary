@@ -365,3 +365,38 @@ ul#list {
     border-color: #5e6870;
     color:grey;
 }*/
+
+
+
+
+/** Custom select2 styles */
+
+.select2-container.select2-container--default.select2-container--open {
+	/*position:fixed !important;*/
+}
+
+.panel-body .select2-container--default .select2-selection--single {
+    background-color: rgba(36, 41, 44, 0.5);
+    border-color: rgba(36, 41, 44, 0.5);
+    box-shadow: none;
+    color: #5e6870;
+}
+
+span.select2-container--open .select2-dropdown--below {
+    background-color: #382835;
+    border-color: #272c30;
+}
+
+.select2-search.select2-search--dropdown {
+    background-color: #382835;
+    border-color: #272c30;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    background-color: rgba(36, 41, 44, 0.5);
+    border-color: rgba(36, 41, 44, 0.5);
+    box-shadow: none;
+    color: #5e6870;
+}
+/** end of our Custom select2 styles */
+

@@ -18,10 +18,17 @@ class ApiController extends Controller
    *
    * @return Response
    */
-  public function getFoods() 
+  public function getFoods(Request $request) 
   {
       
-    $foods = Food::all();
+    if ($request->input('q')) {
+      $search_query = $request->input('q');
+      $foods = Food::with('brand')->where('name', 'like',  '%'.$search_query.'%' )->get();
+    } else {
+       $foods = Food::with('brand')->get();
+    }
+
+   
 
     //return home.blade.php template from resources/views folder
    /// return view('brands.index')->withBrands($brands)->withTitle($title);
