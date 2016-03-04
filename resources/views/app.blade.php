@@ -39,58 +39,38 @@
     <div class='wrapper'> 
       @include('elements.navbar')
 
-      @if (Session::has('message'))
-      <div class="flash alert-info">
-        <p class="panel-body">
-          {{ Session::get('message') }}
-        </p>
-      </div>
-      @endif
-      @if ($errors->any())
-      <div class='flash alert-danger'>
-        <ul class="panel-body">
-          @foreach ( $errors->all() as $error )
-          <li>
-            {{ $error }}
-          </li>
-          @endforeach
-        </ul>
-      </div>
-      @endif
-
         <div class='dashboard'>
 
           @include('elements/sidebar')
           <div class='main'>
             <div class="scrollable scrollbar-macosx">
               <div class="main__cont">
-                <!-- <div class="main-heading">
-                  <div class="main-title">
-                    <ol class="breadcrumb">
-                      <li class="active">Dashboard</li>
-                    </ol>
-                  </div>
-                  <div class="main-filter">
-                    <form class="main-filter__search">
-                      <div class="input-group">
-                        <input type="text" placeholder="Search..." class="form-control"><span class="input-group-btn">
-                          <button type="button" class="btn btn-default">
-                            <div class="fa fa-search"></div>
-                          </button></span>
-                      </div>
-                    </form>
-                  </div>
-                </div> -->
-
                 <div class="">
-                  <div class="pages pages_dashboard">             
-                      <!-- Page title -->
-                     @yield('title')
+                  <div class="pages pages_dashboard">  
 
-                      @yield('title-meta')
+                    @if (Session::has('message'))
+                      <div role="alert" class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible">
+                        <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">&times;</span></button><i class="alert-ico fa fa-fw fa-check"></i><strong>{{ Session::get('message') }}&thinsp;</strong>
+                      </div>     
+                    @endif 
 
-                      <!-- Page content is added here  -->
-                      @yield('content')
+                    @if ($errors->any())
+                      <div role="alert" class="alert {{ Session::get('alert-class', 'alert-danger') }} alert-dismissible">
+                        <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+                          <span aria-hidden="true">&times;</span>
+                           @foreach ( $errors->all() as $error )
+                            </button><i class="alert-ico fa fa-fw fa-ban"></i><strong>Error!&thinsp;</strong>{{ $error }}
+                           @endforeach
+                      </div>
+                    @endif   
+
+                    <!-- Page title -->
+                    @yield('title')
+
+                    @yield('title-meta')
+
+                    <!-- Page content is added here  -->
+                    @yield('content')
              
                   </div>
                 </div>
@@ -123,10 +103,7 @@
     <script src="{{ asset('/js/main-extra.js') }}"></script>
     <script src="{{ asset('/js/inputNumber.js') }}"></script>
 
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-
-
 
   </body>
 </html>

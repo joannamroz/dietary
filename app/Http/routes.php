@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth']], function()
 	 Route::get('brand/edit/{id}', 'BrandsController@edit');
 	 Route::post('brand/update', 'BrandsController@update');
 	 Route::get('brand/delete/{id}', 'BrandsController@destroy');
+	 Route::get('brand/show/{id}', 'BrandsController@show');
 
 	 Route::get('meal/index', ['as' => 'meal', 'uses' => 'MealsController@index']);
 	 Route::get('meal/new-meal', 'MealsController@create');
@@ -114,6 +115,7 @@ Route::post('delete-todo', 'UsersController@destroy');
 Route::group(['prefix' => 'api'], function () {
 
 	Route::get('foods', 'ApiController@getFoods');
+	Route::get('brands', 'ApiController@getBrands');
 	Route::get('foods/{id}/{secret}', 'ApiController@getFoodById');
 
 	//Route::get('foods/{$id}', 'ApiController@getFoodById');

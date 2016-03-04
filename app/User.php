@@ -41,6 +41,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     return $this->hasMany('App\UserPermission', 'id', 'authorized_user_id');
   }
 
+   public function tasks()
+  {
+    return $this->hasMany(Task::class);
+  }
   /**
    * The attributes excluded from the model's JSON form.
    *
@@ -68,100 +72,25 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     return false;
   }
 
-  /* Need to redesign this function and move it to some sort of helper */
-  public static function draw_calendar($month, $year) {
+  public static function getUserBmr() {
 
-    $selectedMonth = Carbon::create($year, $month, 1); /*creating calendar starting from day 1*/
-    
-    $now = new \DateTime();
+    $user = Auth::user();
+    $age = $user->getUserAge();  
+    $sex = $user->sex;
+    $currentMeasurements = User::getCurMeasurements();
+    $weight = $currentMeasurements['weight'];
+    $height = $currentMeasurements['height'];
+    $activity = 1.2; //litlle or no exercises
 
-    $thisMonth = $now->format('m'); 
-    $nameMonth = $now->format('F');
-    $thisYear = $now->format('Y');
-    $thisDay = null;
-
-
-    if ($month == $thisMonth && $year == $thisYear) {
-        $thisDay = $now->format('d');
-    }
-    /* draw table */
-    $calendar = '<table cellpadding="0" cellspacing="0" class="calendar table" data-year="'.$year.'" data-month="'.$month.'">';
-
-    /* table headings */
-    $headings = array('Mon.','Tue.','Wed.','Thu.','Fr.','Sat.','Sun.');
-
-    $calendar.= '<tr class="calendar-row"><th class="calendar-day-head">'.implode('</th><th class="calendar-day-head">',$headings).'</td></tr>';
-
-    /* days and weeks vars now ... */
-    $running_day = date('w',mktime(0,0,0,$month,1,$year)); /*FIRST falls on what day of week (0-6)*/
-     /* 0-tue, 1-wed, 2-thu, 3-Fr, 4-sat, 5-sun, 6-mon*/
-    $days_in_month = date('t',mktime(0,0,0,$month,1,$year)); /*how many days in month*/
-    $running_day_name = date('l', mktime(0,0,0,$month,'1',$year)); /*FIRST falls on what day of week Full Name*/
-  
-    $days_in_this_week = 1;
-    $day_counter = 0;
-    $dates_array = array();
-
-    /* row for week one */
-    $calendar.= '<tr class="calendar-row">';
-
-    /* print "blank" days until the first of the current week */
-
-    //- matt: we want our callendar to start from Monday so we calculate running_day by substracting 7 - (frist day of week in selected month)
-    $running_day = 7 - $selectedMonth->dayOfWeek;
-
-    for ($x = 1; $x < $running_day; $x++):
-      $calendar.= '<td class="calendar-day-np"> </td>';
-      $days_in_this_week++;
-    endfor;
-
-    /* keep going with days.... */
-    for ($list_day = 1; $list_day <= $days_in_month; $list_day++):
-
-      if ($thisDay==$list_day) {
-        $calendar.= '<td class="calendar-day today">';
+      if( $sex == 'female') {
+         $result = (655 + (9.6 * $weight) + (1.8 * $height) - (4.7 * $age)) * $activity;
       } else {
-        $calendar.= '<td class="calendar-day">';
+
+          $result = (66 + (13.7 * $weight) + (5 * $height) - (6.8 * $age)) * $activity;
       }
-      /* add in the day number */
-      $calendar.= '<div class="day-number">'.$list_day.'</div>';
-
-      /** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
-      $calendar.= str_repeat('<p> </p>',2);
-          
-      $calendar.= '</td>';
-
-      if ($running_day == 7):
-        $calendar.= '</tr>';
-
-        if (($day_counter+1) != $days_in_month):
-          $calendar.= '<tr class="calendar-row">';
-        endif;
-
-        $running_day = 0;
-        $days_in_this_week = 0;
-
-      endif;
-
-      $days_in_this_week++; $running_day++; $day_counter++;
-
-    endfor;
-
-    /* finish the rest of the days in the week */
-    if ($days_in_this_week < 8):
-      for ($x = 1; $x <= (8 - $days_in_this_week); $x++):
-        $calendar.= '<td class="calendar-day-np"> </td>';
-      endfor;
-    endif;
-
-    /* final row */
-    $calendar.= '</tr>';
-
-    /* end the table */
-    $calendar.= '</table>';
+    $bmr =  round($result);
     
-    /* all done, return result */
-    return $calendar;
+    return $bmr;
   }
 
   public static function getUserBMIrange($bmi)
@@ -176,10 +105,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
   }
 
-  public static function getCurrentMeasurements()
+  public static function getCurMeasurements()
   {
     $sessionId =  Auth::user()->id;
-    $currentMeasurements = Measurement::where('user_id', $sessionId)->orderBy('date', 'desc')->select('height', 'weight', 'body_fat')->get();
+    $currentMeasurements = Measurement::where('user_id', $sessionId)->orderBy('date', 'desc')->select('height', 'weight', 'body_fat')->first();
     return $currentMeasurements;
    
   }
@@ -290,8 +219,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     return $calendar;
   }
 
-  public function tasks()
-  {
-    return $this->hasMany(Task::class);
-  }
+ 
 }

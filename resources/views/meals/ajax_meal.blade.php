@@ -60,7 +60,10 @@
         </tr>
       </table>                
     </div>     
-    <h5 class="panel-title" style="color:#ed4949; text-align:right">Total kcal:{{ number_format($suma_kcal, 1) }}</h5>
+    <!-- <h5 class="panel-title" style="color:#ed4949; text-align:right">Total kcal:{{ number_format($suma_kcal, 1) }}</h5> -->
+    <div class="progress">
+      <div role="progressbar" aria-valuenow="{{  number_format(($suma_kcal/$bmr*100), 1) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{  number_format(($suma_kcal/$bmr*100), 1) }}%; font-weight:bold" class="progress-bar progress-bar-danger progress-bar-striped active">Total kcal:{{ number_format($suma_kcal, 1) }}</div>
+    </div>
   @endif
 
   @if ( !$meals_planed->count() )
@@ -109,6 +112,7 @@
       </table> 
     </div>               
     <h5 class="panel-title" style="color:#ed4949; text-align:right">Total kcal:{{ number_format($suma_kcal, 1) }}</h5>
+
     @endif
 
     @include('trainings.training_done')

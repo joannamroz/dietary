@@ -4,13 +4,13 @@
 @section('content')
 <div class="row">
   <div class="col-md-6">
-    <div class="panel panel-success">
+    <div class="panel panel-success" id='brands-panel'>
       <div class="panel-heading">
           <h3 class="panel-title">Brands</h3>
       </div>
       <div class="panel-body">
         <div class="scrollable scrollbar-macosx">
-        
+        <select type='text' id='brand-search' placeholder='Find brand...' class='form-control selectpicker  brands-select2'> </select>
           <table id="" class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%">
             <thead>
               <tr>

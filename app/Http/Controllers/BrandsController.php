@@ -23,10 +23,8 @@ class BrandsController extends Controller
   {
       
     $brands = Brand::all();
-    //page heading
-    $title = 'Brand List';
-    //return home.blade.php template from resources/views folder
-    return view('brands.index')->withBrands($brands)->withTitle($title);
+   
+    return view('brands.index')->withBrands($brands);
   }
 
   /**
@@ -37,14 +35,8 @@ class BrandsController extends Controller
   public function create(Request $request) 
   {
 
-    if ($request->user()->can_add_brand()) {
+    return view('brands.create');
 
-      return view('brands.create');
-
-    } else {
-        
-      return redirect('/brand/index')->withErrors('You have not sufficient permissions for adding new brand.');
-    }
   }
 
   /**
@@ -71,9 +63,13 @@ class BrandsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function show($id) 
+  public function show(Request $request, $id) 
   {
-      //
+    $brand = Brand::where('id', $id)->first();
+    $brand_foods = Food::where('brand_id', $id)->get();
+   
+
+    return view('brands.show')->with('brand', $brand)->with('brand_foods',  $brand_foods);
   }
 
   /**

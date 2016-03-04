@@ -44,9 +44,8 @@ class MealsController extends Controller
 
     $foods = Food::all();
 
-
-    $user_id = Auth::user()->id;
-
+    $userData = Auth::user();
+    $user_id = $userData->id;
     $meals_with_totals = Meal::getMealsWithTotals($today, $user_id);
     $meals =  $meals_with_totals['meals'];
     $meals_planed = $meals_with_totals['meals_planed'];
@@ -54,24 +53,25 @@ class MealsController extends Controller
     $totals_planed =  $meals_with_totals['totals_planed'];
 
     $permissions = UserPermission::with('user')->where('authorized_user_id', $user_id)->where('write_permission', 1)->get();
-    
+
+    //dump($permissions);
+
+    //foreach($permissions as $perm) {
+
+   // //  dump($perm->user);
+    //}
+   // dd('a');
     //page heading
     $title = 'Meals added at '.$today;
 
 
     $date = clone $now;
+    $bmr = $userData->getUserBmr();
     
-    //$date->modify('-24 hours');
-
-    //$formatted_date = $date->format('Y-m-d H:i:s');
-
-
-   // $training_done = Training::where('finished_at','>=',$formatted_date)->where('user_id', Auth::user()->id)->get();
 
     $training_done = Training::getTrainingsForDate($date);
 
-
-    return view('meals.index')->withMeals($meals)->with('meals_planed', $meals_planed)->withTitle($title)->with('foods', $foods)->withCalendar($calendar)->with('date', $date)->with('now', $now)->with('totals', $totals)->with('totals_planed', $totals_planed)->with('permissions', $permissions)->with('training_done', $training_done);
+    return view('meals.index')->with(compact(array('meals', 'meals_planed', 'title', 'foods', 'calendar', 'date',  'now', 'totals', 'totals_planed', 'permissions', 'training_done', 'bmr')));
 
   }
 
@@ -284,23 +284,21 @@ class MealsController extends Controller
       $selected_date = Carbon::create( $year, $month, $day);
   
       $date = $selected_date->toDateString();//without a hour
-      // var_dump($selectedDate);die();
       $user_id = Auth::user()->id;
       
       $meals_with_totals = Meal::getMealsWithTotals($date, $user_id);
+      extract($meals_with_totals); // thsi will create $meals, $meals_planed and $totals and $totals_planned
 
-
-
-      // $training_done = Training::where('finished_at','>=', $selected_date->startOfDay())->where('finished_at', '<=',$selected_date->endOfDay())->where('user_id', Auth::user()->id)->get();
-
+      $bmr = Auth::user()->getUserBmr();
 
       $training_done = Training::getTrainingsForDate($selected_date);
 
-
-
       $title = 'Meals added at '.$date;
 
-      $returnHTML = view('meals.ajax_meal')->withMeals($meals_with_totals['meals'])->withMealsPlaned($meals_with_totals['meals_planed'])->withTitle($title)->with('date', $date)->withTotals($meals_with_totals['totals'])->withTotalsPlaned($meals_with_totals['totals_planed'])->with('now', $now)->with('training_done', $training_done)->render();
+      $meals = $meals_with_totals["meals"];
+
+      $returnHTML = view('meals.ajax_meal')->with(compact(array('meals', 'meals_planed', 'title', 'date', 'totals', 'totals_planed', 'now', 'training_done','bmr')))->render();
+
       return response()->json(array('success' => true, 'html'=>$returnHTML));
 
     } else { 

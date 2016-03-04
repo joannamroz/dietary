@@ -14,7 +14,7 @@
 	        <table id="" class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%">
 	        	<thead>
 							<tr>
-								<th>Ingredient</th><th>Brand</th><th>Weight (g)</th><th>kcal</th><th>Proteins</th><th>Carbs</th><th>Fats</th><th>Fibre</th>
+								<th>Ingredient</th><th>Brand</th><th>Weight (g)</th><th>kcal</th><th>Proteins</th><th>Carbs</th><th>Fats</th><th>Fibre</th><th>Edit</th>
 							</tr>
 						</thead>
 						
@@ -56,11 +56,11 @@
 							@endforeach
 						
 					  <tr class="total-row">
-				  		<td>Total</td><td>{{$food->brand->name}}</td><td>{{ number_format($totalWeight, 1) }}</td><td>{{ number_format($totalKcal, 1) }}</td><td>{{ number_format($totalProteins, 1) }}</td><td>{{ number_format($totalCarbs, 1) }}</td><td>{{ number_format($totalFats, 1) }}</td><td>{{ number_format($totalFibre, 1) }}</td>
+				  		<td>Total</td><td>{{$food->brand->name}}</td><td>{{ number_format($totalWeight, 1) }}</td><td>{{ number_format($totalKcal, 1) }}</td><td>{{ number_format($totalProteins, 1) }}</td><td>{{ number_format($totalCarbs, 1) }}</td><td>{{ number_format($totalFats, 1) }}</td><td>{{ number_format($totalFibre, 1) }}</td><td><a href="{{ url('food/edit/'.$food->id)}}"><i class="fa fa-pencil"></i> </a> </a></td> 
 				  	</tr>
 				  @else 
 				  	<tr class="total-row">
-				  		<td>Total</td><td>{{$food->brand->name}}</td><td>100</td><td>{{ number_format($food->kcal, 1) }}</td><td>{{ number_format($food->proteins, 1) }}</td><td>{{ number_format($food->carbs, 1) }}</td><td>{{ number_format($food->fats, 1) }}</td><td>{{ number_format($food->fibre, 1) }}</td>
+				  		<td>Total</td><td>{{$food->brand->name}}</td><td>100</td><td>{{ number_format($food->kcal, 1) }}</td><td>{{ number_format($food->proteins, 1) }}</td><td>{{ number_format($food->carbs, 1) }}</td><td>{{ number_format($food->fats, 1) }}</td><td>{{ number_format($food->fibre, 1) }}</td><td><a href="{{ url('food/edit/'.$food->id)}}"><i class="fa fa-pencil"></i> </a> </a></td> 
 				  	</tr>
 				  @endif
 					</table>

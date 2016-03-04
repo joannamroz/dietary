@@ -32,10 +32,9 @@ $(document).ready(function() {
     
     $(window).on('resize', function() {
         $('.scrollable').scrollbar();
-        console.log('looks ok 1234');
+        
     });
 
-    console.log('looks ok');
 
     $('.selectize-dropdown-content').addClass('scrollbar-macosx').scrollbar();
     $('.nav-pills, .nav-tabs').tabdrop();
@@ -377,10 +376,10 @@ $(document).ready(function() {
 
     function loadMeals() {
 
-        $.ajax({
-      url: "/meal/all",
-      type: "get",
-        
+      $.ajax({
+		      url: "/meal/all",
+		      type: "get",
+	        
           success: function(response) {
 
             var data = [];
@@ -734,7 +733,6 @@ $(document).ready(function() {
         
         var valuess = $(this).find(':selected').attr('data-exercises');
         valuess = JSON.parse(valuess);
-        console.log(valuess);
 
         var table = "<table class='table table-condensed'> \
                 <tr> \
@@ -875,5 +873,58 @@ $(document).ready(function() {
 
     });
 
+    function formatBrand (brand) {
 
+	      if (!brand.id) { return brand.text; }
+	      var $brand = $(
+	        '<span> ' + brand.name + '</span>'
+	      );
+
+      return $brand;
+    };
+
+    function brandFormatSelection(element) {
+
+        if (element.id) {
+            window.location.href = "/brand/show/"+element.id;
+        }
+
+
+    }
+    $(".brands-select2").select2({
+
+        ajax: {
+        url: "/api/brands",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return {
+            q: params.term, // search term
+            page: params.page
+          };
+        },
+        processResults: function (data, params) {
+            params.page = params.page || 1;
+
+            return {
+                results: data,
+                pagination: {
+                    more: (params.page * 30) < data.total_count
+                }
+            };
+        },
+        cache: true
+        },
+
+        formatNoMatches: "No matches found.",
+        placeholder: "Search ",
+        minimumInputLength: 3,
+
+        templateResult: formatBrand,
+        width:'100%',
+        dropdownParent: $('.wrapper').first(),
+        templateSelection : brandFormatSelection
+       
+
+    });
 });

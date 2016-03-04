@@ -28,13 +28,9 @@ class ApiController extends Controller
        $foods = Food::with('brand')->get();
     }
 
-   
-
-    //return home.blade.php template from resources/views folder
-   /// return view('brands.index')->withBrands($brands)->withTitle($title);
-
     return response()->json($foods);
   }
+
 
   public function getFoodById($id, $secret = null) 
   {
@@ -43,23 +39,29 @@ class ApiController extends Controller
     } else {
       $foods = 'nope';
     }
-    
-
-    //return home.blade.php template from resources/views folder
-   /// return view('brands.index')->withBrands($brands)->withTitle($title);
 
     return response()->json($foods);
   }
+
 
   public function getMeals() 
   {
       
     $meals = Meal::all();
 
-    //return home.blade.php template from resources/views folder
-   /// return view('brands.index')->withBrands($brands)->withTitle($title);
-
     return response()->json($meals);
   }
 
+  public function getBrands(Request $request) 
+  {
+      
+    if ($request->input('q')) {
+      $search_query = $request->input('q');
+      $brands = Brand::where('name', 'like',  '%'.$search_query.'%' )->get();
+    } else {
+       $brands = Brand::all();
+    }
+
+    return response()->json($brands);
+  }
 }

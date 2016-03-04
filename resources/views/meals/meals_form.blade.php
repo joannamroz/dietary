@@ -56,7 +56,10 @@
                   <select class="use-select2-addFoodForUser" name="user_id" placeholder='Select user'>
                   <option value=""></option>
                   @foreach ($permissions as $permission)
+                  <?php //dd($permission->user ); ?>
+                    @if(isset($permission->user[0])) 
                     <option value="{{$permission->user[0]['id']}}" >{{$permission->user[0]['name']}}</option>
+                    @endif
                   @endforeach
                  </select>
                 </div>

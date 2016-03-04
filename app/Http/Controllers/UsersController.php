@@ -71,11 +71,11 @@ class UsersController extends Controller
 
     }
  
-    $currentMeasurements = User::getCurrentMeasurements();  
+    $currentMeasurements = User::getCurMeasurements();  
 
-    $userWeight = $currentMeasurements[0]['weight'];
-    $userHeight = $currentMeasurements[0]['height'];
-    $userBodyFat = $currentMeasurements[0]['body_fat'];
+    $userWeight = $currentMeasurements['weight'];
+    $userHeight = $currentMeasurements['height'];
+    $userBodyFat = $currentMeasurements['body_fat'];
 
     $userBMI = $userWeight / (($userHeight / 100) * ($userHeight / 100));
     $userBMI = number_format($userBMI,2);
