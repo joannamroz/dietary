@@ -24,6 +24,7 @@
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
     <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet">
@@ -32,6 +33,7 @@
     <link href="{{ asset('css/jquery.scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/morris.css') }}" rel="stylesheet">
     <link href="{{ asset('css/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
+
 
 
   </head>
@@ -81,9 +83,16 @@
         </div>
     </div>
     <!-- Latest compiled and minified JavaScript -->
+    
+   
+   
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    
 
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
@@ -94,7 +103,6 @@
 
     <script src="{{ asset('/js/bootstrap-switch.min.js') }}"></script>
     <script src="{{ asset('/js/bootstrap-tabdrop.min.js') }}"></script>
-    <script src="{{ asset('/js/bootstrap-datepicker.js') }}"></script>
 
 
     <script src="{{ asset('/js/ion.rangeSlider.min.js') }}"></script>

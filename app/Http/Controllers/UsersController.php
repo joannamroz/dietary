@@ -39,8 +39,8 @@ class UsersController extends Controller
     $now = Carbon::now();
     $now = $now->format('Y-m-d');
     $userData = User::where('id', $sessionId)->first();
-    $title = 'Your profile';
     $userMeasure = Measurement::where('user_id', $sessionId)->orderBy('date', 'desc')->get();
+    $lastMeasure = json_encode($userMeasure);
     $age = $userData->getUserAge();   
     $today_tasks = Task::where('user_id', $sessionId)->where('date_to_do', $now)->orderBy('created_at', 'desc')->get();
     $not_done_tasks = Task::where('user_id', $sessionId)->where('date_to_do', '!=', $now)->get();
@@ -48,7 +48,7 @@ class UsersController extends Controller
 
     if (!$userMeasure->count()) {
 
-      return view('users.profile')->with('userData', $userData)->with('title', $title)->with('age', $age);
+      return view('users.profile')->with('userData', $userData)->with('age', $age);
     }
 
     $userMeasureData = $userMeasure->toArray();
@@ -84,7 +84,7 @@ class UsersController extends Controller
    
    
     if ($userData) 
-      return view('users.profile')->with(compact(array('userData', 'title', 'userWeight', 'userHeight', 'userMeasure',  'userMeasureData', 'userBodyFat', 'userBMI', 'userBMIrange', 'age', 'today_tasks','not_done_tasks', 'now')));
+      return view('users.profile')->with(compact(array('userData', 'userWeight', 'userHeight', 'userMeasure',  'userMeasureData', 'userBodyFat', 'userBMI', 'userBMIrange', 'age', 'today_tasks','not_done_tasks', 'now', 'lastMeasure')));
 
     return redirect('/food/index')->withErrors('You do not have sufficient permissions');
     
@@ -195,7 +195,7 @@ class UsersController extends Controller
       } else  {
 
         $data['errors'] = 'Invalid Operation. You do not have sufficient permissions';
-        return response()->json(array('success' => true, 'errors'=>$data['errors']));
+        return response()->json(array('success' => true, 'errors' => $data['errors']));
       }
     }
 }

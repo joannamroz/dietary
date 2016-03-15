@@ -184,6 +184,16 @@
       </div>  
     </div>
   </div>
+  <div class="col-md-8">
+    <div class="panel panel-success">
+      <div class="panel-heading"> 
+        <h3 class="panel-title">Users measurements</h3> 
+      </div>
+      <div class="panel-body" id="line-chart" style="height: 350px"> 
+        <span id="chart-line" data-user-data='{!!$lastMeasure!!}'></span>
+      </div>
+    </div>
+  </div>
 
     @if( isset($userMeasureData[0]) )
 

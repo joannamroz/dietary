@@ -757,121 +757,118 @@ $(document).ready(function() {
  
     
 
-    $(document).ready(function() {
-    if ($('.template__controls').length) {
+$(document).ready(function() {
+  if ($('.template__controls').length) {
 
-        $('.selectpicker').selectpicker();
+    $('.selectpicker').selectpicker();
 
-        $('.nav-pills, .nav-tabs').tabdrop();
+    $('.nav-pills, .nav-tabs').tabdrop();
 
-        $('.date').datepicker();
-        
-        $('.input-daterange').datepicker();
-        $('.datepicker-embed').datepicker();
+    $('.date').datepicker();
+    
+    $('.input-daterange').datepicker();
+    $('.datepicker-embed').datepicker();
 
 
-        $('.timepicker input').timepicker({showMeridian: false, showSeconds: true});
+    $('.timepicker input').timepicker({showMeridian: false, showSeconds: true});
 
-        $('.slider').ionRangeSlider({
-            type: "double",
-            grid: false,
-            min: 0,
-            max: 1000,
-            from: 200,
-            to: 750,
-            prefix: "$: ",
-            decorate_both: false
-        });
-
-        $('.selectize').selectize({
-            create: false,
-            sortField: 'text'
-        });
-
-        $('.select-country').selectize();
-
-        $('.selectize_tags').selectize({
-            plugins: ['remove_button'],
-            options: [
-                {value: 'right', text: 'Right'},
-                {value: 'bootstrap', text: 'Bootstrap'},
-                {value: 'admin', text: 'Admin'},
-                {value: 'template', text: 'Template'},
-                {value: 'awesome', text: 'Awesome'}
-            ],
-            delimiter: ',',
-            persist: false,
-            create: function (input) {
-                return {
-                    value: input,
-                    text: input
-                }
-            }
-        });
-
-    }
-
-    $('.fa-times').hover( function() {
-        $(this).toggleClass('fa-lg');
+    $('.slider').ionRangeSlider({
+        type: "double",
+        grid: false,
+        min: 0,
+        max: 1000,
+        from: 200,
+        to: 750,
+        prefix: "$: ",
+        decorate_both: false
     });
 
+    $('.selectize').selectize({
+        create: false,
+        sortField: 'text'
+    });
 
-    function formatFood (food) {
-      if (!food.id) { return food.text; }
-      var $food = $(
-        '<span> ' + food.name + '  <small>' + food.brand.name + ' </small>  </span>'
-      );
-      return $food;
-    };
+    $('.select-country').selectize();
 
-
-    //Simple redirect to selected food page // callback function run after selecting position
-    function foodFormatSelection(element) {
-
-
-        if (element.id) {
-            console.log(element);
-            window.location.href = "/food/show/"+element.id;
-        }
-
-
-    }
-
-    $(".foods-select2").select2({
-
-        ajax: {
-        url: "/api/foods",
-        dataType: 'json',
-        delay: 250,
-        data: function (params) {
+    $('.selectize_tags').selectize({
+      plugins: ['remove_button'],
+      options: [
+          {value: 'right', text: 'Right'},
+          {value: 'bootstrap', text: 'Bootstrap'},
+          {value: 'admin', text: 'Admin'},
+          {value: 'template', text: 'Template'},
+          {value: 'awesome', text: 'Awesome'}
+      ],
+      delimiter: ',',
+      persist: false,
+      create: function (input) {
           return {
-            q: params.term, // search term
-            page: params.page
-          };
-        },
-        processResults: function (data, params) {
-            params.page = params.page || 1;
-
-            return {
-                results: data,
-                pagination: {
-                    more: (params.page * 30) < data.total_count
-                }
-            };
-        },
-        cache: true
-        },
-
-        formatNoMatches: "No matches found.",
-        placeholder: "Search ",
-        minimumInputLength: 3,
-
-        templateResult: formatFood,
-        width:'100%',
-        dropdownParent: $('.wrapper').first(),
-        templateSelection : foodFormatSelection
-
+              value: input,
+              text: input
+          }
+      }
     });
+
+  }
+
+  $('.fa-times').hover( function() {
+      $(this).toggleClass('fa-lg');
+  });
+
+
+  function formatFood (food) {
+    if (!food.id) { return food.text; }
+    var $food = $(
+      '<span> ' + food.name + '  <small>' + food.brand.name + ' </small>  </span>'
+    );
+    return $food;
+  };
+
+
+  //Simple redirect to selected food page // callback function run after selecting position
+  function foodFormatSelection(element) {
+
+    if (element.id) {
+      console.log(element);
+      window.location.href = "/food/show/"+element.id;
+    }
+  }
+
+  $(".foods-select2").select2({
+
+    ajax: {
+    url: "/api/foods",
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: params.term, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+        params.page = params.page || 1;
+
+        return {
+            results: data,
+            pagination: {
+                more: (params.page * 30) < data.total_count
+            }
+        };
+    },
+    cache: true
+    },
+
+    formatNoMatches: "No matches found.",
+    placeholder: "Search ",
+    minimumInputLength: 3,
+
+    templateResult: formatFood,
+    width:'100%',
+    dropdownParent: $('.wrapper').first(),
+    templateSelection : foodFormatSelection
+
+  });
 
     function formatBrand (brand) {
 
@@ -927,4 +924,80 @@ $(document).ready(function() {
        
 
     });
+
+
+
+  drawDonutChart();
+ 
+	function drawDonutChart()
+  {
+
+    var chart = $('#chart-donut').data('chart-data');
+
+    if (typeof chart != "undefined") {
+      var kcal = chart.kcal;
+      var proteins = countPartialKcal(chart.proteins, kcal).toFixed(1);
+      var carbs = countPartialKcal(chart.carbs, kcal).toFixed(1);
+      var fats = countPartialKcal(chart.fats, kcal).toFixed(1);
+      var fibre = countPartialKcal(chart.fibre, kcal).toFixed(1);
+
+    
+      Morris.Donut({
+        element: 'donut-chart',
+        data: [
+          {label: 'Proteins', value:proteins},
+          {label: 'Carbohydrates', value: carbs},
+          {label: 'Fats', value: fats},
+          {label: 'Fibre', value: fibre}
+
+        ],
+        colors: ['#ed4949', '#FED42A', '#20c05c', '#1e59d9'],
+          backgroundColor: '#30363c',
+          labelColor: '#88939C',
+          resize: true
+      });
+    }
+    
+  }
+  
+  function countPartialKcal(part, kcal) {
+    return part*(kcal/100);
+  }
+
+ 
+  drawLineChart(); 
+
+  function drawLineChart()
+  {
+
+    var chart = $('#chart-line').data('user-data');
+
+    if (typeof chart != "undefined") {
+
+      dane = [];
+
+      for(measure in chart) {
+         var pomiar = {};
+          pomiar.y =  chart[measure].date;
+          pomiar.a = chart[measure].weight; 
+          pomiar.b = chart[measure].muscle; 
+          pomiar.c = chart[measure].body_fat; 
+          pomiar.d = chart[measure].water; 
+         dane.push(pomiar);
+      
+        }
+        Morris.Line({
+          element: 'line-chart',
+          data: dane,
+          xkey: 'y',
+          ykeys: ['a', 'b', 'c', 'd'],
+          labels: ['Weight', 'Muscle', 'Body fat', 'Water'],
+          lineColors: ['#ed4949', '#20c05c', '#ED6504', '#1e59d9'],  
+          labelColor: 'black',
+          resize: true,
+          ymin:'auto'
+        });
+    }
+  }
+    
 });

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-7">
   	<div class="panel panel-success">
   		<div class="panel-heading"> 
   			<h3 class="panel-title"> Name : {{ $food->name}}</h3> 
@@ -11,7 +11,7 @@
   		</div>
   		<div class="panel-body">	
 				<div class="scrollable scrollbar-macosx">
-	        <table id="" class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%">
+	        <table class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%">
 	        	<thead>
 							<tr>
 								<th>Ingredient</th><th>Brand</th><th>Weight (g)</th><th>kcal</th><th>Proteins</th><th>Carbs</th><th>Fats</th><th>Fibre</th><th>Edit</th>
@@ -56,18 +56,28 @@
 							@endforeach
 						
 					  <tr class="total-row">
-				  		<td>Total</td><td>{{$food->brand->name}}</td><td>{{ number_format($totalWeight, 1) }}</td><td>{{ number_format($totalKcal, 1) }}</td><td>{{ number_format($totalProteins, 1) }}</td><td>{{ number_format($totalCarbs, 1) }}</td><td>{{ number_format($totalFats, 1) }}</td><td>{{ number_format($totalFibre, 1) }}</td><td><a href="{{ url('food/edit/'.$food->id)}}"><i class="fa fa-pencil"></i> </a> </a></td> 
+				  		<td>Total</td><td>{{$food->brand->name}}</td><td>{{ number_format($totalWeight, 1) }}</td><td>{{ number_format($totalKcal, 1) }}</td><td>{{ number_format($totalProteins, 1) }}</td><td>{{ number_format($totalCarbs, 1) }}</td><td>{{ number_format($totalFats, 1) }}</td><td>{{ number_format($totalFibre, 1) }}</td><td><a href="{{ url('food/edit/'.$food->id)}}"><i class="fa fa-pencil"></i></a></td> 
 				  	</tr>
 				  @else 
 				  	<tr class="total-row">
-				  		<td>Total</td><td>{{$food->brand->name}}</td><td>100</td><td>{{ number_format($food->kcal, 1) }}</td><td>{{ number_format($food->proteins, 1) }}</td><td>{{ number_format($food->carbs, 1) }}</td><td>{{ number_format($food->fats, 1) }}</td><td>{{ number_format($food->fibre, 1) }}</td><td><a href="{{ url('food/edit/'.$food->id)}}"><i class="fa fa-pencil"></i> </a> </a></td> 
+				  		<td>Total</td><td>{{$food->brand->name}}</td><td>100</td><td>{{ number_format($food->kcal, 1) }}</td><td>{{ number_format($food->proteins, 1) }}</td><td>{{ number_format($food->carbs, 1) }}</td><td>{{ number_format($food->fats, 1) }}</td><td>{{ number_format($food->fibre, 1) }}</td><td><a href="{{ url('food/edit/'.$food->id)}}"><i class="fa fa-pencil"></i> </a></td> 
 				  	</tr>
 				  @endif
 					</table>
 				</div>
 			</div>
 		</div>
-  </div>          
+  </div> 
+  <div class="col-md-5">
+  	<div class="panel panel-success">
+  		<div class="panel-heading"> 
+  			<h3 class="panel-title"> Calories in 100g of products</h3> 
+  		</div>
+  		<div class="panel-body" id="donut-chart" style="height: 250px">	
+  			<span id="chart-donut" data-chart-data='{!!$chart_data!!}'></span>
+  		</div>
+  	</div>
+  </div>         
 </div>
 
 @endsection

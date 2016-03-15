@@ -128,8 +128,16 @@ class FoodsController extends Controller
 
     $food = Food::where('id', $id)->first();
     $food_ingredient = Ingredient::where('food_id', $id)->get();
+    $proteins = $food->proteins;
+    $carbs = $food->carbs;
+    $fats = $food->fats;
+    $fibre = $food->fibre;
+    $kcal = $food->kcal;
+    $chart_data = ['proteins'=> $proteins, 'fats' => $fats, 'carbs'=>$carbs, 'fibre' => $fibre, 'kcal' => $kcal];
+    $chart_data = json_encode($chart_data);
 
-    return view('foods.show')->with('food', $food)->with('food_ingredient',  $food_ingredient);
+
+    return view('foods.show')->with('food', $food)->with('food_ingredient',  $food_ingredient)->with('chart_data', $chart_data);
   }
 
   /**
