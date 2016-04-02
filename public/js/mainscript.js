@@ -136,17 +136,17 @@ $(document).ready(function() {
     $('.date').datepicker();
 
     //Calendar day click event
-    $(document).on('click','.calendar-day', function() {
+    $(document).on('click','.day', function() {
 
-        $('#selectedDay').val($(this).children('.day-number').text());
+        $('#selectedDay').val($(this).text());
         $('#selectedMonth').val($('.calendar').data('month'));      
         $('#selectedYear').val($('.calendar').data('year'));
-        $('.calendar-day').removeClass('today');
-        $(this).addClass('today');
+        $('.day').removeClass('active');
+        $(this).addClass('active');
 
     });
 
-    $(document).on('click','.calendar-day', updateMealsList );
+    $(document).on('click','.day', updateMealsList );
     
     $(document).on('click','.li-todo', function(){
             var li_id = $(this).data('id');
@@ -251,8 +251,6 @@ $(document).ready(function() {
 
             var month = $('.calendar').data('month');
             var year = $('.calendar').data('year');
-
-
 
             var values = {
                 'day':$('#selectedDay').val(),
@@ -672,7 +670,7 @@ $(document).ready(function() {
         }
     });
 
-    $('.monthChange').on('click', function () {
+    $(document).on('click', '.monthChange',     function () {
 
         var month = parseInt($('#selectedMonth').val());
         var year = parseInt($('#selectedYear').val());
@@ -688,32 +686,32 @@ $(document).ready(function() {
 
         $('#selectedMonth').val(month);
         
-    var values = {
-                'month':month,
-                'year':year
-            }
+        var values = {
+            'month':month,
+            'year':year
+        }
 
-                $.ajax({
-                url: "/meal/ajax_calendar",
-                type: "get",
-                data: values,
-                success: function(response){
+        $.ajax({
+            url: "/meal/ajax_calendar",
+            type: "get",
+            data: values,
+            success: function(response){
 
-                    if(response.success == true){
+                if(response.success == true){
 
-                        $('#calendar-container').html(response.html);
-                        $('#calendar-month').html(response.monthName);
+                    $('#calendar-container').html(response.html);
+                    //$('#calendar-month').html(response.monthName);
 
-                    } else {
-
-                    }
-
-                },
-
-                error:function(){
+                } else {
 
                 }
-            });
+
+            },
+
+            error:function(){
+
+            }
+        });
     });
 
     $('#newExercise').on('click', function() {
@@ -829,7 +827,6 @@ $(document).ready(function() {
   function foodFormatSelection(element) {
 
     if (element.id) {
-      console.log(element);
       window.location.href = "/food/show/"+element.id;
     }
   }

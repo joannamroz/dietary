@@ -11,6 +11,7 @@ There is no food till now.
     <h3 class="panel-title">Foods </h3>
   </div>
   <div class='panel-body'> 
+
     <div class="col-md-6 col-xs-8">
       <select type='text' id='food-search' placeholder='Find food...' class='form-control selectpicker  foods-select2'> </select>
     </div>
@@ -38,6 +39,7 @@ There is no food till now.
         </table>
       </div>
     </div>
+
   </div>
 </div>
 {!! $foods->render() !!}   

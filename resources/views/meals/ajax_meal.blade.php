@@ -1,18 +1,18 @@
 <div class='panel panel-success'>
   <div class='panel-heading'>
-    <h3 class='panel-title'> Meals for {{ $date }} </h3>
+    <h3 class='panel-title'> Meals  <span class='pull-right'> {{ $date->format('Y-m-d') }} </span> </h3>
   </div>
 
   <div class='panel-body'>
 
-    @if ( !$meals->count() )
-      <h3 class="panel-title">Consumed: - </h3><br/>
-    @else
-      <h3 class="panel-title">Consumed:</h3>
+      @if ( !$meals->count() )
+       <!--  <h3 class="panel-title">Consumed: - </h3><br/> -->
+      @else
+      <!-- <h3 class="panel-title">Consumed:</h3> -->
 
     <?php $suma_kcal = 0; ?>
     <div class="scrollable scrollbar-macosx">
-      <table id="" class="table table_sortable {sortlist: [[0,0]]} table-meals" cellspacing="0" width="100%">
+      <table id="" class="table table_sortable {sortlist: [[0,0]]} table-meals" cellspacing="0" width="100%" style='font-size: 80%;'>
         <thead>
           <tr>
             <th>Name</th>
@@ -61,20 +61,28 @@
       </table>                
     </div>     
     <!-- <h5 class="panel-title" style="color:#ed4949; text-align:right">Total kcal:{{ number_format($suma_kcal, 1) }}</h5> -->
-    <div class="progress">
-      <div role="progressbar" aria-valuenow="{{  number_format(($suma_kcal/$bmr*100), 1) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{  number_format(($suma_kcal/$bmr*100), 1) }}%; font-weight:bold" class="progress-bar progress-bar-danger progress-bar-striped active">Total kcal:{{ number_format($suma_kcal, 1) }}</div>
+    <div class="progress" style='margin-top:5px;'>
+      <div role="progressbar" aria-valuenow="{{  number_format(($suma_kcal/$bmr*100), 1) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{  number_format(($suma_kcal/$bmr*100), 1) }}%; " class="progress-bar progress-bar-danger progress-bar-striped active"> {{ number_format($suma_kcal, 1) }}</div> <span class='pull-right' style='font-size:12px'> Total available: {{$bmr}} </span>
     </div>
   @endif
 
-  @if ( !$meals_planed->count() )
-    <h3 class="panel-title" style="margin-top:50px">Planed: - </h3><br/>
-    
-  @else
-    <h3 class="panel-title" style="margin-top:50px">Planed:</h3>
 
+
+  </div>
+  </div>
+
+<div class='panel panel-success'>
+  <div class='panel-heading'>
+  @if ( !$meals_planed->count() )
+    <h3 class="panel-title"> Planned: <span class='pull-right'> {{ $date->format('Y-m-d') }} </span> </h3>
+  @else
+    <h3 class="panel-title"> Planned: <span class='pull-right'> {{ $date->format('Y-m-d') }} </span> </h3>
+  </div>
     <?php $suma_kcal = 0; ?>
+
+    <div class='panel-body'> 
     <div class="scrollable scrollbar-macosx">
-      <table id="" class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%">
+      <table id="" class="table table_sortable {sortlist: [[0,0]]}" cellspacing="0" width="100%" style='font-size: 80%;'>
         <tr>
           <th>Name</th><th>Weight</th><th>kcal</th><th>Protein</th><th>Carbohydrate</th><th>Fat</th><th>Fibre</th><th>Comment</th><th>Edit</th><th>Planed</th>
         </tr>
@@ -115,7 +123,17 @@
 
     @endif
 
-    @include('trainings.training_done')
-    
   </div>
 </div>
+
+<div class='panel panel-success'>
+  <div class='panel-heading'>
+    <h3 class="panel-title"> Trainings: <span class='pull-right'> {{ $date->format('Y-m-d') }} </span> </h3>
+  </div>
+
+  <div class='panel-body'> 
+    @include('trainings.training_done')
+  </div>
+
+</div>
+    

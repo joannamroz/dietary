@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     
     <link href="{{ asset('css/fuchsia.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -32,9 +32,10 @@
     <link href="{{ asset('css/ion.rangeSlider.skinFlat.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery.scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/morris.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/boostrap-datepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/awesome-bootstrap-checkbox.css') }}" rel="stylesheet"><link href="{{ asset('css/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
 
-
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
   </head>
   <body class='fuchsia'>

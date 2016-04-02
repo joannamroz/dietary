@@ -14,6 +14,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MealFormRequest;
  
+use App\Helpers\CalendarHelper;
+
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
@@ -38,9 +40,8 @@ class MealsController extends Controller
     $day = $now->day;
     $today = $now->toDateString(); // only date without hour
   
-    
-    $calendar = User::calendar($year, $month);
 
+    $calendar =  CalendarHelper::drawCalendar($year, $month);
 
     $foods = Food::all();
 
@@ -54,14 +55,7 @@ class MealsController extends Controller
 
     $permissions = UserPermission::with('user')->where('authorized_user_id', $user_id)->where('write_permission', 1)->get();
 
-    //dump($permissions);
 
-    //foreach($permissions as $perm) {
-
-   // //  dump($perm->user);
-    //}
-   // dd('a');
-    //page heading
     $title = 'Meals added at '.$today;
 
 
@@ -70,6 +64,7 @@ class MealsController extends Controller
     
 
     $training_done = Training::getTrainingsForDate($date);
+
 
     return view('meals.index')->with(compact(array('meals', 'meals_planed', 'title', 'foods', 'calendar', 'date',  'now', 'totals', 'totals_planed', 'permissions', 'training_done', 'bmr')));
 
@@ -282,22 +277,20 @@ class MealsController extends Controller
       $month =  $request->input('month');
       
       $selected_date = Carbon::create( $year, $month, $day);
-  
-      $date = $selected_date->toDateString();//without a hour
+      $date = $selected_date;
+
       $user_id = Auth::user()->id;
-      
-      $meals_with_totals = Meal::getMealsWithTotals($date, $user_id);
+        
+      $meals_with_totals = Meal::getMealsWithTotals($date->toDateString(), $user_id);
       extract($meals_with_totals); // thsi will create $meals, $meals_planed and $totals and $totals_planned
 
       $bmr = Auth::user()->getUserBmr();
 
       $training_done = Training::getTrainingsForDate($selected_date);
 
-      $title = 'Meals added at '.$date;
-
       $meals = $meals_with_totals["meals"];
 
-      $returnHTML = view('meals.ajax_meal')->with(compact(array('meals', 'meals_planed', 'title', 'date', 'totals', 'totals_planed', 'now', 'training_done','bmr')))->render();
+      $returnHTML = view('meals.ajax_meal')->with(compact(array('meals', 'meals_planed', 'title', 'date', 'totals', 'totals_planed', 'now', 'training_done', 'bmr')))->render();
 
       return response()->json(array('success' => true, 'html'=>$returnHTML));
 
@@ -349,7 +342,7 @@ class MealsController extends Controller
       $date = Carbon::create($year,$month,1);
       $monthName = $date->format('F Y');
       
-      $returnHTML = User::calendar($year,$month);
+      $returnHTML =  CalendarHelper::drawCalendar($year, $month);
 
       return response()->json(array('success' => true, 'html' => $returnHTML, 'monthName' => $monthName));
 

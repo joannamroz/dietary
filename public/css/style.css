@@ -50,7 +50,8 @@ input.form-control.short {
 	width:100%;
 }
 /* calendar */
-table.calendar		{ border-left:1px solid #ddd; }
+/*table.calendar		{ border-left:1px solid #ddd; }*/
+
 tr.calendar-row	{  }
 tr.calendar-row	th { 
 	text-align: center;
@@ -400,3 +401,23 @@ span.select2-container--open .select2-dropdown--below {
 }
 /** end of our Custom select2 styles */
 
+
+
+/** New calendar styles */
+
+.datepicker .datepicker-switch:hover, .datepicker .prev:hover, .datepicker .next:hover, .datepicker tfoot tr th:hover, .datepicker table tr td.day:hover {
+    background-color: rgb(36, 41, 44);
+
+}
+
+.datepicker .datepicker-switch, .datepicker .prev, .datepicker .next, .datepicker tfoot tr th {
+	color:#999;
+}
+
+body.fuchsia .datepicker-embed {
+    background-color: rgb(66, 47, 62)
+}
+
+.datepicker table tr td.active:hover, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active:active, .datepicker table tr td.active:hover:active, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.active, .datepicker table tr td.active:hover.active, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled:hover.active, .datepicker table tr td.active.disabled, .datepicker table tr td.active:hover.disabled, .datepicker table tr td.active.disabled.disabled, .datepicker table tr td.active.disabled:hover.disabled, .datepicker table tr td.active[disabled], .datepicker table tr td.active:hover[disabled], .datepicker table tr td.active.disabled[disabled], .datepicker table tr td.active.disabled:hover[disabled] {
+    background-color: #20c05c;
+}
