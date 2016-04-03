@@ -20,6 +20,7 @@
   <div class="topnavbar">
     <ul class="nav navbar-nav navbar-left">
       <li class="active"><a href="{{ url('/') }}"><span>Dashboard</span></a></li>
+      <li class="active"><a href="{{ url('/') }}"><span>Log meal+</span></a></li>
     </ul>
     <ul class="userbar nav navbar-nav">
       <li> <a href="{{url('/user/profile/'.Auth::id())}}">My Profile</a> </li>
