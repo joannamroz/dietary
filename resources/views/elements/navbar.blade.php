@@ -12,7 +12,7 @@
       </ul>
     </div>
   </div>
-  <div class="navbar-header"><a href="./" class="navbar-brand">
+  <div class="navbar-header"><a href="/" class="navbar-brand">
     <div class="logo text-nowrap">
       <div class="logo__img"><i class="fa fa-chevron-right"></i></div><span class="logo__text">Dietary</span>
     </div></a>
@@ -22,6 +22,7 @@
       <li class="active"><a href="{{ url('/') }}"><span>Dashboard</span></a></li>
     </ul>
     <ul class="userbar nav navbar-nav">
+      <li> <a href="{{url('/user/profile/'.Auth::id())}}">My Profile</a> </li>
       <li class="dropdown"><a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="userbar__settings dropdown-toggle"><i class="fa fa-bars"></i></a>
         <ul class="dropdown-menu dropdown-menu-right">
           <li><a href="{{url('/user/profile/'.Auth::id())}}">Profile</a></li>
