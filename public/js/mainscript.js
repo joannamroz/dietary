@@ -133,7 +133,11 @@ $(document).ready(function() {
 
     });
     
-    $('.date').datepicker();
+    $('.date').datepicker({
+        autoclose: true
+    });
+
+
 
     //Calendar day click event
     $(document).on('click','.day', function() {
@@ -757,12 +761,12 @@ $(document).ready(function() {
 
 $(document).ready(function() {
   if ($('.template__controls').length) {
-
+f
     $('.selectpicker').selectpicker();
 
     $('.nav-pills, .nav-tabs').tabdrop();
 
-    $('.date').datepicker();
+    //$('.date').datepicker();
     
     $('.input-daterange').datepicker();
     $('.datepicker-embed').datepicker();

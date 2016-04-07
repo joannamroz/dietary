@@ -30,7 +30,7 @@ a.btn.btn-danger {
 }
 .register-button {
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
 }
 
 .navbar-header>a.navbar-brand {
@@ -420,4 +420,16 @@ body.fuchsia .datepicker-embed {
 
 .datepicker table tr td.active:hover, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active:active, .datepicker table tr td.active:hover:active, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.active, .datepicker table tr td.active:hover.active, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled:hover.active, .datepicker table tr td.active.disabled, .datepicker table tr td.active:hover.disabled, .datepicker table tr td.active.disabled.disabled, .datepicker table tr td.active.disabled:hover.disabled, .datepicker table tr td.active[disabled], .datepicker table tr td.active:hover[disabled], .datepicker table tr td.active.disabled[disabled], .datepicker table tr td.active.disabled:hover[disabled] {
     background-color: #20c05c;
+}
+
+form .form-signin-heading {
+	margin-top:0px;
+	color:white;
+}
+
+form.login__form {
+	
+    padding: 20px;
+    box-shadow: 0px 3px 20px #222;
+    max-width: 400px;
 }

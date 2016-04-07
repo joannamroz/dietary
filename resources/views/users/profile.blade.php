@@ -18,12 +18,14 @@
         </ul>
 
         <div class="tab-content">
+
+          @if($measurment_available)
           <div id="bodyMeasurements" role="tabpanel" class="tab-pane active">
-            <span>Your weight range</span><span style="float:right; font-weight:bold"> {{ isset($userMeasure[0]) ? $userBMIrange : " - "  }}</span><br/>
-            <span>Height </span><span style="float:right">{{ isset($userMeasure[0]) ? $userHeight : " - "  }}</span><br/>
-            <span>Weight </span><span style="float:right">{{ isset($userMeasure[0]) ? $userWeight : " - "  }}</span><br/>
-            <span>Body Fat </span><span style="float:right">{{ isset($userMeasure[0]) ? $userBodyFat : " - "  }}</span>
-            <p><span>Your BMI is </span><span  class="{{ isset($userMeasure[0]) ? strtolower(str_replace(' ', '-', $userBMIrange)) : "-"  }}" style="float:right">{{ isset($userMeasure[0]) ? $userBMI.' ' : " - " }}<button id="showRanges"> <i class="fa fa-search"></i></button></span></p> <br/>
+            <span>Your weight range</span><span style="float:right; font-weight:bold"> {{ isset($userData->userMeasure[0]) ? $userData->userBMIrange : " - "  }}</span><br/>
+            <span>Height </span><span style="float:right">{{ isset($userData->userMeasure[0]) ? $userData->userHeight : " - "  }}</span><br/>
+            <span>Weight </span><span style="float:right">{{ isset($userData->userMeasure[0]) ? $userData->userWeight : " - "  }}</span><br/>
+            <span>Body Fat </span><span style="float:right">{{ isset($userData->userMeasure[0]) ? $userData->userBodyFat : " - "  }}</span>
+            <p><span>Your BMI is </span><span  class="{{ isset($userData->userMeasure[0]) ? strtolower(str_replace(' ', '-', $userData->userBMIrange)) : "-"  }}" style="float:right">{{ isset($userData->userMeasure[0]) ? $userData->userBMI.' ' : " - " }}<button id="showRanges"> <i class="fa fa-search"></i></button></span></p> <br/>
 
             <div id="rangesInfo">
               <span>Starvation </span><span class="starvation">Less - 16 </span><br/>
@@ -36,7 +38,8 @@
               <span>Second stage of obesity </span><span class="third-stage-of-obesity">40 - more  </span><br/>
             </div>  
           </div> <!-- bodyMeasurements -->
-
+          @endif
+  
           <div id="bmi" role="tabpanel" class="tab-pane">
             <div class="scrollable scrollbar-macosx">
               <div class="container-fluid">          
@@ -85,13 +88,13 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Weight (kg)</label>
                       <div class="col-sm-3">
-                        <input required="required" value="{{ isset($userWeight) ? $userWeight : ""  }}" id="weightBMR" type="text" name="weight" class="form-control" />
+                        <input required="required" value="{{ isset($userData->userWeight) ? $userData->userWeight : ""  }}" id="weightBMR" type="text" name="weight" class="form-control" />
                       </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Height (cm)</label>
                   <div class="col-sm-3">
-                    <input required="required" value="{{ isset($userHeight) ? $userHeight : "" }}" id="heightBMR" type="text" name="height" class="form-control" />
+                    <input required="required" value="{{ isset($userData->userHeight) ? $userData->userHeight : "" }}" id="heightBMR" type="text" name="height" class="form-control" />
                   </div>
                 </div>        
                 <div class="form-group">
@@ -184,22 +187,27 @@
       </div>  
     </div>
   </div>
+
+
+  @if($measurment_available)
   <div class="col-md-8">
     <div class="panel panel-success">
       <div class="panel-heading"> 
         <h3 class="panel-title">Users measurements</h3> 
       </div>
       <div class="panel-body" id="line-chart" style="height: 350px"> 
-        <span id="chart-line" data-user-data='{!!$lastMeasure!!}'></span>
+        <span id="chart-line" data-user-data='{!!$userData->lastMeasure!!}'></span>
       </div>
     </div>
   </div>
+  @endif
 
-    @if( isset($userMeasureData[0]) )
+
+    @if( isset($userData->userMeasureData[0]) )
 
     <?php  
       $now = new \DateTime(); 
-      $measurementsInArray = $userMeasure->toArray(); 
+      $measurementsInArray = $userData->userMeasure->toArray(); 
       $latest = $measurementsInArray[0];
         
     ?>
@@ -216,7 +224,7 @@
               <th>Date</th><th>Weight</th><th>Body fat %</th><th>Body water %</th><th>Muscle %</th><th>BMI</th><th>Internal fat %</th><th>Waist</th><th>Chest</th><th>Neck</th><th>Hips</th><th>Biceps</th><th>Bust</th><th>Thigh</th><th>Upper arm</th><th>Delete</th>   
             </tr>
             
-            @foreach($userMeasureData as $new_measure)
+            @foreach($userData->userMeasureData as $new_measure)
                         
             <tr>
                     
@@ -263,5 +271,9 @@
     </div>
     @endif
   </div>
+
+
+
+
 </div>
 @endsection

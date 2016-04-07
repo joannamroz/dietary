@@ -45,46 +45,54 @@ class UsersController extends Controller
     $today_tasks = Task::where('user_id', $sessionId)->where('date_to_do', $now)->orderBy('created_at', 'desc')->get();
     $not_done_tasks = Task::where('user_id', $sessionId)->where('date_to_do', '!=', $now)->get();
     
+    $measurment_available = ($userMeasure->count() > 0 );
 
-    if (!$userMeasure->count()) {
+    if ($measurment_available) {
+      $userMeasureData = $userMeasure->toArray();
+      
+      $numberOfMeasurements = count($userMeasureData);
 
-      return view('users.profile')->with('userData', $userData)->with('age', $age);
-    }
+      for ($i = 0; $i < $numberOfMeasurements-1; $i++) {
+   
+        foreach($userMeasureData[$i] as $key => $value) {
+      
+          if($value > $userMeasureData[$i+1][$key ]) {
+            $userMeasureData[$i][$key.'_class'] = 'up';
+          } elseif ($value == $userMeasureData[$i+1][$key ]) {
+             $userMeasureData[$i][$key.'_class'] = 'same';
+          } else {
+             $userMeasureData[$i][$key.'_class'] = 'down';
+          }
 
-    $userMeasureData = $userMeasure->toArray();
-
-    $numberOfMeasurements = count($userMeasureData);
-
-    for ($i = 0; $i < $numberOfMeasurements-1; $i++) {
- 
-      foreach($userMeasureData[$i] as $key => $value) {
-    
-        if($value > $userMeasureData[$i+1][$key ]) {
-          $userMeasureData[$i][$key.'_class'] = 'up';
-        } elseif ($value == $userMeasureData[$i+1][$key ]) {
-           $userMeasureData[$i][$key.'_class'] = 'same';
-        } else {
-           $userMeasureData[$i][$key.'_class'] = 'down';
         }
 
       }
+   
+      $currentMeasurements = User::getCurMeasurements();  
+      $userWeight = $currentMeasurements['weight'];
+      $userHeight = $currentMeasurements['height'];
+      $userBodyFat = $currentMeasurements['body_fat'];
+
+      $userBMI = $userWeight / (($userHeight / 100) * ($userHeight / 100));
+      $userBMI = number_format($userBMI,2);
+      $userBMIrange = User:: getUserBMIrange($userBMI);//function from User Model
+
+      $userData->userWeight = $userWeight;
+      $userData->userHeight = $userHeight;
+      $userData->userMeasure = $userMeasure;
+      $userData->userMeasureData = $userMeasureData;
+      $userData->userBodyFat = $userBodyFat;
+      $userData->userBMI = $userBMI;
+      $userData->userBMIrange = $userBMIrange;
+      $userData->lastMeasure = $lastMeasure;
 
     }
- 
-    $currentMeasurements = User::getCurMeasurements();  
 
-    $userWeight = $currentMeasurements['weight'];
-    $userHeight = $currentMeasurements['height'];
-    $userBodyFat = $currentMeasurements['body_fat'];
-
-    $userBMI = $userWeight / (($userHeight / 100) * ($userHeight / 100));
-    $userBMI = number_format($userBMI,2);
-    $userBMIrange = User:: getUserBMIrange($userBMI);//function from User Model
-   
-   
-   
-    if ($userData) 
-      return view('users.profile')->with(compact(array('userData', 'userWeight', 'userHeight', 'userMeasure',  'userMeasureData', 'userBodyFat', 'userBMI', 'userBMIrange', 'age', 'today_tasks','not_done_tasks', 'now', 'lastMeasure')));
+  
+    if ($userData) {
+      // 'userWeight', 'userHeight', 'userMeasure',  'userMeasureData', 'userBodyFat', 'userBMI', 'userBMIrange','lastMeasure'
+      return view('users.profile')->with(compact(array('userData', 'age', 'today_tasks','not_done_tasks', 'now', 'measurment_available')));
+    }
 
     return redirect('/food/index')->withErrors('You do not have sufficient permissions');
     

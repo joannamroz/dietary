@@ -18,27 +18,31 @@
       <label class="col-sm-2 sr-only">Sex</label>
       <div class="col-sm-10">
         <div class="radio radio-inline">
-          <input id="r1" type="radio" name="controls_radio" checked="checked">
+          <input id="r1" type="radio" name="sex" checked="checked">
           <label for="r1">Male</label>
         </div>
         <div class="radio radio-inline">
-          <input id="r2" type="radio" name="controls_radio">
+          <input id="r2" type="radio" name="sex">
           <label for="r2">Female</label>
         </div>
       </div>
     </div>
 
 <!--     <label  class="sr-only">Date of birth</label>
-    <input type="date" name="date_of_birth" placeholder="Date of birth" class="form-control" value="{{ old('date_of_birth') }}">
+    <input type="date" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}">
  -->
-    <div>
+
+    <label class="sr-only">Date of birth</label>                 
+    <div class="form-group">
       <div class="input-group date">
-        <input type="text" value="" placeholder='Date of Birth' class="form-control">
+        <input type="text" value="" name="date_of_birth" placeholder="Date of birth" class="form-control">
         <div class="input-group-addon">
           <div class="fa fa-calendar"></div>
         </div>
       </div>
     </div>
+                             
+
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" class="form-control" placeholder="Password" name="password" value="{{ old('password') }}" required="" autofocus="">
     

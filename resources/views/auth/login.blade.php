@@ -7,7 +7,7 @@
 <div class="login">
   <form method="POST" action="/auth/login" class="login__form">
     {!! csrf_field() !!}
-    <h2 class="form-signin-heading">Please sign in</h2>
+    <h2 class="form-signin-heading">Sign in</h2>
     <div class="form-group">
       <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" value="{{ old('email') }}" required="" autofocus="">
     </div>
